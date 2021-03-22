@@ -1,0 +1,42 @@
+server:
+port: 8080
+spring:
+domain : localhost:8080
+datasource:
+url: jdbc:h2:tcp://localhost/~/test
+username: sa
+password:
+driver-class-name: org.h2.Driver
+data: classpath:init.sql
+initialization-mode: always
+mail:
+host: smtp.gmail.com
+port: 587
+username: kitse7540
+password: se75407540
+properties:
+mail:
+smtp:
+auth: true
+starttls:
+enable: true
+jpa:
+hibernate:
+ddl-auto: create
+properties:
+hibernate:
+# show_sql: true
+format_sql: true
+default_batch_fetch_size: 100
+security:
+user:
+name: test
+password: test
+jwt:
+secret: se7540
+default-group: DEFAULT
+header: X-AUTH-TOKEN
+logging:
+level:
+org.hibernate.SQL: debug
+org.hibernate.type: trace
