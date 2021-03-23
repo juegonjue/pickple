@@ -1,4 +1,4 @@
-package com.se.pickple_api_server.domain.usecase.account;
+package com.se.pickple_api_server.v1.account.domain.usecase;
 
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
 import com.se.pickple_api_server.v1.common.domain.usecase.UseCase;

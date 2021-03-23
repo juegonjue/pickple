@@ -1,4 +1,4 @@
-package com.se.pickple_api_server.domain.entity;
+package com.se.pickple_api_server.v1.common.domain.entity;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;

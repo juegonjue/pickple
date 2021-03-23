@@ -1,8 +1,8 @@
-package com.se.pickple_api_server.domain.entity.applyment;
+package com.se.pickple_api_server.v1.applyment.domain.entity;
 
-import com.se.pickple_api_server.domain.entity.BaseEntity;
-import com.se.pickple_api_server.domain.entity.account.Account;
-import com.se.pickple_api_server.domain.entity.board.Board;
+import com.se.pickple_api_server.v1.common.domain.entity.BaseEntity;
+import com.se.pickple_api_server.v1.account.domain.entity.Account;
+import com.se.pickple_api_server.v1.board.domain.entity.Board;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,11 +21,11 @@ public class Applyment extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long applymentId;
 
-    @Column
-    @ManyToOne(targetEntity = Board.class, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name="board_id", referencedColumnName = "boardId", nullable = false)
     private Board boardId;
 
-    @ManyToOne(targetEntity = Account.class, fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "applier_id", referencedColumnName = "accountId", nullable = false)
     private Account applierId;
 
@@ -49,4 +49,18 @@ public class Applyment extends BaseEntity {
     @Column(columnDefinition = "boolean default false")
     private Boolean isDeleted;
 
+    @Builder
+    public Applyment(Long applymentId, Board boardId, Account applierId, @Size(min = 2, max = 50) String title,
+                     @Size(min = 2, max = 2000) String text, int hopePayment, LocalDateTime hopeStartDate,
+                     LocalDateTime hopeEndDate, Boolean isDeleted) {
+        this.applymentId = applymentId;
+        this.boardId = boardId;
+        this.applierId = applierId;
+        this.title = title;
+        this.text = text;
+        this.hopePayment = hopePayment;
+        this.hopeStartDate = hopeStartDate;
+        this.hopeEndDate = hopeEndDate;
+        this.isDeleted = isDeleted;
+    }
 }

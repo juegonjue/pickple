@@ -1,4 +1,4 @@
-package com.se.pickple_api_server.domain.usecase;
+package com.se.pickple_api_server.v1.common.domain.usecase;
 
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Component;
