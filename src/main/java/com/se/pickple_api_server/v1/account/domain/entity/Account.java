@@ -23,7 +23,7 @@ public class Account extends BaseEntity{
 
     @Size(min = 5, max = 20)
     @Column(nullable = false)
-    private String id;
+    private String idString;
 
     @Column(nullable = false)
     private String password;
@@ -59,12 +59,9 @@ public class Account extends BaseEntity{
     private String membersOf;
 
     @Builder
-    public Account(Long accountId, @Size(min = 5, max = 20) String id, String password, @Size(min = 2, max = 20) String name,
-                   @Size(min = 2, max = 20) String nickname, @Size(min = 8, max = 20) String studentId,
-                   AccountType type, @Size(min = 10, max = 20) String phoneNumber, @Size(min = 4, max = 40) String email,
-                   Boolean isCertified, @Size(min = 2, max = 20) String membersOf) {
+    public Account(Long accountId, @Size(min = 5, max = 20) String idString, String password, @Size(min = 2, max = 20) String name, @Size(min = 2, max = 20) String nickname, @Size(min = 8, max = 20) String studentId, AccountType type, @Size(min = 10, max = 20) String phoneNumber, @Size(min = 4, max = 40) String email, Boolean isCertified, @Size(min = 2, max = 20) String membersOf) {
         this.accountId = accountId;
-        this.id = id;
+        this.idString = idString;
         this.password = password;
         this.name = name;
         this.nickname = nickname;
@@ -80,7 +77,7 @@ public class Account extends BaseEntity{
         this.nickname = nickname;
     }
 
-    public void updateStudendId(String studentId) {
+    public void updateStudentId(String studentId) {
         this.studentId = studentId;
     }
 

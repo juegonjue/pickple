@@ -4,6 +4,7 @@ import com.se.pickple_api_server.v1.common.domain.entity.BaseEntity;
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
 import com.se.pickple_api_server.v1.board.domain.entity.Board;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +17,7 @@ import javax.validation.constraints.Size;
 public class Review extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long review_id;
+    private Long reviewId;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     @JoinColumn(name="board_id",referencedColumnName = "boardId")
@@ -33,9 +34,9 @@ public class Review extends BaseEntity {
     @Column(nullable = false, columnDefinition = "boolean default false")
     private Boolean isDeleted;
 
-    public Review(Long review_id, Board boardId, Account writerId,
-                  @Size(min = 2, max = 500) String text, Boolean isDeleted) {
-        this.review_id = review_id;
+    @Builder
+    public Review(Long reviewId, Board boardId, Account writerId, @Size(min = 2, max = 500) String text, Boolean isDeleted) {
+        this.reviewId = reviewId;
         this.boardId = boardId;
         this.writerId = writerId;
         this.text = text;

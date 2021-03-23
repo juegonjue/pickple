@@ -18,7 +18,7 @@ import javax.validation.constraints.Size;
 public abstract class Board extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long BoardId;
+    private Long boardId;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     @JoinColumn(name="account_id",referencedColumnName = "accountId",nullable = false)
@@ -41,11 +41,10 @@ public abstract class Board extends BaseEntity {
     @Column(nullable = false, columnDefinition = "boolean default false")
     private boolean isDeleted;
 
-    @Builder
     public Board(Long boardId, Account writerId, @Size(min = 2, max = 50) String title,
                  @Size(min = 2, max = 2000) String text, BoardType type,
                  Integer hit, boolean isDeleted) {
-        BoardId = boardId;
+        this.boardId = boardId;
         this.writerId = writerId;
         this.title = title;
         this.text = text;
