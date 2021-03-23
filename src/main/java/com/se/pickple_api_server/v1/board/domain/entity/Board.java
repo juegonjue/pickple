@@ -15,7 +15,7 @@ public abstract class Board extends BaseEntity {
     private Long BoardId;
 
     @ManyToOne(targetEntity = Account.class, fetch=FetchType.LAZY)
-    @JoinColumn(name="account_id",referencedColumnName = "accountId")
+    @JoinColumn(name="account_id",referencedColumnName = "accountId",nullable = false)
     private Account writerId;
 
     @Size(min=2,max=50)
@@ -30,7 +30,7 @@ public abstract class Board extends BaseEntity {
     private BoardType type;
 
     @Column(columnDefinition = "int default 0")
-    private int hit;
+    private Integer hit;
 
     @Column(columnDefinition = "boolean default false")
     private boolean isDeleted;

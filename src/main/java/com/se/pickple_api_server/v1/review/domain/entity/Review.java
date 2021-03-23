@@ -17,7 +17,7 @@ public class Review extends BaseEntity {
     private Long review_id;
 
     @ManyToOne(targetEntity = Board.class, fetch = FetchType.LAZY)
-    @JoinColumn
+    @JoinColumn(name="board_id",referencedColumnName = "boardId")
     private Board boardId;
 
     @ManyToOne(targetEntity = Account.class, fetch = FetchType.LAZY)

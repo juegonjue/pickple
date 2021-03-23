@@ -1,8 +1,8 @@
 package com.se.pickple_api_server.domain.usecase.account;
 
-import com.se.pickple_api_server.domain.entity.account.Account;
-import com.se.pickple_api_server.domain.usecase.UseCase;
-import com.se.pickple_api_server.repository.account.AccountJpaRepository;
+import com.se.pickple_api_server.v1.account.domain.entity.Account;
+import com.se.pickple_api_server.v1.common.domain.usecase.UseCase;
+import com.se.pickple_api_server.v1.account.infra.repository.AccountJpaRepository;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
