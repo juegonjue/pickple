@@ -1,4 +1,4 @@
-package com.se.pickple_api_server.v1.applyment.domain.entity;
+package com.se.pickple_api_server.v1.application.domain.entity;
 
 import com.se.pickple_api_server.v1.common.domain.entity.BaseEntity;
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
@@ -15,11 +15,11 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Applyment extends BaseEntity {
+public class Application extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long applymentId;
+    private Long applicationId;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name="board_id", referencedColumnName = "boardId", nullable = false)
@@ -50,10 +50,10 @@ public class Applyment extends BaseEntity {
     private Boolean isDeleted;
 
     @Builder
-    public Applyment(Long applymentId, Board boardId, Account applierId, @Size(min = 2, max = 50) String title,
+    public Application(Long applicationId, Board boardId, Account applierId, @Size(min = 2, max = 50) String title,
                      @Size(min = 2, max = 2000) String text, int hopePayment, LocalDateTime hopeStartDate,
                      LocalDateTime hopeEndDate, Boolean isDeleted) {
-        this.applymentId = applymentId;
+        this.applicationId = applicationId;
         this.boardId = boardId;
         this.applierId = applierId;
         this.title = title;

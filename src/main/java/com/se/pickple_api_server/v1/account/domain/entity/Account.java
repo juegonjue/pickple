@@ -56,10 +56,10 @@ public class Account extends BaseEntity{
 
     @Size(min = 2, max = 20)
     @Column
-    private String membersOf;
+    private AccountMembersOf membersOf;
 
     @Builder
-    public Account(Long accountId, @Size(min = 5, max = 20) String idString, String password, @Size(min = 2, max = 20) String name, @Size(min = 2, max = 20) String nickname, @Size(min = 8, max = 20) String studentId, AccountType type, @Size(min = 10, max = 20) String phoneNumber, @Size(min = 4, max = 40) String email, Boolean isCertified, @Size(min = 2, max = 20) String membersOf) {
+    public Account(Long accountId, @Size(min = 5, max = 20) String idString, String password, @Size(min = 2, max = 20) String name, @Size(min = 2, max = 20) String nickname, @Size(min = 8, max = 20) String studentId, AccountType type, @Size(min = 10, max = 20) String phoneNumber, @Size(min = 4, max = 40) String email, Boolean isCertified, @Size(min = 2, max = 20) AccountMembersOf membersOf) {
         this.accountId = accountId;
         this.idString = idString;
         this.password = password;
