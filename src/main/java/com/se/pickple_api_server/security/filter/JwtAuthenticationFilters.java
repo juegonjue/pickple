@@ -19,6 +19,7 @@ public class JwtAuthenticationFilters extends GenericFilterBean {
 
   private final JwtTokenResolver jwtTokenResolver;
 
+  // servletRequest통해 들어온다 ?
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws IOException, ServletException {
