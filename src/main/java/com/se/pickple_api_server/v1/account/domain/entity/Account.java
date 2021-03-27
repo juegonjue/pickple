@@ -37,8 +37,8 @@ public class  Account extends BaseEntity{
     @Column(nullable = false, unique = true)
     private String studentId;
 
-    @Size(min = 2, max = 20)
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private AccountType type;
 
     @Size(min = 10, max = 20)
@@ -55,6 +55,9 @@ public class  Account extends BaseEntity{
     @Size(min = 2, max = 20)
     @Column(nullable = false)
     private AccountMembersOf membersOf;
+
+    @Enumerated(EnumType.STRING)
+    private RegisterType registerType;
 
     @Builder
     public Account(Long accountId, @Size(min = 5, max = 20) String idString, String password, @Size(min = 2, max = 20) String name, @Size(min = 2, max = 20) String nickname, @Size(min = 8, max = 20) String studentId, AccountType type, @Size(min = 10, max = 20) String phoneNumber, @Size(min = 4, max = 40) String email, Boolean isCertified, @Size(min = 2, max = 20) AccountMembersOf membersOf) {

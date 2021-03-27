@@ -18,4 +18,8 @@ public class AccountReadUseCase {
         return member.get();
     }
 
+    public boolean isExist(Long accountId){
+        return accountJpaRepository.findById(accountId).isPresent();
+    }
+
 }

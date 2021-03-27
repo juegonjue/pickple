@@ -18,6 +18,7 @@ public class NaverLoginController {
 
     // 상태 토큰 생성
     public String generateState() {
+
         SecureRandom random = new SecureRandom();
         return new BigInteger(130,random).toString(32);
     }
