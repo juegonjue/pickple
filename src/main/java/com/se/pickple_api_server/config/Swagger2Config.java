@@ -9,7 +9,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.ApiKey;
@@ -48,6 +47,10 @@ public class Swagger2Config extends WebMvcConfigurationSupport {
     private ApiKey apiKey() {
         return new ApiKey("JWT", AUTH_HEADER, "header");
     }
+
+//    private ApiKey apiKey() {
+//
+//    }
 
     private SecurityContext securityContext() {
         return SecurityContext.builder().securityReferences(defaultAuth()).build();
