@@ -39,7 +39,7 @@ public class  Account extends BaseEntity{
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private AccountType type;
+    private AccountType accountType;
 
     @Size(min = 10, max = 20)
     @Column(unique = true)
@@ -52,27 +52,26 @@ public class  Account extends BaseEntity{
     @Column
     private Boolean isCertified;
 
-    @Size(min = 2, max = 20)
-    @Column(nullable = false)
-    private AccountMembersOf membersOf;
-
+    @Column
     @Enumerated(EnumType.STRING)
     private RegisterType registerType;
 
+
     @Builder
-    public Account(Long accountId, @Size(min = 5, max = 20) String idString, String password, @Size(min = 2, max = 20) String name, @Size(min = 2, max = 20) String nickname, @Size(min = 8, max = 20) String studentId, AccountType type, @Size(min = 10, max = 20) String phoneNumber, @Size(min = 4, max = 40) String email, Boolean isCertified, @Size(min = 2, max = 20) AccountMembersOf membersOf) {
+    public Account(Long accountId, @Size(min = 5, max = 20) String idString, String password, @Size(min = 2, max = 20) String name, @Size(min = 2, max = 20) String nickname, @Size(min = 8, max = 20) String studentId, AccountType accountType, @Size(min = 10, max = 20) String phoneNumber, @Size(min = 4, max = 40) String email, Boolean isCertified, RegisterType registerType) {
         this.accountId = accountId;
         this.idString = idString;
         this.password = password;
         this.name = name;
         this.nickname = nickname;
         this.studentId = studentId;
-        this.type = type;
+        this.accountType = accountType;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.isCertified = isCertified;
-        this.membersOf = membersOf;
+        this.registerType = registerType;
     }
+
 
     public void updateNickname(String nickname) {
         this.nickname = nickname;

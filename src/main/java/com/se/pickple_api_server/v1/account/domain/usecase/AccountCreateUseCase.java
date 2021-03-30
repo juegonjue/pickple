@@ -33,11 +33,11 @@ public class AccountCreateUseCase {
                 .name(request.getName())
                 .nickname(request.getNickname())
                 .studentId(request.getStudentId())
-                .type(request.getType())
+                .accountType(request.getAccountType())
                 .phoneNumber(request.getPhoneNumber())
                 .email(request.getEmail())
                 .isCertified(request.getIsCertified())
-                .membersOf(request.getMembersOf())
+                .registerType(request.getRegisterType())
                 .build();
         accountJpaRepository.save(account);
         return account.getAccountId();

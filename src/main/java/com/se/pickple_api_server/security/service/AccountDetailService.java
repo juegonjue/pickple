@@ -40,7 +40,7 @@ public class AccountDetailService implements UserDetailsService {
   public UserDetails loadUserByUsername(String accountId) throws UsernameNotFoundException {
     Account account = accountJpaRepository.findById(Long.parseLong(accountId))
         .orElseThrow(() -> new BusinessException(AccountErrorCode.NO_SUCH_ACCOUNT));
-    List<GrantedAuthority> grantedAuthorities = Arrays.asList(new SimpleGrantedAuthority(account.getType().toString()));
+    List<GrantedAuthority> grantedAuthorities = Arrays.asList(new SimpleGrantedAuthority(account.getAccountType().toString()));
     return new User(account.getIdString(), account.getPassword(), grantedAuthorities);
   }
 
