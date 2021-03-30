@@ -1,7 +1,7 @@
 package com.se.pickple_api_server.v1.account.infra.dto;
 
-import com.se.pickple_api_server.v1.account.domain.entity.AccountMembersOf;
 import com.se.pickple_api_server.v1.account.domain.entity.AccountType;
+import com.se.pickple_api_server.v1.account.domain.entity.RegisterType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -39,7 +39,6 @@ public class AccountCreateDto {
         private String studentId;
 
         @ApiModelProperty(example = "MEMBER", notes = "사용자 타입")
-        @Size(min = 2, max = 20)
         private AccountType type;
 
         @ApiModelProperty(example = "01044445555", notes = "전화번호, 01000000000 형식")
@@ -54,8 +53,7 @@ public class AccountCreateDto {
         private Boolean isCertified;
 
         @ApiModelProperty(example = "SE", notes = "사용자 유입 경로")
-        @Size(min = 2, max = 20)
-        private AccountMembersOf membersOf;
+        private RegisterType registerType;
 
     }
 
