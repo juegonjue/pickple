@@ -38,12 +38,10 @@ public abstract class Board extends BaseEntity {
     @Column(nullable = false, columnDefinition = "int default 0")
     private Integer hit;
 
-    @Column(nullable = false, columnDefinition = "boolean default false")
-    private boolean isDeleted;
+    @Column(nullable = false, columnDefinition = "int default 0")
+    private Integer isDeleted;
 
-    public Board(Long boardId, Account writerId, @Size(min = 2, max = 50) String title,
-                 @Size(min = 2, max = 2000) String text, BoardType type,
-                 Integer hit, boolean isDeleted) {
+    public Board(Long boardId, Account writerId, @Size(min = 2, max = 50) String title, @Size(min = 2, max = 2000) String text, BoardType type, Integer hit, Integer isDeleted) {
         this.boardId = boardId;
         this.writerId = writerId;
         this.title = title;
@@ -52,6 +50,4 @@ public abstract class Board extends BaseEntity {
         this.hit = hit;
         this.isDeleted = isDeleted;
     }
-
-
 }
