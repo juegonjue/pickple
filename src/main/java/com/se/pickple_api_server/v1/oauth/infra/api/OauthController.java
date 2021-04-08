@@ -24,7 +24,7 @@ public class OauthController {
     private final OauthService oauthService;
     private final HttpServletResponse response;
     private final AccountReadService accountReadService;
-    private final AccountCreateService accountCreateUseCase;
+    private final AccountCreateService accountCreateService;
 
     @GetMapping(value = "/{socialLoginType}")
     public void redirect(
@@ -42,8 +42,7 @@ public class OauthController {
         OauthTokenResponse oauthTokenResponse =  oauthService.getTokenResponseDto(oauthType, httpServletRequest);
         OauthUserInfo oauthUserInfo = oauthService.getUserInfo(oauthType, oauthTokenResponse);
         if(!accountReadService.isExist(Long.parseLong(oauthUserInfo.getId())))
-            accountCreateUseCase.signUpBySocial(oauthUserInfo);
-
+            accountCreateService.signUpBySocial(oauthUserInfo);
 
 
         return null;
