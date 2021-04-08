@@ -5,7 +5,6 @@ import com.se.pickple_api_server.v1.account.application.error.AccountErrorCode;
 import com.se.pickple_api_server.v1.account.application.dto.AccountCreateDto;
 import com.se.pickple_api_server.v1.account.infra.repository.AccountJpaRepository;
 import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
-import com.se.pickple_api_server.v1.common.domain.usecase.UseCase;
 import com.se.pickple_api_server.v1.oauth.infra.dto.userinfo.OauthUserInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -38,6 +37,7 @@ public class AccountCreateService {
                 .email(request.getEmail())
                 .isCertified(request.getIsCertified())
                 .registerType(request.getRegisterType())
+                .isDeleted((request.getIsDeleted()))
                 .build();
         accountJpaRepository.save(account);
         return account.getAccountId();

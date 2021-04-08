@@ -49,11 +49,14 @@ public class AccountCreateDto {
         @Size(min = 4, max = 40)
         private String email;
 
-        @ApiModelProperty(example = "false", notes = "금오공대생 인증 여부")
+        @ApiModelProperty(example = "0", notes = "금오공대생 인증 여부")
         private Integer isCertified;
 
         @ApiModelProperty(example = "PICKPLE", notes = "사용자 유입 경로")
         private RegisterType registerType;
+
+        @ApiModelProperty(example = "0", notes = "사용자 탈퇴 여부")
+        private Integer isDeleted;
 
     }
 
