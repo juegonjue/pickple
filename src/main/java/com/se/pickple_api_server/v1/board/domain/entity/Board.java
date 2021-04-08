@@ -33,7 +33,8 @@ public abstract class Board extends BaseEntity {
     private String text;
 
     @Column(nullable=false)
-    private BoardType type;
+    @Enumerated(EnumType.STRING)
+    private BoardType boardType;
 
     @Column(nullable = false, columnDefinition = "int default 0")
     private Integer hit;
@@ -41,12 +42,12 @@ public abstract class Board extends BaseEntity {
     @Column(nullable = false, columnDefinition = "int default 0")
     private Integer isDeleted;
 
-    public Board(Long boardId, Account writerId, @Size(min = 2, max = 50) String title, @Size(min = 2, max = 2000) String text, BoardType type, Integer hit, Integer isDeleted) {
+    public Board(Long boardId, Account writerId, @Size(min = 2, max = 50) String title, @Size(min = 2, max = 2000) String text, BoardType boardType, Integer hit, Integer isDeleted) {
         this.boardId = boardId;
         this.writerId = writerId;
         this.title = title;
         this.text = text;
-        this.type = type;
+        this.boardType = boardType;
         this.hit = hit;
         this.isDeleted = isDeleted;
     }

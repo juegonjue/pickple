@@ -26,28 +26,33 @@ public class Report extends BaseEntity {
     @Column(nullable = false)
     private String text;
 
-    @Size(min = 2, max = 20)
-    @Column(nullable = false, columnDefinition = "varchar(20) default 'before'")
-    private String state;
+    @Column(nullable = false, columnDefinition = "varchar(20) default 'BEFORE'")
+    @Enumerated(value = EnumType.STRING)
+    private ReportState reportState = ReportState.BEFORE;
+
+    @Column(nullable = false, columnDefinition = "varchar(20) default 'NONE'")
+    @Enumerated(value = EnumType.STRING)
+    private ReportResult reportResult = ReportResult.NONE;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
-    @JoinColumn(name="manager", referencedColumnName = "accountId")
+    @JoinColumn(nullable = false, name="manager", referencedColumnName = "accountId")
     private Account manager;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
-    @JoinColumn(name="reporter", referencedColumnName = "accountId")
+    @JoinColumn(nullable = false, name="reporter", referencedColumnName = "accountId")
     private Account reporter;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
-    @JoinColumn(name="reported", referencedColumnName = "accountId")
+    @JoinColumn(nullable = false, name="reported", referencedColumnName = "accountId")
     private Account reported;
 
     @Builder
-    public Report(Long reportId, Board boardId, @Size(min = 2, max = 255) String text, @Size(min = 2, max = 20) String state, Account manager, Account reporter, Account reported) {
+    public Report(Long reportId, Board boardId, @Size(min = 2, max = 255) String text, ReportState reportState, ReportResult reportResult, Account manager, Account reporter, Account reported) {
         this.reportId = reportId;
         this.boardId = boardId;
         this.text = text;
-        this.state = state;
+        this.reportState = reportState;
+        this.reportResult = reportResult;
         this.manager = manager;
         this.reporter = reporter;
         this.reported = reported;

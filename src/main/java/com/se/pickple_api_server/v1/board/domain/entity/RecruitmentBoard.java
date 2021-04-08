@@ -46,8 +46,8 @@ public class RecruitmentBoard extends Board {
     private List<Tag> tags = new ArrayList<>();
 
     @Builder
-    public RecruitmentBoard(Long boardId, Account writerId, @Size(min = 2, max = 50) String title, @Size(min = 2, max = 2000) String text, BoardType type, Integer hit, Integer isDeleted, Integer recNumber, Integer payment_min, Integer payment_max, LocalDateTime workStartDate, LocalDateTime workEndDate, LocalDateTime recStartDate, LocalDateTime recEndDate, List<Tag> tags) {
-        super(boardId, writerId, title, text, type, hit, isDeleted);
+    public RecruitmentBoard(Long boardId, Account writerId, @Size(min = 2, max = 50) String title, @Size(min = 2, max = 2000) String text, BoardType boardType, Integer hit, Integer isDeleted, Integer recNumber, Integer payment_min, Integer payment_max, LocalDateTime workStartDate, LocalDateTime workEndDate, LocalDateTime recStartDate, LocalDateTime recEndDate, List<Tag> tags) {
+        super(boardId, writerId, title, text, boardType, hit, isDeleted);
         this.recNumber = recNumber;
         this.payment_min = payment_min;
         this.payment_max = payment_max;
@@ -57,6 +57,5 @@ public class RecruitmentBoard extends Board {
         this.recEndDate = recEndDate;
         this.tags = tags;
     }
-
 }
 

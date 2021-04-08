@@ -18,11 +18,11 @@ public class BookMark{
     private Long bookMarkId;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
-    @JoinColumn(name="account_id", referencedColumnName = "accountId")
+    @JoinColumn(nullable = false, name="account_id", referencedColumnName = "accountId")
     private Account accountId;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
-    @JoinColumn(name="board_id", referencedColumnName = "boardId")
+    @JoinColumn(nullable = false, name="board_id", referencedColumnName = "boardId")
     private Board boardId;
 
     @Column(nullable = false, columnDefinition = "int default 0")

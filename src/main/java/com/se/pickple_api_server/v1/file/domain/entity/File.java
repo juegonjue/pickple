@@ -21,33 +21,19 @@ public class File extends BaseEntity {
     @JoinColumn(name = "board_id", referencedColumnName = "boardId")
     private Board boardId;
 
-    @Size(min = 3, max = 255)
-    @Column(nullable = false)
-    private String savedFileName;
+    @Column(length = 255)
+    @Size(min = 2, max = 255)
+    private String downloadUrl;
 
-    @Size(min = 3, max = 255)
-    @Column(nullable = false)
-    private String originFileName;
+    @Column(length = 255)
+    @Size(min = 2, max = 255)
+    private String fileName;
 
-    @Size(min = 3, max = 255)
-    @Column(nullable = false)
-    private String path;
 
-    @Column(nullable = false)
-    private Integer size;
-
-    @Size(min = 1, max = 20)
-    private String extension;
-
-    public File(Long fileId, Board boardId,
-                @Size(min = 3, max = 255) String savedFileName, @Size(min = 3, max = 255) String originFileName,
-                @Size(min = 3, max = 255) String path, Integer size, @Size(min = 1, max = 20) String extension) {
-        this.fileId = fileId;
-        this.boardId = boardId;
-        this.savedFileName = savedFileName;
-        this.originFileName = originFileName;
-        this.path = path;
-        this.size = size;
-        this.extension = extension;
+    public File(@Size(min = 2, max = 255) String downloadUrl, @Size(min = 2, max = 255) String fileName) {
+        this.downloadUrl = downloadUrl;
+        this.fileName = fileName;
     }
+
+
 }
