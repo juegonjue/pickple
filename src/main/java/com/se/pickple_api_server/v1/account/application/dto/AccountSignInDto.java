@@ -1,4 +1,4 @@
-package com.se.pickple_api_server.v1.account.infra.dto;
+package com.se.pickple_api_server.v1.account.application.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

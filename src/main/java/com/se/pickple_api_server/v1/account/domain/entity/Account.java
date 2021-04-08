@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -34,7 +35,7 @@ public class  Account extends BaseEntity{
     private String nickname;
 
     @Size(min = 8, max = 20)
-    @Column(nullable = false)
+    @Column
     private String studentId;
 
     @Column(nullable = false)
@@ -47,9 +48,10 @@ public class  Account extends BaseEntity{
 
     @Size(min = 4, max = 40)
     @Column(nullable = false, unique = true)
+    @Email
     private String email;
 
-    @Column
+    @Column(nullable = false, columnDefinition = "int default 0")
     private Integer isCertified;
 
     @Column(nullable = false)
@@ -60,8 +62,20 @@ public class  Account extends BaseEntity{
     private Integer isDeleted;
 
     @Builder
-    //constructor, 만들고, 명세에서 default값으로 뭐가 들어가는지 확실히 명세 !
-
+    public Account(Long accountId, @Size(min = 5, max = 20) String idString, String password, @Size(min = 2, max = 20) String name, @Size(min = 2, max = 20) String nickname, @Size(min = 8, max = 20) String studentId, AccountType accountType, @Size(min = 10, max = 20) String phoneNumber, @Size(min = 4, max = 40) @Email String email, Integer isCertified, RegisterType registerType, Integer isDeleted) {
+        this.accountId = accountId;
+        this.idString = idString;
+        this.password = password;
+        this.name = name;
+        this.nickname = nickname;
+        this.studentId = studentId;
+        this.accountType = accountType;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.isCertified = isCertified;
+        this.registerType = registerType;
+        this.isDeleted = isDeleted;
+    }
 
     public void updateNickname(String nickname) {
         this.nickname = nickname;

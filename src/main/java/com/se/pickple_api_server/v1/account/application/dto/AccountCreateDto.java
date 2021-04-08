@@ -1,4 +1,4 @@
-package com.se.pickple_api_server.v1.account.infra.dto;
+package com.se.pickple_api_server.v1.account.application.dto;
 
 import com.se.pickple_api_server.v1.account.domain.entity.AccountType;
 import com.se.pickple_api_server.v1.account.domain.entity.RegisterType;
@@ -50,7 +50,7 @@ public class AccountCreateDto {
         private String email;
 
         @ApiModelProperty(example = "false", notes = "금오공대생 인증 여부")
-        private Boolean isCertified;
+        private Integer isCertified;
 
         @ApiModelProperty(example = "PICKPLE", notes = "사용자 유입 경로")
         private RegisterType registerType;

@@ -1,4 +1,4 @@
-package com.se.pickple_api_server.v1.account.domain.error;
+package com.se.pickple_api_server.v1.account.application.error;
 
 import com.se.pickple_api_server.v1.common.domain.error.ErrorCode;
 import lombok.Getter;

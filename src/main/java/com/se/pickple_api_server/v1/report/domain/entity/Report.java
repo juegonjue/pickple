@@ -3,8 +3,8 @@ package com.se.pickple_api_server.v1.report.domain.entity;
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
 import com.se.pickple_api_server.v1.board.domain.entity.Board;
 import com.se.pickple_api_server.v1.common.domain.entity.BaseEntity;
-import com.se.pickple_api_server.v1.review.domain.entity.Review;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,10 +21,6 @@ public class Report extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     @JoinColumn(name="board_id", referencedColumnName = "boardId")
     private Board boardId;
-
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
-    @JoinColumn(name="review_id", referencedColumnName = "reviewId")
-    private Review reviewId;
 
     @Size(min=2, max=255)
     @Column(nullable = false)
@@ -46,12 +42,10 @@ public class Report extends BaseEntity {
     @JoinColumn(name="reported", referencedColumnName = "accountId")
     private Account reported;
 
-    public Report(Long reportId, Board boardId, Review reviewId,
-                  @Size(min = 2, max = 255) String text, @Size(min = 2, max = 20) String state,
-                  Account manager, Account reporter, Account reported) {
+    @Builder
+    public Report(Long reportId, Board boardId, @Size(min = 2, max = 255) String text, @Size(min = 2, max = 20) String state, Account manager, Account reporter, Account reported) {
         this.reportId = reportId;
         this.boardId = boardId;
-        this.reviewId = reviewId;
         this.text = text;
         this.state = state;
         this.manager = manager;

@@ -1,21 +1,22 @@
-package com.se.pickple_api_server.v1.account.domain.usecase;
+package com.se.pickple_api_server.v1.account.application.service;
 
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
-import com.se.pickple_api_server.v1.account.domain.error.AccountErrorCode;
-import com.se.pickple_api_server.v1.account.infra.dto.AccountCreateDto;
+import com.se.pickple_api_server.v1.account.application.error.AccountErrorCode;
+import com.se.pickple_api_server.v1.account.application.dto.AccountCreateDto;
 import com.se.pickple_api_server.v1.account.infra.repository.AccountJpaRepository;
 import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
 import com.se.pickple_api_server.v1.common.domain.usecase.UseCase;
 import com.se.pickple_api_server.v1.oauth.infra.dto.userinfo.OauthUserInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-@UseCase
+@Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class AccountCreateUseCase {
+public class AccountCreateService {
 
     private final AccountJpaRepository accountJpaRepository;
 
@@ -29,7 +30,6 @@ public class AccountCreateUseCase {
         Account account = Account.builder()
                 .idString(request.getId())
                 .password(passwordEncoder.encode(request.getPassword()))
-                //.password(request.getPassword())
                 .name(request.getName())
                 .nickname(request.getNickname())
                 .studentId(request.getStudentId())
@@ -51,14 +51,6 @@ public class AccountCreateUseCase {
         Account account = Account.builder()
                 .idString(oauthUserInfo.getId())
                 .password(passwordEncoder.encode(oauthUserInfo.getId()))
-//                .name(request.getName())
-//                .nickname(request.getNickname())
-//                .studentId(request.getStudentId())
-//                .type(request.getType())
-//                .phoneNumber(request.getPhoneNumber())
-//                .email(request.getEmail())
-//                .isCertified(request.getIsCertified())
-//                .membersOf(request.getMembersOf())
                 .build();
         accountJpaRepository.save(account);
         return account.getAccountId();

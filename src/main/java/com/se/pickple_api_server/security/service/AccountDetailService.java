@@ -1,7 +1,7 @@
 package com.se.pickple_api_server.security.service;
 
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
-import com.se.pickple_api_server.v1.account.domain.error.AccountErrorCode;
+import com.se.pickple_api_server.v1.account.application.error.AccountErrorCode;
 import com.se.pickple_api_server.v1.account.infra.repository.AccountJpaRepository;
 import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
