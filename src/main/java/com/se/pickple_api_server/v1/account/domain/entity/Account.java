@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -34,44 +35,46 @@ public class  Account extends BaseEntity{
     private String nickname;
 
     @Size(min = 8, max = 20)
-    @Column(nullable = false, unique = true)
+    @Column
     private String studentId;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private AccountType type;
+    private AccountType accountType;
 
     @Size(min = 10, max = 20)
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String phoneNumber;
 
     @Size(min = 4, max = 40)
     @Column(nullable = false, unique = true)
+    @Email
     private String email;
 
-    @Column
-    private Boolean isCertified;
+    @Column(nullable = false, columnDefinition = "int default 0")
+    private Integer isCertified;
 
-    @Size(min = 2, max = 20)
     @Column(nullable = false)
-    private AccountMembersOf membersOf;
-
     @Enumerated(EnumType.STRING)
     private RegisterType registerType;
 
+    @Column(nullable = false, columnDefinition = "int default 0")
+    private Integer isDeleted;
+
     @Builder
-    public Account(Long accountId, @Size(min = 5, max = 20) String idString, String password, @Size(min = 2, max = 20) String name, @Size(min = 2, max = 20) String nickname, @Size(min = 8, max = 20) String studentId, AccountType type, @Size(min = 10, max = 20) String phoneNumber, @Size(min = 4, max = 40) String email, Boolean isCertified, @Size(min = 2, max = 20) AccountMembersOf membersOf) {
+    public Account(Long accountId, @Size(min = 5, max = 20) String idString, String password, @Size(min = 2, max = 20) String name, @Size(min = 2, max = 20) String nickname, @Size(min = 8, max = 20) String studentId, AccountType accountType, @Size(min = 10, max = 20) String phoneNumber, @Size(min = 4, max = 40) @Email String email, Integer isCertified, RegisterType registerType, Integer isDeleted) {
         this.accountId = accountId;
         this.idString = idString;
         this.password = password;
         this.name = name;
         this.nickname = nickname;
         this.studentId = studentId;
-        this.type = type;
+        this.accountType = accountType;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.isCertified = isCertified;
-        this.membersOf = membersOf;
+        this.registerType = registerType;
+        this.isDeleted = isDeleted;
     }
 
     public void updateNickname(String nickname) {

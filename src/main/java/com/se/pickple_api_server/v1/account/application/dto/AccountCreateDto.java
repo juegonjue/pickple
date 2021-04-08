@@ -1,7 +1,7 @@
-package com.se.pickple_api_server.v1.account.infra.dto;
+package com.se.pickple_api_server.v1.account.application.dto;
 
-import com.se.pickple_api_server.v1.account.domain.entity.AccountMembersOf;
 import com.se.pickple_api_server.v1.account.domain.entity.AccountType;
+import com.se.pickple_api_server.v1.account.domain.entity.RegisterType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -34,13 +34,12 @@ public class AccountCreateDto {
         @Size(min=2, max=20)
         private String nickname;
 
-        @ApiModelProperty(example = "studentId", notes = "학번")
+        @ApiModelProperty(example = "20170000", notes = "학번")
         @Size(min=8, max=20)
         private String studentId;
 
         @ApiModelProperty(example = "MEMBER", notes = "사용자 타입")
-        @Size(min = 2, max = 20)
-        private AccountType type;
+        private AccountType accountType;
 
         @ApiModelProperty(example = "01044445555", notes = "전화번호, 01000000000 형식")
         @Size(min = 10, max = 20)
@@ -50,12 +49,14 @@ public class AccountCreateDto {
         @Size(min = 4, max = 40)
         private String email;
 
-        @ApiModelProperty(example = "false", notes = "금오공대생 인증 여부")
-        private Boolean isCertified;
+        @ApiModelProperty(example = "0", notes = "금오공대생 인증 여부")
+        private Integer isCertified;
 
-        @ApiModelProperty(example = "SE", notes = "사용자 유입 경로")
-        @Size(min = 2, max = 20)
-        private AccountMembersOf membersOf;
+        @ApiModelProperty(example = "PICKPLE", notes = "사용자 유입 경로")
+        private RegisterType registerType;
+
+        @ApiModelProperty(example = "0", notes = "사용자 탈퇴 여부")
+        private Integer isDeleted;
 
     }
 

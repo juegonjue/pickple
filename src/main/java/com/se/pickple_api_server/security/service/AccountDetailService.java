@@ -1,7 +1,7 @@
 package com.se.pickple_api_server.security.service;
 
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
-import com.se.pickple_api_server.v1.account.domain.error.AccountErrorCode;
+import com.se.pickple_api_server.v1.account.application.error.AccountErrorCode;
 import com.se.pickple_api_server.v1.account.infra.repository.AccountJpaRepository;
 import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
@@ -40,7 +40,7 @@ public class AccountDetailService implements UserDetailsService {
   public UserDetails loadUserByUsername(String accountId) throws UsernameNotFoundException {
     Account account = accountJpaRepository.findById(Long.parseLong(accountId))
         .orElseThrow(() -> new BusinessException(AccountErrorCode.NO_SUCH_ACCOUNT));
-    List<GrantedAuthority> grantedAuthorities = Arrays.asList(new SimpleGrantedAuthority(account.getType().toString()));
+    List<GrantedAuthority> grantedAuthorities = Arrays.asList(new SimpleGrantedAuthority(account.getAccountType().toString()));
     return new User(account.getIdString(), account.getPassword(), grantedAuthorities);
   }
 

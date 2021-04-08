@@ -1,9 +1,9 @@
 package com.se.pickple_api_server.v1.account.infra.api;
 
-import com.se.pickple_api_server.v1.account.domain.usecase.AccountCreateUseCase;
-import com.se.pickple_api_server.v1.account.domain.usecase.AccountSignInUseCase;
-import com.se.pickple_api_server.v1.account.infra.dto.AccountCreateDto;
-import com.se.pickple_api_server.v1.account.infra.dto.AccountSignInDto;
+import com.se.pickple_api_server.v1.account.application.service.AccountCreateService;
+import com.se.pickple_api_server.v1.account.application.service.AccountSignInService;
+import com.se.pickple_api_server.v1.account.application.dto.AccountCreateDto;
+import com.se.pickple_api_server.v1.account.application.dto.AccountSignInDto;
 import com.se.pickple_api_server.v1.common.infra.dto.SuccessResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,8 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 @Api(tags = "사용자 관리")
 public class AccountApiController {
 
-    private final AccountCreateUseCase accountCreateUseCase;
-    private final AccountSignInUseCase accountSignInUseCase;
+    private final AccountCreateService accountCreateService;
+    private final AccountSignInService accountSignInService;
 
 
     @PostMapping(path="/signup")
@@ -35,7 +35,7 @@ public class AccountApiController {
     @ApiOperation(value = "회원 가입")
     public SuccessResponse<Long> signUp(@RequestBody @Validated AccountCreateDto.Request request, HttpServletRequest httpServletRequest) {
         return new SuccessResponse<>(HttpStatus.CREATED.value(), "회원가입에 성공했습니다.",
-                accountCreateUseCase.signUp(request));
+                accountCreateService.signUp(request));
     }
 
     @PostMapping(path = "/signin")
@@ -46,6 +46,6 @@ public class AccountApiController {
     @ApiOperation(value = "로그인")
     public SuccessResponse<AccountSignInDto.Response> singIn(@RequestBody @Validated AccountSignInDto.Request request) {
         return new SuccessResponse<>(HttpStatus.OK.value(), "성공적으로 로그인 되었습니다.",
-                accountSignInUseCase.signIn(request.getId(), request.getPw()));
+                accountSignInService.signIn(request.getId(), request.getPw()));
     }
 }

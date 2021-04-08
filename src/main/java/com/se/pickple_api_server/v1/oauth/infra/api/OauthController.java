@@ -1,8 +1,7 @@
 package com.se.pickple_api_server.v1.oauth.infra.api;
 
-import com.se.pickple_api_server.v1.account.domain.usecase.AccountCreateUseCase;
-import com.se.pickple_api_server.v1.account.domain.usecase.AccountReadUseCase;
-import com.se.pickple_api_server.v1.oauth.domain.service.HttpRequestService;
+import com.se.pickple_api_server.v1.account.application.service.AccountCreateService;
+import com.se.pickple_api_server.v1.account.application.service.AccountReadService;
 import com.se.pickple_api_server.v1.oauth.domain.service.OauthService;
 import com.se.pickple_api_server.v1.oauth.infra.dto.token.OauthTokenResponse;
 import com.se.pickple_api_server.v1.oauth.infra.dto.userinfo.OauthUserInfo;
@@ -24,8 +23,8 @@ public class OauthController {
 
     private final OauthService oauthService;
     private final HttpServletResponse response;
-    private final AccountReadUseCase accountReadUseCase;
-    private final AccountCreateUseCase accountCreateUseCase;
+    private final AccountReadService accountReadService;
+    private final AccountCreateService accountCreateService;
 
     @GetMapping(value = "/{socialLoginType}")
     public void redirect(
@@ -42,9 +41,8 @@ public class OauthController {
         OauthType oauthType = OauthType.valueOf(type.toUpperCase());
         OauthTokenResponse oauthTokenResponse =  oauthService.getTokenResponseDto(oauthType, httpServletRequest);
         OauthUserInfo oauthUserInfo = oauthService.getUserInfo(oauthType, oauthTokenResponse);
-        if(!accountReadUseCase.isExist(Long.parseLong(oauthUserInfo.getId())))
-            accountCreateUseCase.signUpBySocial(oauthUserInfo);
-
+        if(!accountReadService.isExist(Long.parseLong(oauthUserInfo.getId())))
+            accountCreateService.signUpBySocial(oauthUserInfo);
 
 
         return null;

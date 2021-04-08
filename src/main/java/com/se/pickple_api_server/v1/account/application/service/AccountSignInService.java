@@ -1,9 +1,9 @@
-package com.se.pickple_api_server.v1.account.domain.usecase;
+package com.se.pickple_api_server.v1.account.application.service;
 
 import com.se.pickple_api_server.security.provider.JwtTokenResolver;
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
-import com.se.pickple_api_server.v1.account.domain.error.AccountErrorCode;
-import com.se.pickple_api_server.v1.account.infra.dto.AccountSignInDto;
+import com.se.pickple_api_server.v1.account.application.error.AccountErrorCode;
+import com.se.pickple_api_server.v1.account.application.dto.AccountSignInDto;
 import com.se.pickple_api_server.v1.account.infra.repository.AccountJpaRepository;
 import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
 import com.se.pickple_api_server.v1.common.domain.usecase.UseCase;
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @UseCase
 @RequiredArgsConstructor
 @Transactional
-public class AccountSignInUseCase {
+public class AccountSignInService {
 
     private final JwtTokenResolver jwtTokenResolver;
     private final AccountJpaRepository accountJpaRepository;
