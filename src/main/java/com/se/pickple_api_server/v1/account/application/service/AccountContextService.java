@@ -1,4 +1,4 @@
-package com.se.pickple_api_server.security.service;
+package com.se.pickple_api_server.v1.account.application.service;
 
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
 import com.se.pickple_api_server.v1.account.application.error.AccountErrorCode;
@@ -23,7 +23,7 @@ import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
-public class AccountDetailService implements UserDetailsService {
+public class AccountContextService implements UserDetailsService {
 
   private final AccountJpaRepository accountJpaRepository;
 

@@ -1,10 +1,13 @@
 package com.se.pickple_api_server.v1.account.infra.api;
 
+import com.se.pickple_api_server.v1.account.application.dto.AccountDeleteDto;
 import com.se.pickple_api_server.v1.account.application.service.AccountCreateService;
+import com.se.pickple_api_server.v1.account.application.service.AccountDeleteService;
 import com.se.pickple_api_server.v1.account.application.service.AccountSignInService;
 import com.se.pickple_api_server.v1.account.application.dto.AccountCreateDto;
 import com.se.pickple_api_server.v1.account.application.dto.AccountSignInDto;
 import com.se.pickple_api_server.v1.common.infra.dto.SuccessResponse;
+import com.sun.net.httpserver.Authenticator;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -24,7 +27,7 @@ public class AccountApiController {
 
     private final AccountCreateService accountCreateService;
     private final AccountSignInService accountSignInService;
-
+    private final AccountDeleteService accountDeleteService;
 
     @PostMapping(path="/signup")
     @ApiResponses(value = {
@@ -47,5 +50,13 @@ public class AccountApiController {
     public SuccessResponse<AccountSignInDto.Response> singIn(@RequestBody @Validated AccountSignInDto.Request request) {
         return new SuccessResponse<>(HttpStatus.OK.value(), "성공적으로 로그인 되었습니다.",
                 accountSignInService.signIn(request.getId(), request.getPw()));
+    }
+
+    @PostMapping(path = "/account")
+    @ResponseStatus(value = HttpStatus.OK)
+    @ApiOperation(value = "회원 탈퇴")
+    public SuccessResponse deleteAccount(@RequestBody @Validated AccountDeleteDto.Request request) {
+        accountDeleteService.delete(request);
+        return new SuccessResponse(HttpStatus.OK.value(),"성공적으로 삭제되었습니다.");
     }
 }

@@ -19,7 +19,7 @@ public class  Account extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long accountId;
 
-    @Size(min = 5, max = 20)
+    @Size(min = 4, max = 20)
     @Column(nullable = false, unique = true)
     private String idString;
 

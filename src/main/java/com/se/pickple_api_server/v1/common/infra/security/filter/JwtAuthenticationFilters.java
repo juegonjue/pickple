@@ -1,7 +1,7 @@
-package com.se.pickple_api_server.security.filter;
+package com.se.pickple_api_server.v1.common.infra.security.filter;
 
 
-import com.se.pickple_api_server.security.provider.JwtTokenResolver;
+import com.se.pickple_api_server.v1.common.infra.security.provider.JwtTokenResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
