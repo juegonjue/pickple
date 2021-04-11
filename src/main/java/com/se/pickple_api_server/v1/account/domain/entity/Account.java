@@ -91,5 +91,6 @@ public class  Account extends BaseEntity{
 
     public void updateIsDeleted(String idString, Integer isDeleted) {
         this.idString = idString;
-        this.isDeleted = isDeleted; }
+        this.isDeleted = isDeleted;
+    }
 }
