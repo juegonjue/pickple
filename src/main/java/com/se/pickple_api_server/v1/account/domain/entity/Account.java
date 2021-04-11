@@ -59,7 +59,7 @@ public class  Account extends BaseEntity{
     private RegisterType registerType;
 
     @Column(nullable = false, columnDefinition = "int default 0")
-    private Integer isDeleted;
+    private Integer isDeleted;  // 0:존재, 1:삭제
 
     @Builder
     public Account(Long accountId, @Size(min = 5, max = 20) String idString, String password, @Size(min = 2, max = 20) String name, @Size(min = 2, max = 20) String nickname, @Size(min = 8, max = 20) String studentId, AccountType accountType, @Size(min = 10, max = 20) String phoneNumber, @Size(min = 4, max = 40) @Email String email, Integer isCertified, RegisterType registerType, Integer isDeleted) {
@@ -89,4 +89,7 @@ public class  Account extends BaseEntity{
         this.password = newHashedPassword;
     }
 
+    public void updateIsDeleted(String idString, Integer isDeleted) {
+        this.idString = idString;
+        this.isDeleted = isDeleted; }
 }

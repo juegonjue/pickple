@@ -52,11 +52,13 @@ public class AccountApiController {
                 accountSignInService.signIn(request.getId(), request.getPw()));
     }
 
-    @PostMapping(path = "/account")
+    @DeleteMapping(path = "/account")
     @ResponseStatus(value = HttpStatus.OK)
     @ApiOperation(value = "회원 탈퇴")
     public SuccessResponse deleteAccount(@RequestBody @Validated AccountDeleteDto.Request request) {
         accountDeleteService.delete(request);
         return new SuccessResponse(HttpStatus.OK.value(),"성공적으로 삭제되었습니다.");
     }
+
+
 }

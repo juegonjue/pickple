@@ -17,7 +17,7 @@ public class AccountDeleteDto {
     static public class Request {
         @Size(min = 4, max = 20)
         @NotEmpty
-        @ApiModelProperty(notes = "회원 아이디", example = "account")
+        @ApiModelProperty(notes = "삭제할 회원 아이디", example = "account")
         private String idString;
     }
 }

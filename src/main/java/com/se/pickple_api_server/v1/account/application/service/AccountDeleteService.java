@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -22,8 +23,16 @@ public class AccountDeleteService {
         Account account = accountJpaRepository.findByIdString(request.getIdString())
                 .orElseThrow(()->new BusinessException(AccountErrorCode.NO_SUCH_ACCOUNT));
 
-        // TODO 권한 확인 로직 추가 필요
+        // TODO 권한 확인 로직 추가 필요 ?
 
-        accountJpaRepository.delete(account);
+        if (request.getIdString() != null)
+            updateIsDeleted(account);
+
+        accountJpaRepository.save(account);
+    }
+
+    public void updateIsDeleted(Account account) {
+        String uuid = UUID.randomUUID().toString().replace("-","").substring(0,20);
+        account.updateIsDeleted(uuid,1);
     }
 }
