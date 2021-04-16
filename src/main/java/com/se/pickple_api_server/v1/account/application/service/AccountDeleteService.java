@@ -23,7 +23,7 @@ public class AccountDeleteService {
         Account account = accountJpaRepository.findByIdString(request.getIdString())
                 .orElseThrow(()->new BusinessException(AccountErrorCode.NO_SUCH_ACCOUNT));
 
-        // TODO 권한 확인 로직 추가 필요 ?
+        // TODO 권한 확인 로직 추가 필요
 
         if (request.getIdString() != null)
             updateIsDeleted(account);
