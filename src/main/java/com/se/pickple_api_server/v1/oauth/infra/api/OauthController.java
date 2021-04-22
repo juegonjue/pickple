@@ -1,51 +1,48 @@
-package com.se.pickple_api_server.v1.oauth.infra.api;
-
-import com.se.pickple_api_server.v1.account.application.service.AccountCreateService;
-import com.se.pickple_api_server.v1.account.application.service.AccountReadService;
-import com.se.pickple_api_server.v1.oauth.domain.service.OauthService;
-import com.se.pickple_api_server.v1.oauth.infra.dto.token.OauthTokenResponse;
-import com.se.pickple_api_server.v1.oauth.infra.dto.userinfo.OauthUserInfo;
-import com.se.pickple_api_server.v1.oauth.infra.oauth.OauthType;
-import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-@RestController
-@RequestMapping("/api/auth")
-@RequiredArgsConstructor
-public class OauthController {
-
-    private final OauthService oauthService;
-    private final HttpServletResponse response;
-    private final AccountReadService accountReadService;
-    private final AccountCreateService accountCreateService;
-
-    @GetMapping(value = "/{socialLoginType}")
-    public void redirect(
-            @PathVariable(name = "socialLoginType") String type) throws IOException {
-        OauthType oauthType = OauthType.valueOf(type.toUpperCase());
-        response.sendRedirect(oauthService.getRedirectUrl(oauthType));
-    }
-
-
-
-    @GetMapping(value = "/{socialLoginType}/callback")
-    public String callback(@PathVariable(name = "socialLoginType") String type
-                           ,HttpServletRequest httpServletRequest) throws IOException {
-        OauthType oauthType = OauthType.valueOf(type.toUpperCase());
-        OauthTokenResponse oauthTokenResponse =  oauthService.getTokenResponseDto(oauthType, httpServletRequest);
-        OauthUserInfo oauthUserInfo = oauthService.getUserInfo(oauthType, oauthTokenResponse);
-        if(!accountReadService.isExist(Long.parseLong(oauthUserInfo.getId())))
-            accountCreateService.signUpBySocial(oauthUserInfo);
-
-
-        return null;
-//        response.sendRedirect(naverOauth.getOauthRedirectURL());
-    }
-}
+//package com.se.pickple_api_server.v1.oauth.infra.api;
+//
+//import com.se.pickple_api_server.v1.account.application.service.AccountCreateService;
+//import com.se.pickple_api_server.v1.account.application.service.AccountReadService;
+//import com.se.pickple_api_server.v1.oauth.domain.service.OauthService;
+//import com.se.pickple_api_server.v1.oauth.infra.dto.token.OauthTokenResponse;
+//import com.se.pickple_api_server.v1.oauth.infra.dto.userinfo.OauthUserInfo;
+//import com.se.pickple_api_server.v1.oauth.infra.oauth.OauthType;
+//import lombok.RequiredArgsConstructor;
+//import org.springframework.web.bind.annotation.GetMapping;
+//import org.springframework.web.bind.annotation.PathVariable;
+//import org.springframework.web.bind.annotation.RequestMapping;
+//import org.springframework.web.bind.annotation.RestController;
+//
+//import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpServletResponse;
+//import java.io.IOException;
+//
+//@RestController
+//@RequestMapping("/api/auth")
+//@RequiredArgsConstructor
+//public class OauthController {
+//
+//    private final OauthService oauthService;
+//    private final HttpServletResponse response;
+//    private final AccountReadService accountReadService;
+//    private final AccountCreateService accountCreateService;
+//
+//    @GetMapping(value = "/{socialLoginType}")
+//    public void redirect(
+//            @PathVariable(name = "socialLoginType") String type) throws IOException {
+//        OauthType oauthType = OauthType.valueOf(type.toUpperCase());
+//        response.sendRedirect(oauthService.getRedirectUrl(oauthType));
+//    }
+//
+//    @GetMapping(value = "/{socialLoginType}/callback")
+//    public String callback(@PathVariable(name = "socialLoginType") String type
+//                           ,HttpServletRequest httpServletRequest) throws IOException {
+//        OauthType oauthType = OauthType.valueOf(type.toUpperCase());
+//        OauthTokenResponse oauthTokenResponse =  oauthService.getTokenResponseDto(oauthType, httpServletRequest);
+//        OauthUserInfo oauthUserInfo = oauthService.getUserInfo(oauthType, oauthTokenResponse);
+//        if(!accountReadService.isExist(Long.parseLong(oauthUserInfo.getId())))
+//            accountCreateService.signUpBySocial(oauthUserInfo);
+//
+//        return null;
+////        response.sendRedirect(naverOauth.getOauthRedirectURL());
+//    }
+//}

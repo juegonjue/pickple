@@ -38,13 +38,25 @@ public class TagReadService {
                 .collect(Collectors.toList());
     }
 
+    // 모든 목록 조회
+    public List<TagReadDto.Response> readAll() {
+        List<Tag> allTags = tagJpaRepository.findAll();
+        List<TagReadDto.Response> responses = allTags
+                .stream()
+                .map(tag -> TagReadDto.Response.fromEntity(tag))
+                .collect(Collectors.toList());
+        return responses;
+
+    }
+
     // 모든 목록 조회, 페이징 처리까지
-    public PageImpl readAll(Pageable pageable) {
+    public PageImpl readAllPaging(Pageable pageable) {
         Page<Tag> tags = tagJpaRepository.findAll(pageable);
         List<TagReadDto.Response> responseList = tags.stream()
                 .map(tag -> TagReadDto.Response.fromEntity(tag))
                 .collect(Collectors.toList());
         return new PageImpl(responseList, tags.getPageable(), tags.getTotalElements());
     }
+
 
 }

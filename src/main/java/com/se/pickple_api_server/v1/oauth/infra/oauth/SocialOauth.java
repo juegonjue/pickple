@@ -7,11 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface SocialOauth {
 
-    String getOauthRedirectURL();
+    //String getOauthRedirectURL();
 
     OauthType type();
 
-    OauthTokenResponse getTokenResponseDto(HttpServletRequest httpServletRequest);
+    //OauthTokenResponse getTokenResponseDto(HttpServletRequest httpServletRequest);
 
     OauthUserInfo getUserInfo(OauthTokenResponse oauthTokenResponse);
 }

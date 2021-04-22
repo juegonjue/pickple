@@ -17,12 +17,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OauthService {
     private final List<SocialOauth> socialOauthList;
-    private final HttpServletResponse response;
+    //private final HttpServletResponse response;
 
-    public String getRedirectUrl(OauthType socialLoginType) {
-        SocialOauth socialOauth = findSocialOauthByType(socialLoginType);
-        return socialOauth.getOauthRedirectURL();
-    }
+//    public String getRedirectUrl(OauthType socialLoginType) {
+//        SocialOauth socialOauth = findSocialOauthByType(socialLoginType);
+//        return socialOauth.getOauthRedirectURL();
+//    }
 
     private SocialOauth findSocialOauthByType(OauthType socialLoginType) {
         return socialOauthList.stream()
@@ -31,10 +31,10 @@ public class OauthService {
                 .orElseThrow(() -> new BusinessException(OauthErrorCode.NO_SUCH_OAUTH));
     }
 
-    public OauthTokenResponse getTokenResponseDto(OauthType socialLoginType, HttpServletRequest httpServletRequest) {
-        SocialOauth socialOauth = findSocialOauthByType(socialLoginType);
-        return socialOauth.getTokenResponseDto(httpServletRequest);
-    }
+//    public OauthTokenResponse getTokenResponseDto(OauthType socialLoginType, HttpServletRequest httpServletRequest) {
+//        SocialOauth socialOauth = findSocialOauthByType(socialLoginType);
+//        return socialOauth.getTokenResponseDto(httpServletRequest);
+//    }
 
     public OauthUserInfo getUserInfo(OauthType oauthType, OauthTokenResponse oauthTokenResponse) {
         SocialOauth socialOauth = findSocialOauthByType(oauthType);
