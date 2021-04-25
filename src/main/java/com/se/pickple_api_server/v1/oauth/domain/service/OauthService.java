@@ -17,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OauthService {
     private final List<SocialOauth> socialOauthList;
-    //private final HttpServletResponse response;
+    private final HttpServletResponse response;
 
 //    public String getRedirectUrl(OauthType socialLoginType) {
 //        SocialOauth socialOauth = findSocialOauthByType(socialLoginType);
@@ -36,8 +36,9 @@ public class OauthService {
 //        return socialOauth.getTokenResponseDto(httpServletRequest);
 //    }
 
-    public OauthUserInfo getUserInfo(OauthType oauthType, OauthTokenResponse oauthTokenResponse) {
+    public OauthUserInfo getUserInfo(OauthType oauthType, String token) {
         SocialOauth socialOauth = findSocialOauthByType(oauthType);
-        return socialOauth.getUserInfo(oauthTokenResponse);
+        return socialOauth.getUserInfo(token);
     }
+
 }

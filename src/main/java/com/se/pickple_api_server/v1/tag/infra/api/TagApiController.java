@@ -58,7 +58,7 @@ public class TagApiController {
         return new SuccessResponse(HttpStatus.OK.value(), "성공적으로 태그를 삭제하였습니다.");
     }
 
-    //+ UC-TG-05 태그(전체) 조회
+    //+) UC-TG-05 태그(전체) 조회
     @ApiOperation(value = "태그 조회")
     @GetMapping(path="/tag/all")
     @ResponseStatus(value = HttpStatus.OK)

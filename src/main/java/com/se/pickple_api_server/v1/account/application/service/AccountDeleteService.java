@@ -24,15 +24,16 @@ public class AccountDeleteService {
                 .orElseThrow(()->new BusinessException(AccountErrorCode.NO_SUCH_ACCOUNT));
 
         // TODO 권한 확인 로직 추가 필요
-
         if (request.getIdString() != null)
             updateIsDeleted(account);
 
         accountJpaRepository.save(account);
     }
 
+    // 회원 delete시 UUID로 교체 + isDeleted=1
     public void updateIsDeleted(Account account) {
         String uuid = UUID.randomUUID().toString().replace("-","").substring(0,20);
         account.updateIsDeleted(uuid,1);
     }
+
 }

@@ -72,8 +72,7 @@ public class NaverOauth implements SocialOauth {
 
     //TODO 사용자 정보 받아오기
     @Override
-    public OauthUserInfo getUserInfo(OauthTokenResponse oauthTokenResponse) {
-        String token = oauthTokenResponse.getAccessToken();
+    public OauthUserInfo getUserInfo(String token) {
         String header = "Bearer " + token; // Bearer 다음에 공백 추가
         String apiURL = "https://openapi.naver.com/v1/nid/me";
         Map<String, String> requestHeaders = new HashMap<>();
@@ -85,12 +84,35 @@ public class NaverOauth implements SocialOauth {
         try {
             NaverUserInfo naverUserInfo = objectMapper.readValue(responseBody, NaverUserInfo.class);
             System.out.println(naverUserInfo.getId());
+            System.out.println(naverUserInfo.getEmail());
+            System.out.println(naverUserInfo.getName());
             return naverUserInfo;
         }catch (Exception e){
             e.printStackTrace();
             return null;
         }
     }
+//
+//    @Override
+//    public OauthUserInfo getUserInfo(OauthTokenResponse oauthTokenResponse) {
+//        String token = oauthTokenResponse.getAccessToken();
+//        String header = "Bearer " + token; // Bearer 다음에 공백 추가
+//        String apiURL = "https://openapi.naver.com/v1/nid/me";
+//        Map<String, String> requestHeaders = new HashMap<>();
+//        requestHeaders.put("Authorization", header);
+//
+//        String responseBody = httpRequestService.requestGetWithHeaders(apiURL,requestHeaders);
+//        System.out.println(responseBody);
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        try {
+//            NaverUserInfo naverUserInfo = objectMapper.readValue(responseBody, NaverUserInfo.class);
+//            System.out.println(naverUserInfo.getId());
+//            return naverUserInfo;
+//        }catch (Exception e){
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 
     @Override
     public OauthType type() {

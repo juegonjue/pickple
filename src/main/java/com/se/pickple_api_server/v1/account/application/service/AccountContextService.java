@@ -41,7 +41,7 @@ public class AccountContextService implements UserDetailsService {
     Account account = accountJpaRepository.findById(Long.parseLong(accountId))
         .orElseThrow(() -> new BusinessException(AccountErrorCode.NO_SUCH_ACCOUNT));
     List<GrantedAuthority> grantedAuthorities = Arrays.asList(new SimpleGrantedAuthority(account.getAccountType().toString()));
-    return new User(account.getIdString(), account.getPassword(), grantedAuthorities);
+    return new User(account.getIdString(), "", grantedAuthorities);
   }
 
   public UserDetails loadDefaultGroupAuthorities() throws UsernameNotFoundException {

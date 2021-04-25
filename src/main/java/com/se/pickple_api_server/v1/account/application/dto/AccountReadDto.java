@@ -10,15 +10,14 @@ import lombok.NoArgsConstructor;
 
 public class AccountReadDto {
 
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Builder
-    static public class Request {
-        private String name;
-        private String nickname;
-        private String email;
-    }
+//    @Data
+//    @NoArgsConstructor
+//    @AllArgsConstructor
+//    @Builder
+//    static public class Request {
+//        private String name;
+//        private String email;
+//    }
 
     @Data
     @Builder

@@ -8,10 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 public interface SocialOauth {
 
     //String getOauthRedirectURL();
+    //OauthTokenResponse getTokenResponseDto(HttpServletRequest httpServletRequest);
+
+    // social에서 access token을 string값으로 받아옴
+    OauthUserInfo getUserInfo(String token);
 
     OauthType type();
 
-    //OauthTokenResponse getTokenResponseDto(HttpServletRequest httpServletRequest);
-
-    OauthUserInfo getUserInfo(OauthTokenResponse oauthTokenResponse);
 }

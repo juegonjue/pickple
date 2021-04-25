@@ -14,25 +14,16 @@ public class AccountCreateDto {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    @ApiModel("회원 가입 요청")
+    @ApiModel("소셜로그인 회원정보 등록 요청")
     @Builder
     static public class Request {
 
         @ApiModelProperty(example = "account", notes = "아이디")
-        @Size(min = 5, max = 20)
         private String id;
-
-        @ApiModelProperty(example = "password", notes = "비밀번호")
-        @Size(min = 8, max = 20)
-        private String password;
 
         @ApiModelProperty(example = "name", notes = "이름")
         @Size(min = 2, max = 20)
         private String name;
-
-        @ApiModelProperty(example = "nickname", notes = "닉네임")
-        @Size(min=2, max=20)
-        private String nickname;
 
         @ApiModelProperty(example = "20170000", notes = "학번")
         @Size(min=8, max=20)

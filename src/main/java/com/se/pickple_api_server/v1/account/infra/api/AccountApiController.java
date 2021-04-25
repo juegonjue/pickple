@@ -31,17 +31,17 @@ public class AccountApiController {
 
 
     //UC-AC-01 회원 등록
-    @ApiOperation(value = "회원 가입")
-    @PostMapping(path="/signup")
-    @ApiResponses(value = {
-            @ApiResponse(code = 400, message = "존재하지 않는 사용자"),
-            @ApiResponse(code = 400, message = "비밀번호 불일치")
-    })
-    @ResponseStatus(value = HttpStatus.CREATED)
-    public SuccessResponse<Long> signUp(@RequestBody @Validated AccountCreateDto.Request request, HttpServletRequest httpServletRequest) {
-        return new SuccessResponse<>(HttpStatus.CREATED.value(), "회원가입에 성공했습니다.",
-                accountCreateService.signUp(request));
-    }
+//    @ApiOperation(value = "회원 가입")
+//    @PostMapping(path="/signup")
+//    @ApiResponses(value = {
+//            @ApiResponse(code = 400, message = "존재하지 않는 사용자"),
+//            @ApiResponse(code = 400, message = "비밀번호 불일치")
+//    })
+//    @ResponseStatus(value = HttpStatus.CREATED)
+//    public SuccessResponse<Long> signUp(@RequestBody @Validated AccountCreateDto.Request request, HttpServletRequest httpServletRequest) {
+//        return new SuccessResponse<>(HttpStatus.CREATED.value(), "회원가입에 성공했습니다.",
+//                accountCreateService.signUp(request));
+//    }
 
     // UC-AC-02 로그인
     @ApiOperation(value = "로그인")
@@ -69,7 +69,8 @@ public class AccountApiController {
     // UC-AC-06 사용자 목록 조회
 
     // UC-AC-07 회원 정보 조회
-    // UC-AC-08 회원 정보 검색
 
+    // UC-AC-08 회원 정보 검색{idString}
+    //public SuccessResponse
 
 }
