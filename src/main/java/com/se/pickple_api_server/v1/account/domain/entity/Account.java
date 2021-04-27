@@ -26,6 +26,7 @@ public class  Account extends BaseEntity{
     @Column(nullable = false)
     private String name;
 
+    // null 허용, 회원수정에서 추가하는 방식
     @Size(min = 8, max = 20)
     @Column
     private String studentId;
@@ -34,9 +35,9 @@ public class  Account extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private AccountType accountType;
 
-    @Size(min = 10, max = 20)
-    @Column(nullable = false, unique = true)
-    private String phoneNumber;
+//    @Size(min = 10, max = 20)
+//    @Column(nullable = false, unique = true)
+//    private String phoneNumber;
 
     @Size(min = 4, max = 40)
     @Column(nullable = false, unique = true)
@@ -53,6 +54,16 @@ public class  Account extends BaseEntity{
     @Column(nullable = false, columnDefinition = "int default 0")
     private Integer isDeleted;  // 0:존재, 1:삭제
 
+    @Builder
+    public Account(String idString, @Size(min = 2, max = 20) String name, AccountType accountType, @Size(min = 4, max = 40) @Email String email, Integer isCertified, RegisterType registerType, Integer isDeleted) {
+        this.idString = idString;
+        this.name = name;
+        this.accountType = accountType;
+        this.email = email;
+        this.isCertified = isCertified;
+        this.registerType = registerType;
+        this.isDeleted = isDeleted;
+    }
 
     public void updateStudentId(String studentId) {
         this.studentId = studentId;

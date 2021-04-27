@@ -24,11 +24,14 @@ public class AccountSignInDto {
     @NoArgsConstructor
     @ApiModel("로그인 요청")
     static public class Request {
-        @ApiModelProperty(notes = "로그인 아이디" , example = "account")
-        @Size(min = 4, max = 20)
-        private String id;
-        @ApiModelProperty(notes = "로그인 비밀번호", example= "password")
-        private String pw;
+//        @ApiModelProperty(notes = "로그인 아이디" , example = "account")
+//        @Size(min = 4, max = 20)
+//        private String id;
+//        @ApiModelProperty(notes = "로그인 비밀번호", example= "password")
+//        private String pw;
+//
+        @ApiModelProperty(notes = "액세스 토큰" , example = "access token")
+        private String accessToken;
     }
 }
 

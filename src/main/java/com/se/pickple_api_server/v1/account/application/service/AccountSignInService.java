@@ -18,16 +18,11 @@ public class AccountSignInService {
 
     private final JwtTokenResolver jwtTokenResolver;
     private final AccountJpaRepository accountJpaRepository;
-    private final PasswordEncoder passwordEncoder;
 
-    public AccountSignInDto.Response signIn(String id, String password) {
+    public AccountSignInDto.Response signIn(Long id) {
 
-        Account account = accountJpaRepository.findByIdString(id)
+        Account account = accountJpaRepository.findById(id)
                 .orElseThrow(()->new BusinessException(AccountErrorCode.NO_SUCH_ACCOUNT));
-
-//        if (!passwordEncoder.matches(password, account.getPassword())) {
-//            throw new BusinessException(AccountErrorCode.PASSWORD_INCORRECT);
-//        }
 
         String token = jwtTokenResolver.createToken(String.valueOf(account.getAccountId()));
         return new AccountSignInDto.Response(token);
