@@ -35,8 +35,8 @@ public class Profile extends BaseEntity {
     @Email
     private String workEmail;
 
-    @Size(min = 2, max = 255)
-    @Column(nullable = false, unique = true)
+    @Size(max = 255)
+    @Column(unique = true)
     private String blog;
 
     @Size(min = 2, max = 500)

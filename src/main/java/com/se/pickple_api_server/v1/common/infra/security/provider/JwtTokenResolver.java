@@ -1,7 +1,7 @@
-package com.se.pickple_api_server.security.provider;
+package com.se.pickple_api_server.v1.common.infra.security.provider;
 
 
-import com.se.pickple_api_server.security.service.AccountDetailService;
+import com.se.pickple_api_server.v1.account.application.service.AccountContextService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -22,7 +22,7 @@ import java.util.Date;
 @Component
 public class JwtTokenResolver {
 
-  private final AccountDetailService accountDetailService;
+  private final AccountContextService accountContextService;
 
   @Value("${spring.jwt.header}")
   private String AUTH_HEADER;
@@ -38,7 +38,7 @@ public class JwtTokenResolver {
   }
 
   public Authentication getAuthentication(String token) {
-    UserDetails userDetails = accountDetailService.loadUserByUsername(getUserId(token));
+    UserDetails userDetails = accountContextService.loadUserByUsername(getUserId(token));
     return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
   }
 
@@ -72,7 +72,7 @@ public class JwtTokenResolver {
   }
 
   public Authentication getDefaultAuthentication() {
-    UserDetails userDetails = accountDetailService.loadDefaultGroupAuthorities();
+    UserDetails userDetails = accountContextService.loadDefaultGroupAuthorities();
     return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
   }
 }

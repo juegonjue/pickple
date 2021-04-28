@@ -19,21 +19,14 @@ public class  Account extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long accountId;
 
-    @Size(min = 5, max = 20)
     @Column(nullable = false, unique = true)
     private String idString;
-
-    @Column(nullable = false)
-    private String password;
 
     @Size(min = 2, max = 20)
     @Column(nullable = false)
     private String name;
 
-    @Size(min = 2, max = 20)
-    @Column(nullable = false, unique = true)
-    private String nickname;
-
+    // null 허용, 회원수정에서 추가하는 방식
     @Size(min = 8, max = 20)
     @Column
     private String studentId;
@@ -42,9 +35,9 @@ public class  Account extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private AccountType accountType;
 
-    @Size(min = 10, max = 20)
-    @Column(nullable = false, unique = true)
-    private String phoneNumber;
+//    @Size(min = 10, max = 20)
+//    @Column(nullable = false, unique = true)
+//    private String phoneNumber;
 
     @Size(min = 4, max = 40)
     @Column(nullable = false, unique = true)
@@ -59,34 +52,26 @@ public class  Account extends BaseEntity{
     private RegisterType registerType;
 
     @Column(nullable = false, columnDefinition = "int default 0")
-    private Integer isDeleted;
+    private Integer isDeleted;  // 0:존재, 1:삭제
 
     @Builder
-    public Account(Long accountId, @Size(min = 5, max = 20) String idString, String password, @Size(min = 2, max = 20) String name, @Size(min = 2, max = 20) String nickname, @Size(min = 8, max = 20) String studentId, AccountType accountType, @Size(min = 10, max = 20) String phoneNumber, @Size(min = 4, max = 40) @Email String email, Integer isCertified, RegisterType registerType, Integer isDeleted) {
-        this.accountId = accountId;
+    public Account(String idString, @Size(min = 2, max = 20) String name, AccountType accountType, @Size(min = 4, max = 40) @Email String email, Integer isCertified, RegisterType registerType, Integer isDeleted) {
         this.idString = idString;
-        this.password = password;
         this.name = name;
-        this.nickname = nickname;
-        this.studentId = studentId;
         this.accountType = accountType;
-        this.phoneNumber = phoneNumber;
         this.email = email;
         this.isCertified = isCertified;
         this.registerType = registerType;
         this.isDeleted = isDeleted;
     }
 
-    public void updateNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
     public void updateStudentId(String studentId) {
         this.studentId = studentId;
     }
 
-    public void changePassword(String newHashedPassword) {
-        this.password = newHashedPassword;
+    public void updateIsDeleted(String idString, Integer isDeleted) {
+        this.idString = idString;
+        this.isDeleted = isDeleted;
     }
 
 }

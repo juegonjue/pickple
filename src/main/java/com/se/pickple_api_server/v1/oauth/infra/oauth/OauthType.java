@@ -4,11 +4,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum OauthType {
+    @JsonProperty("naver")
+    NAVER,
+
     @JsonProperty("google")
     GOOGLE,
     FACEBOOK,
+
     @JsonProperty("kakao")
     KAKAO,
-    @JsonProperty("naver")
-    NAVER;
+
 }

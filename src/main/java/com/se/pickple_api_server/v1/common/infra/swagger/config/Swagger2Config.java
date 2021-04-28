@@ -1,4 +1,4 @@
-package com.se.pickple_api_server.config;
+package com.se.pickple_api_server.v1.common.infra.swagger.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,9 +48,6 @@ public class Swagger2Config extends WebMvcConfigurationSupport {
         return new ApiKey("JWT", AUTH_HEADER, "header");
     }
 
-//    private ApiKey apiKey() {
-//
-//    }
 
     private SecurityContext securityContext() {
         return SecurityContext.builder().securityReferences(defaultAuth()).build();
