@@ -35,14 +35,16 @@ public class AccountApiController {
         // 해당 토큰을 네이버에 보내서 사용자 정보 얻음
         OauthType oauthType = OauthType.valueOf(type.toUpperCase());
         OauthUserInfo oauthUserInfo = accountSocialService.getUserInfo(oauthType, clientToken);
-        if (accountSocialService.isExist(oauthUserInfo.getId())) {
-            Long id = accountCreateService.signUpBySocial(oauthUserInfo,oauthType);
-            if (id != null) {
-                return new SuccessResponse<>(HttpStatus.OK.value(), "성공적으로 로그인 되었습니다.", accountSignInService.signIn(id));
-            }
+        Long id = null;
+        if (!accountSocialService.isExist(oauthUserInfo.getId())) {
+            id = accountCreateService.signUpBySocial(oauthUserInfo,oauthType);
+            System.out.println("Controller. 등록되지 않은 아이디 -> 회원가입 : " + id);
         }
-
-        return null;
+        if (accountSocialService.isExist(oauthUserInfo.getId())) {
+            id = accountReadService.findIdByIdString(oauthUserInfo.getId());
+            System.out.println("Controller. 등록된 아이디 -> 로그인" + id);
+        }
+        return new SuccessResponse<>(HttpStatus.OK.value(), "성공적으로 로그인 되었습니다.", accountSignInService.signIn(id));
     }
 
 

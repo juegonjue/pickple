@@ -18,5 +18,8 @@ public class AccountReadService {
     public boolean isExist(Long accountId){
         return accountJpaRepository.findById(accountId).isPresent();
     }
-
+    public Long findIdByIdString(String idString) {
+        Account account = accountJpaRepository.findByIdString(idString).orElseThrow(()->new BusinessException(AccountErrorCode.NO_SUCH_ACCOUNT));
+        return account.getAccountId();
+    }
 }

@@ -20,12 +20,15 @@ public class AccountCreateService {
 
     @Transactional
     public Long signUpBySocial(OauthUserInfo oauthUserInfo, OauthType oauthType) {
+        System.out.println("AccountCreateService.signUpBySocial");
         Account account = Account.builder()
                 .idString(oauthUserInfo.getId())
                 .name(oauthUserInfo.getName())
                 .accountType(AccountType.MEMBER)
                 .email(oauthUserInfo.getEmail())
+                .isCertified(0)
                 .registerType(RegisterType.valueOf(oauthType.toString()))
+                .isDeleted(0)
                 .build();
         accountJpaRepository.save(account);
         return account.getAccountId();

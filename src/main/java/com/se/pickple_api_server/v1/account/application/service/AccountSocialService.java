@@ -19,6 +19,7 @@ public class AccountSocialService {
 
     // 소셜에서 가져온 회원정보에 대한 ID가 레포지토리에 존재하는지 확인
     public boolean isExist(String id) {
+        System.out.println("AccountSocialService.isExist : 소셜에서 가져온 아이디 존재하는가");
         return accountJpaRepository.findByIdString(id).isPresent();
     }
 

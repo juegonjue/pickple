@@ -24,6 +24,7 @@ public class AccountSignInService {
         Account account = accountJpaRepository.findById(id)
                 .orElseThrow(()->new BusinessException(AccountErrorCode.NO_SUCH_ACCOUNT));
 
+        System.out.println("AccountSignInService.signIn");
         String token = jwtTokenResolver.createToken(String.valueOf(account.getAccountId()));
         return new AccountSignInDto.Response(token);
     }
