@@ -51,9 +51,9 @@ public class TagApiController {
 
     // UC-TG-04 태그 삭제
     @ApiOperation(value = "태그 삭제")
-    @DeleteMapping(path = "/tag/{id}")
+    @DeleteMapping(path = "/tag/{tagId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResponse delete(@PathVariable(value = "id") Long id) {
+    public SuccessResponse delete(@PathVariable(value = "tagId") Long id) {
         tagDeleteService.delete(id);
         return new SuccessResponse(HttpStatus.OK.value(), "성공적으로 태그를 삭제하였습니다.");
     }

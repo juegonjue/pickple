@@ -7,7 +7,6 @@ import com.se.pickple_api_server.v1.account.application.dto.AccountSignInDto;
 import com.se.pickple_api_server.v1.account.infra.repository.AccountJpaRepository;
 import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +24,16 @@ public class AccountSignInService {
                 .orElseThrow(()->new BusinessException(AccountErrorCode.NO_SUCH_ACCOUNT));
 
         System.out.println("AccountSignInService.signIn");
+        String token = jwtTokenResolver.createToken(String.valueOf(account.getAccountId()));
+        return new AccountSignInDto.Response(token);
+    }
+
+    public AccountSignInDto.Response signInString(String id) {
+
+        Account account = accountJpaRepository.findByIdString(id)
+                .orElseThrow(()->new BusinessException(AccountErrorCode.NO_SUCH_ACCOUNT));
+
+        System.out.println("AccountSignInService.signInString");
         String token = jwtTokenResolver.createToken(String.valueOf(account.getAccountId()));
         return new AccountSignInDto.Response(token);
     }

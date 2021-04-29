@@ -2,17 +2,13 @@ package com.se.pickple_api_server.v1.profile.domain.entity;
 
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
 import com.se.pickple_api_server.v1.common.domain.entity.BaseEntity;
-import com.se.pickple_api_server.v1.tag.domain.entity.Tag;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -46,19 +42,13 @@ public class Profile extends BaseEntity {
     @Column(nullable = false, columnDefinition = "int default 1")
     private Integer isOpen;
 
-    //
-    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<Tag> tags = new ArrayList<>();
 
-    @Builder
-    public Profile(Long profileId, Account accountId, @Size(min = 10, max = 20) String workPhoneNumber, @Size(min = 2, max = 40) @Email String workEmail, @Size(min = 2, max = 255) String blog, @Size(min = 2, max = 500) String introduce, Integer isOpen, List<Tag> tags) {
-        this.profileId = profileId;
+    public Profile(Account accountId, @Size(min = 10, max = 20) String workPhoneNumber, @Size(min = 2, max = 40) @Email String workEmail, @Size(max = 255) String blog, @Size(min = 2, max = 500) String introduce, Integer isOpen) {
         this.accountId = accountId;
         this.workPhoneNumber = workPhoneNumber;
         this.workEmail = workEmail;
         this.blog = blog;
         this.introduce = introduce;
         this.isOpen = isOpen;
-        this.tags = tags;
     }
 }

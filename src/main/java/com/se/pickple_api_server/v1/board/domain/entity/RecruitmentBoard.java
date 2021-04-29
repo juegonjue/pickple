@@ -41,12 +41,9 @@ public class RecruitmentBoard extends Board {
     @Column(nullable = false)
     private LocalDateTime recEndDate;
 
-    //
-    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<Tag> tags = new ArrayList<>();
 
     @Builder
-    public RecruitmentBoard(Long boardId, Account writerId, @Size(min = 2, max = 50) String title, @Size(min = 2, max = 2000) String text, BoardType boardType, Integer hit, Integer isDeleted, Integer recNumber, Integer payment_min, Integer payment_max, LocalDateTime workStartDate, LocalDateTime workEndDate, LocalDateTime recStartDate, LocalDateTime recEndDate, List<Tag> tags) {
+    public RecruitmentBoard(Long boardId, Account writerId, @Size(min = 2, max = 50) String title, @Size(min = 2, max = 2000) String text, BoardType boardType, Integer hit, Integer isDeleted, Integer recNumber, Integer payment_min, Integer payment_max, LocalDateTime workStartDate, LocalDateTime workEndDate, LocalDateTime recStartDate, LocalDateTime recEndDate) {
         super(boardId, writerId, title, text, boardType, hit, isDeleted);
         this.recNumber = recNumber;
         this.payment_min = payment_min;
@@ -55,7 +52,7 @@ public class RecruitmentBoard extends Board {
         this.workEndDate = workEndDate;
         this.recStartDate = recStartDate;
         this.recEndDate = recEndDate;
-        this.tags = tags;
     }
+
 }
 

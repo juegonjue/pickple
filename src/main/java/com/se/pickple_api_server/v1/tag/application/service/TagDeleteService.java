@@ -14,12 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class TagDeleteService {
+
     private final TagJpaRepository tagJpaRepository;
 
-    public boolean delete(Long id){
+    @Transactional
+    public void delete(Long id){
         Tag tag = tagJpaRepository.findById(id).orElseThrow(()->new BusinessException(TagErrorCode.NO_SUCH_TAG));
         tagJpaRepository.delete(tag);
-        return true;
     }
 
 }

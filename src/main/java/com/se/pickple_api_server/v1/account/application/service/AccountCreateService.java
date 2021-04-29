@@ -1,10 +1,13 @@
 package com.se.pickple_api_server.v1.account.application.service;
 
 
+import com.se.pickple_api_server.v1.account.application.dto.AccountCreateDto;
+import com.se.pickple_api_server.v1.account.application.error.AccountErrorCode;
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
 import com.se.pickple_api_server.v1.account.domain.entity.AccountType;
 import com.se.pickple_api_server.v1.account.domain.entity.RegisterType;
 import com.se.pickple_api_server.v1.account.infra.repository.AccountJpaRepository;
+import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
 import com.se.pickple_api_server.v1.oauth.infra.dto.userinfo.OauthUserInfo;
 import com.se.pickple_api_server.v1.oauth.infra.oauth.OauthType;
 import lombok.RequiredArgsConstructor;
@@ -34,25 +37,23 @@ public class AccountCreateService {
         return account.getAccountId();
     }
 
-//    @Transactional
-//    public Long signUp(AccountCreateDto.Request request) {
-//
-//        if (accountJpaRepository.findByIdString(request.getId()).isPresent())
-//            throw new BusinessException(AccountErrorCode.DUPLICATED_ID);
-//        Account account = Account.builder()
-//                .idString(request.getId())
-//                .name(request.getName())
-//                .studentId(request.getStudentId())
-//                .accountType(request.getAccountType())
-//                //.phoneNumber(request.getPhoneNumber())
-//                .email(request.getEmail())
-//                .isCertified(request.getIsCertified())
-//                .registerType(request.getRegisterType())
-//                .isDeleted((request.getIsDeleted()))
-//                .build();
-//        accountJpaRepository.save(account);
-//        return account.getAccountId();
-//    }
+    @Transactional
+    public Long signUp(AccountCreateDto.Request request) {
+
+        if (accountJpaRepository.findByIdString(request.getId()).isPresent())
+            throw new BusinessException(AccountErrorCode.DUPLICATED_ID);
+        Account account = Account.builder()
+                .idString(request.getId())
+                .name(request.getName())
+                .accountType(request.getAccountType())
+                .email(request.getEmail())
+                .isCertified(request.getIsCertified())
+                .registerType(request.getRegisterType())
+                .isDeleted((request.getIsDeleted()))
+                .build();
+        accountJpaRepository.save(account);
+        return account.getAccountId();
+    }
 
 //    @Transactional
 //    public Long signUpBySocial(OauthUserInfo oauthUserInfo) {

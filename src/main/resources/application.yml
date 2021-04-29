@@ -1,14 +1,14 @@
 spring:
-  #  datasource:
-  #    url: jdbc:h2:tcp://localhost/~/test
-  #    username: sa
-  #    password:
-  #    driver-class-name: org.h2.Driver
   datasource:
-    url: jdbc:mysql://localhost:3306/pickple?serverTimezone=UTC&characterEncoding=UTF-8
-    username: root
-    password: 9390
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:h2:tcp://localhost/~/test
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/pickple?serverTimezone=UTC&characterEncoding=UTF-8
+#    username: root
+#    password: 9390
+#    driver-class-name: com.mysql.cj.jdbc.Driver
   jwt:
     header: X-AUTH-TOKEN
     secret: se7540
