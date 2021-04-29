@@ -75,7 +75,7 @@ public class AccountApiController {
         }
         if (accountSocialService.isExist(oauthUserInfo.getId())) {
             id = accountReadService.findIdByIdString(oauthUserInfo.getId());
-            System.out.println("Controller. 등록된 아이디 -> 로그인" + id);
+            System.out.println("Controller. 등록된 아이디 -> 로그인 : " + id);
         }
         return new SuccessResponse<>(HttpStatus.OK.value(), "성공적으로 로그인 되었습니다.", accountSignInService.signIn(id));
     }
