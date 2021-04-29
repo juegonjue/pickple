@@ -28,4 +28,14 @@ public class AccountSignInService {
         return new AccountSignInDto.Response(token);
     }
 
+    public AccountSignInDto.Response signInString(String id) {
+
+        Account account = accountJpaRepository.findByIdString(id)
+                .orElseThrow(()->new BusinessException(AccountErrorCode.NO_SUCH_ACCOUNT));
+
+        System.out.println("AccountSignInService.signInString");
+        String token = jwtTokenResolver.createToken(String.valueOf(account.getAccountId()));
+        return new AccountSignInDto.Response(token);
+    }
+
 }
