@@ -7,7 +7,6 @@ import com.se.pickple_api_server.v1.account.application.dto.AccountSignInDto;
 import com.se.pickple_api_server.v1.account.infra.repository.AccountJpaRepository;
 import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

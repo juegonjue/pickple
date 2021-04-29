@@ -1,12 +1,16 @@
 package com.se.pickple_api_server.v1.account.infra.api;
 
 import com.se.pickple_api_server.v1.account.application.dto.AccountDeleteDto;
+import com.se.pickple_api_server.v1.account.application.dto.AccountReadDto;
 import com.se.pickple_api_server.v1.account.application.service.*;
 import com.se.pickple_api_server.v1.common.infra.dto.SuccessResponse;
 import com.se.pickple_api_server.v1.oauth.infra.dto.userinfo.OauthUserInfo;
 import com.se.pickple_api_server.v1.oauth.infra.oauth.OauthType;
+import com.sun.net.httpserver.Authenticator;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -25,8 +29,21 @@ public class AccountApiController {
     private final AccountReadService accountReadService;
     private final AccountSocialService accountSocialService;
 
-    // UC-AC-01 회원 등록
-    // UC-AC-02 로그인
+    //UC-AC-01 test회원가입
+//    @ApiOperation(value = "회원 가입")
+//    @PostMapping(path="/signup")
+//    @ApiResponses(value = {
+//            @ApiResponse(code = 400, message = "존재하지 않는 사용자"),
+//            @ApiResponse(code = 400, message = "비밀번호 불일치")
+//    })
+//    @ResponseStatus(value = HttpStatus.CREATED)
+//    public SuccessResponse<Long> signUp(@RequestBody @Validated AccountCreateDto.Request request, HttpServletRequest httpServletRequest) {
+//        return new SuccessResponse<>(HttpStatus.CREATED.value(), "회원가입에 성공했습니다.",
+//                accountCreateService.signUp(request));
+//    }
+
+
+    // UC-AC-02 소셜 회원가입 및 로그인
     // request body : access token
     // --> response : 사용자정보 있으면 HttpStatus.OK
     @PostMapping(value = "/{socialLoginType}")
@@ -47,34 +64,7 @@ public class AccountApiController {
         return new SuccessResponse<>(HttpStatus.OK.value(), "성공적으로 로그인 되었습니다.", accountSignInService.signIn(id));
     }
 
-
-    //UC-AC-01 회원 등록
-//    @ApiOperation(value = "회원 가입")
-//    @PostMapping(path="/signup")
-//    @ApiResponses(value = {
-//            @ApiResponse(code = 400, message = "존재하지 않는 사용자"),
-//            @ApiResponse(code = 400, message = "비밀번호 불일치")
-//    })
-//    @ResponseStatus(value = HttpStatus.CREATED)
-//    public SuccessResponse<Long> signUp(@RequestBody @Validated AccountCreateDto.Request request, HttpServletRequest httpServletRequest) {
-//        return new SuccessResponse<>(HttpStatus.CREATED.value(), "회원가입에 성공했습니다.",
-//                accountCreateService.signUp(request));
-//    }
-
-    // UC-AC-02 로그인
-//    @ApiOperation(value = "로그인")
-//    @PostMapping(path = "/signin")
-//    @ApiResponses(value = {
-//            @ApiResponse(code = 400, message = "비밀번호 불일치")
-//    })
-//    @ResponseStatus(value = HttpStatus.OK)
-//    public SuccessResponse<AccountSignInDto.Response> singIn(@RequestBody @Validated AccountSignInDto.Request request) {
-//        return new SuccessResponse<>(HttpStatus.OK.value(), "성공적으로 로그인 되었습니다.",
-//                accountSignInService.signIn(request.getId(), request.getPw()));
-//    }
-
     // UC-AC-03 로그아웃
-
 
     // UC-AC-04 회원탈퇴
     @DeleteMapping(path = "/account")
@@ -87,9 +77,15 @@ public class AccountApiController {
 
     // UC-AC-05 이메일 인증
     // UC-AC-06 사용자 목록 조회
-    // UC-AC-07 회원 정보 조회
 
-    // UC-AC-08 회원 정보 검색{idString}
+    // UC-AC-07 회원 정보 조회
+    @GetMapping(path = "/account/{accountId}")
+    @ResponseStatus(value = HttpStatus.OK)
+    @ApiOperation(value = "사용자 아이디로 회원 조회")
+    public SuccessResponse<AccountReadDto.Response> readAccountById(@PathVariable(name = "accountId") Long id) {
+        return new SuccessResponse(HttpStatus.OK.value(),"성공적으로 사용자 정보를 조회하였습니다.", accountReadService.readById(id));
+    }
+    // UC-AC-08 회원 검색 {idString}
     //public SuccessResponse
 
 }
