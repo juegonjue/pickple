@@ -3,6 +3,7 @@ package com.se.pickple_api_server.v1.board.domain.entity;
 import com.se.pickple_api_server.v1.common.domain.entity.BaseEntity;
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -18,7 +19,7 @@ public abstract class Board extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boardId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name="account_id",referencedColumnName = "accountId",nullable = false)
     private Account writerId;
 

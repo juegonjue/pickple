@@ -2,28 +2,28 @@ package com.se.pickple_api_server.v1.board.application.dto;
 
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
 import com.se.pickple_api_server.v1.board.domain.entity.BoardType;
+import com.se.pickple_api_server.v1.recboard_tag.domain.entity.RecruitmentBoardTag;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.internal.build.AllowSysOut;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class RecruitmentBoardCreateDto {
 
+    @ApiModel("모집글 등록 요청")
     @Data
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    @ApiModel("모집글 등록 요청")
     static public class Request {
 
         @ApiModelProperty(notes = "작성자 (고유)번호", example = "1")
-        private Account writerId;
+        private WriterDto writerId;
 
         @ApiModelProperty(notes = "모집글 제목", example = "제목")
         @Size(min = 2, max = 50)
@@ -54,5 +54,29 @@ public class RecruitmentBoardCreateDto {
 
         @ApiModelProperty(notes = "모집 종료일", example = "2020-01-01T00:00:00")
         private LocalDateTime recEndDate;
+
+        @ApiModelProperty(notes = "태그리스트")
+        @Singular("tagList")
+        private List<TagDto> tagList;
+    }
+
+    @ApiModel("모집글 태그 등록")
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    static public class TagDto {
+        @ApiModelProperty(notes = "태그 번호", example = "1")
+       private Long tagId;
+    }
+
+    @ApiModel("모집글 작성자 불러오기")
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    static public class WriterDto{
+        @ApiModelProperty(notes = "글작성자 고유번호",example = "1")
+        private Long writerId;
     }
 }
