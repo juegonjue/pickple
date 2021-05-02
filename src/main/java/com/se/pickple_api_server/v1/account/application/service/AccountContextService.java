@@ -26,15 +26,15 @@ import java.util.Set;
 public class AccountContextService implements UserDetailsService {
 
   private final AccountJpaRepository accountJpaRepository;
-
-  @Value("${spring.security.anonymous.id}")
-  private String ANONYMOUS_ID;
-
-  @Value("${spring.security.anonymous.pw}")
-  private String ANONYMOUS_PW;
-
-  @Value("${spring.security.anonymous.auth}")
-  private String ANONYMOUS_AUTH;
+//
+//  @Value("${spring.security.anonymous.id}")
+//  private String ANONYMOUS_ID;
+//
+//  @Value("${spring.security.anonymous.pw}")
+//  private String ANONYMOUS_PW;
+//
+//  @Value("${spring.security.anonymous.auth}")
+//  private String ANONYMOUS_AUTH;
 
   @Override
   public UserDetails loadUserByUsername(String accountId) throws UsernameNotFoundException {
@@ -43,11 +43,11 @@ public class AccountContextService implements UserDetailsService {
     List<GrantedAuthority> grantedAuthorities = Arrays.asList(new SimpleGrantedAuthority(account.getAccountType().toString()));
     return new User(account.getIdString(), "", grantedAuthorities);
   }
-
-  public UserDetails loadDefaultGroupAuthorities() throws UsernameNotFoundException {
-    List<GrantedAuthority> grantedAuthorities = Arrays.asList(new SimpleGrantedAuthority(ANONYMOUS_AUTH));
-    return new User(ANONYMOUS_ID, ANONYMOUS_PW, grantedAuthorities);
-  }
+//
+//  public UserDetails loadDefaultGroupAuthorities() throws UsernameNotFoundException {
+//    List<GrantedAuthority> grantedAuthorities = Arrays.asList(new SimpleGrantedAuthority(ANONYMOUS_AUTH));
+//    return new User(ANONYMOUS_ID, ANONYMOUS_PW, grantedAuthorities);
+//  }
 
   public boolean hasAuthority(String auth) {
     Set<String> authorities = AuthorityUtils
@@ -55,16 +55,16 @@ public class AccountContextService implements UserDetailsService {
     return authorities.contains(auth);
   }
 
-  public boolean isOwner(Account account) {
-    if(SecurityContextHolder.getContext().getAuthentication() == null || SecurityContextHolder.getContext().getAuthentication().getName() == null)
-      throw new AccessDeniedException("비정상적인 접근");
-
-    String id = SecurityContextHolder.getContext().getAuthentication().getName();
-
-    if(id.equals(ANONYMOUS_ID))
-      return false;
-    if(!id.equals(account.getIdString()))
-      return false;
-    return true;
-  }
+//  public boolean isOwner(Account account) {
+//    if(SecurityContextHolder.getContext().getAuthentication() == null || SecurityContextHolder.getContext().getAuthentication().getName() == null)
+//      throw new AccessDeniedException("비정상적인 접근");
+//
+//    String id = SecurityContextHolder.getContext().getAuthentication().getName();
+//
+//    if(id.equals(ANONYMOUS_ID))
+//      return false;
+//    if(!id.equals(account.getIdString()))
+//      return false;
+//    return true;
+//  }
 }

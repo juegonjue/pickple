@@ -50,6 +50,7 @@ public class JwtTokenResolver {
     return httpRequest.getHeader(AUTH_HEADER);
   }
 
+  // 토큰 유효 검증
   public boolean validateToken(String token) {
     try {
       Jws<Claims> claims = Jwts.parser().setSigningKey(securityKey).parseClaimsJws(token);
@@ -61,18 +62,18 @@ public class JwtTokenResolver {
 
   // TODO 인증서버 구축시 삭제
   public String createToken(String userId) {
-    Claims claims = Jwts.claims().setSubject(userId);
+    Claims accountId = Jwts.claims().setSubject(userId);
     Date now = new Date();
     return Jwts.builder()
-        .setClaims(claims)
+        .setClaims(accountId)
         .setIssuedAt(now)
         .setExpiration(new Date(now.getTime() + tokenExpirePeriod))
         .signWith(SignatureAlgorithm.HS256, securityKey)
         .compact();
   }
 
-  public Authentication getDefaultAuthentication() {
-    UserDetails userDetails = accountContextService.loadDefaultGroupAuthorities();
-    return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
-  }
+//  public Authentication getDefaultAuthentication() {
+//    UserDetails userDetails = accountContextService.loadDefaultGroupAuthorities();
+//    return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+//  }
 }

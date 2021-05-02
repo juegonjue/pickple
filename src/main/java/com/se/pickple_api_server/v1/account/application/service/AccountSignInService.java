@@ -28,6 +28,9 @@ public class AccountSignInService {
         return new AccountSignInDto.Response(token);
     }
 
+
+
+
     public AccountSignInDto.Response signInString(String id) {
 
         Account account = accountJpaRepository.findByIdString(id)

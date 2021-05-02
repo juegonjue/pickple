@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +32,7 @@ public class TagApiController {
 
     // UC-TG-01 태그 등록
     @ApiOperation(value = "태그 등록")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping(path = "/tag")
     @ResponseStatus(value = HttpStatus.CREATED)
     public SuccessResponse<Long> create(@RequestBody @Validated TagCreateDto.Request request) {
