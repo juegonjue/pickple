@@ -26,4 +26,8 @@ public class BoardApiController {
         return new SuccessResponse(HttpStatus.CREATED.value(), "모집글 등록에 성공했습니다.", recruitmentBoardCreateService.create(request));
     }
 
+
+    // UC-RB-02 모집글 조회
+
+
 }

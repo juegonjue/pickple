@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,7 +32,7 @@ public class TagReadService {
 
     // 검색어 기반 조회
     public List<TagReadDto.Response> readMatchedKeyword(String keyword) {
-        List<Tag> tags = tagJpaRepository.findByTagNameContaining(keyword);
+        List<Tag> tags = tagJpaRepository.findByTagNameContainsIgnoreCase(keyword.toLowerCase());
         return tags
                 .stream()
                 .map(tag -> TagReadDto.Response.fromEntity(tag))

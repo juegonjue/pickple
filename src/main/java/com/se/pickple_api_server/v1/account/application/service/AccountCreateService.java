@@ -45,11 +45,11 @@ public class AccountCreateService {
         Account account = Account.builder()
                 .idString(request.getIdString())
                 .name(request.getName())
-                .accountType(request.getAccountType())
+                .accountType(AccountType.MEMBER)
                 .email(request.getEmail())
-                .isCertified(request.getIsCertified())
+                .isCertified(0)
                 .registerType(request.getRegisterType())
-                .isDeleted((request.getIsDeleted()))
+                .isDeleted(0)
                 .build();
         accountJpaRepository.save(account);
         return account.getAccountId();

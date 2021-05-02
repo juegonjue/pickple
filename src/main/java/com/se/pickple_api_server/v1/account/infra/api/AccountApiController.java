@@ -94,9 +94,9 @@ public class AccountApiController {
     // UC-AC-06 사용자 목록 조회
 
     // UC-AC-07 회원 정보 조회
+    @ApiOperation(value = "사용자 아이디로 회원 조회")
     @GetMapping(path = "/account/{accountId}")
     @ResponseStatus(value = HttpStatus.OK)
-    @ApiOperation(value = "사용자 아이디로 회원 조회")
     public SuccessResponse<AccountReadDto.Response> readAccountById(@PathVariable(name = "accountId") Long id) {
         return new SuccessResponse(HttpStatus.OK.value(),"성공적으로 사용자 정보를 조회하였습니다.", accountReadService.readById(id));
     }

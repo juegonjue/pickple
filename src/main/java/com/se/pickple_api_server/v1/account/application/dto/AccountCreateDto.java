@@ -25,21 +25,16 @@ public class AccountCreateDto {
         @Size(min = 2, max = 20)
         private String name;
 
-        @ApiModelProperty(example = "MEMBER", notes = "사용자 타입")
-        private AccountType accountType;
-
         @ApiModelProperty(example = "test@naver.com", notes = "이메일")
         @Size(min = 4, max = 40)
         private String email;
-
-        @ApiModelProperty(example = "0", notes = "금오공대생 인증 여부")
-        private Integer isCertified;
+//
+//        @ApiModelProperty(example = "0", notes = "금오공대생 인증 여부")
+//        private Integer isCertified;
 
         @ApiModelProperty(example = "PICKPLE", notes = "사용자 유입 경로")
         private RegisterType registerType;
 
-        @ApiModelProperty(example = "0", notes = "사용자 탈퇴 여부")
-        private Integer isDeleted;
 
     }
 

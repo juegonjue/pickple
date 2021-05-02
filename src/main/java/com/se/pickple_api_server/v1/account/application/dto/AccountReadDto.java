@@ -21,6 +21,7 @@ public class AccountReadDto {
         private String name;
         private String email;
         private AccountType accountType;
+        private Integer isDeleted;
 
         @JsonInclude(Include.NON_NULL)
         private Long accountId;
@@ -43,6 +44,7 @@ public class AccountReadDto {
                     .email(account.getEmail())
                     .isCertified(account.getIsCertified())
                     .registerType(account.getRegisterType())
+                    .isDeleted(account.getIsDeleted())
                     .build();
         }
 
