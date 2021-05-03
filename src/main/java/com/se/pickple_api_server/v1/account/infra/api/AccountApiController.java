@@ -105,13 +105,19 @@ public class AccountApiController {
     //public SuccessResponse
 
     // 토큰으로 회원 정보 얻기
-    @ApiOperation(value = "사용자 토큰으로 회원 정보 조회")
-    @GetMapping(path="/account/token/{token}")
-    @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResponse<AccountReadDto.Response> readAccountByToken(@PathVariable(name = "token") String token) {
-        if (!accountReadService.isValidateToken(token)) {
-            return new SuccessResponse(HttpStatus.OK.value(), "호에엥", accountReadService.getUserInfoByToken(token));
-        }
-        return new SuccessResponse(HttpStatus.OK.value(), "토큰으로 사용자 정보를 조회하였습니다.", accountReadService.getUserInfoByToken(token));
-    }
+//    @ApiOperation(value = "사용자 토큰으로 회원 정보 조회")
+//    @GetMapping(path="/account/token/{token}")
+//    @ResponseStatus(value = HttpStatus.OK)
+//    public SuccessResponse<AccountReadDto.Response> readAccountByToken(@PathVariable(name = "token") String token) {
+//        if (!accountReadService.isValidateToken(token)) {
+//            return new SuccessResponse(HttpStatus.OK.alue(), "호에엥", accountReadService.getUserInfoByToken(token));
+//        }
+//        return new SuccessResponse(HttpStatus.OK.value(), "토큰으로 사용자 정보를 조회하였습니다.", accountReadService.getUserInfoByToken(token));
+//    }
+//    @ApiOperation(value = "내 정보 요청")
+//    @GetMapping(path = "/account/myInfo")
+//    @ResponseStatus(value = HttpStatus.OK)
+//    public SuccessResponse<AccountReadDto.Response> setClientPageUserInfo() {
+//
+//    }
 }

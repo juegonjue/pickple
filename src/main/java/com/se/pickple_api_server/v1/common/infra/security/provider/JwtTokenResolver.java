@@ -72,8 +72,9 @@ public class JwtTokenResolver {
         .compact();
   }
 
-//  public Authentication getDefaultAuthentication() {
-//    UserDetails userDetails = accountContextService.loadDefaultGroupAuthorities();
-//    return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
-//  }
+  public Authentication getDefaultAuthentication() {
+    UserDetails userDetails = accountContextService.loadDefaultGroupAuthorities();
+    return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+  }
+
 }
