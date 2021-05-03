@@ -18,7 +18,7 @@ public class AccountCreateDto {
     @ApiModel("회원정보 등록 요청")
     static public class Request {
 
-        @ApiModelProperty(example = "idString", notes = "아이디")
+        @ApiModelProperty(example = "test", notes = "아이디")
         private String idString;    // id -> idString 시
 
         @ApiModelProperty(example = "홍길동", notes = "이름")
@@ -28,9 +28,6 @@ public class AccountCreateDto {
         @ApiModelProperty(example = "test@naver.com", notes = "이메일")
         @Size(min = 4, max = 40)
         private String email;
-//
-//        @ApiModelProperty(example = "0", notes = "금오공대생 인증 여부")
-//        private Integer isCertified;
 
         @ApiModelProperty(example = "PICKPLE", notes = "사용자 유입 경로")
         private RegisterType registerType;

@@ -33,9 +33,9 @@ public class AccountSignInDto {
     @NoArgsConstructor
     @ApiModel("(test) 로그인 요청")
     static public class RequestTest {
-        @ApiModelProperty(notes = "로그인 아이디" , example = "account")
+        @ApiModelProperty(notes = "로그인 아이디" , example = "test")
         @Size(min = 4, max = 20)
-        private String id;
+        private String idString;
     }
 }
 

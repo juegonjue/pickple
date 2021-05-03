@@ -32,7 +32,7 @@ public class TagApiController {
 
     // UC-TG-01 태그 등록
     @ApiOperation(value = "태그 등록")
-    @PreAuthorize("hasAnyAuthority('MEMBER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping(path = "/tag")
     @ResponseStatus(value = HttpStatus.CREATED)
     public SuccessResponse<Long> create(@RequestBody @Validated TagCreateDto.Request request) {
@@ -41,6 +41,7 @@ public class TagApiController {
 
     // UC-TG-02 태그(전체) 조회_페이징
     @ApiOperation(value = "태그 조회 _ 페이징")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = "/tag")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<PageImpl> readAllPaging(@Validated PageRequest pageRequest) {

@@ -18,6 +18,7 @@ public enum AccountErrorCode implements ErrorCode {
     QNA_INVALID_INPUT(409,"ME10", "올바르지 않은 QnA 질문 응답 쌍"),
     DUPLICATED_EMAIL(410,"ME11", "이메일 중복"),
     DUPLICATED_ID(411,"ME12", "아이디 중복");
+
     private int status;
     private final String code;
     private final String message;
