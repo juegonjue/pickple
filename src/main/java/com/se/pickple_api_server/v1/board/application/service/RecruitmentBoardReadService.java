@@ -5,8 +5,15 @@ import com.se.pickple_api_server.v1.board.application.error.BoardErrorCode;
 import com.se.pickple_api_server.v1.board.domain.entity.RecruitmentBoard;
 import com.se.pickple_api_server.v1.board.infra.repository.RecruitmentBoardJpaRepository;
 import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
+import com.se.pickple_api_server.v1.common.infra.dto.PageRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -14,9 +21,19 @@ public class RecruitmentBoardReadService {
 
     private final RecruitmentBoardJpaRepository recruitmentBoardJpaRepository;
 
+    // 해당 페이지 상세조회
     public RecruitmentBoardReadDto.Response readById(Long boardId) {
         RecruitmentBoard recruitmentBoard = recruitmentBoardJpaRepository.findById(boardId).orElseThrow(()->new BusinessException(BoardErrorCode.NO_SUCH_BOARD));
         return RecruitmentBoardReadDto.Response.fromEntity(recruitmentBoard);
     }
 
+    // 페이징 목록조회
+    public PageImpl readAll(Pageable pageable) {
+        Page<RecruitmentBoard> recruitmentBoardPage = recruitmentBoardJpaRepository.findAll(pageable);
+        List<RecruitmentBoardReadDto.Response> responseList = recruitmentBoardPage
+                .get()
+                .map(recruitmentBoard -> RecruitmentBoardReadDto.Response.fromEntity(recruitmentBoard))
+                .collect(Collectors.toList());
+        return new PageImpl(responseList, recruitmentBoardPage.getPageable(), recruitmentBoardPage.getTotalElements());
+    }
 }

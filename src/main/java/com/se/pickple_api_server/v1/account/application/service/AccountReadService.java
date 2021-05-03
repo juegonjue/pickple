@@ -44,6 +44,7 @@ public class AccountReadService {
         return AccountReadDto.Response.fromEntity(findAccount(accountId));
     }
 
+    // 회원목록 페이징처리
     public PageImpl readAll(Pageable pageable) {
         Page<Account> accountPage = accountJpaRepository.findAll(pageable);
         List<AccountReadDto.Response> responseList = accountPage
