@@ -32,7 +32,7 @@ public class TagApiController {
 
     // UC-TG-01 태그 등록
     @ApiOperation(value = "태그 등록")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('MEMBER')")
     @PostMapping(path = "/tag")
     @ResponseStatus(value = HttpStatus.CREATED)
     public SuccessResponse<Long> create(@RequestBody @Validated TagCreateDto.Request request) {
@@ -57,7 +57,7 @@ public class TagApiController {
 
 
 
-    // UC-TG-04 태그 삭제
+    // UC-TG-04 태그 삭제F
     @ApiOperation(value = "태그 삭제")
     @DeleteMapping(path = "/tag/{tagId}")
     @ResponseStatus(value = HttpStatus.OK)
