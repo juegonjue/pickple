@@ -56,6 +56,7 @@ public class RecruitmentBoardReadDto {
                     .text(recruitmentBoard.getText())
                     .boardType(recruitmentBoard.getBoardType())
                     .isDeleted(recruitmentBoard.getIsDeleted())
+                    .recNumber(recruitmentBoard.getRecNumber())
                     .paymentMax(recruitmentBoard.getPaymentMax())
                     .workStartDate(recruitmentBoard.getWorkStartDate())
                     .workEndDate(recruitmentBoard.getWorkEndDate())
