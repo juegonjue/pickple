@@ -25,10 +25,10 @@ public class RecruitmentBoard extends Board {
     private Integer recNumber;
 
     @Column(nullable = false, columnDefinition = "int default 0")
-    private Integer payment_min;
+    private Integer paymentMin;
 
     @Column(nullable = false, columnDefinition = "int default 0")
-    private Integer payment_max;
+    private Integer paymentMax;
 
     @Column(nullable = false)
     private LocalDateTime workStartDate;
@@ -45,12 +45,13 @@ public class RecruitmentBoard extends Board {
     @OneToMany(mappedBy = "recruitmentBoard", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<RecruitmentBoardTag> recruitmentBoardTagList = new ArrayList<>();
 
+
     @Builder
-    public RecruitmentBoard(Account writerId, @Size(min = 2, max = 50) String title, @Size(min = 2, max = 2000) String text, BoardType boardType, Integer hit, Integer isDeleted, Integer recNumber, Integer payment_min, Integer payment_max, LocalDateTime workStartDate, LocalDateTime workEndDate, LocalDateTime recStartDate, LocalDateTime recEndDate, List<RecruitmentBoardTag> recruitmentBoardTagList) {
+    public RecruitmentBoard(Account writerId, @Size(min = 2, max = 50) String title, @Size(min = 2, max = 2000) String text, BoardType boardType, Integer hit, Integer isDeleted, Integer recNumber, Integer paymentMin, Integer paymentMax, LocalDateTime workStartDate, LocalDateTime workEndDate, LocalDateTime recStartDate, LocalDateTime recEndDate, List<RecruitmentBoardTag> recruitmentBoardTagList) {
         super(writerId, title, text, boardType, hit, isDeleted);
         this.recNumber = recNumber;
-        this.payment_min = payment_min;
-        this.payment_max = payment_max;
+        this.paymentMin = paymentMin;
+        this.paymentMax = paymentMax;
         this.workStartDate = workStartDate;
         this.workEndDate = workEndDate;
         this.recStartDate = recStartDate;

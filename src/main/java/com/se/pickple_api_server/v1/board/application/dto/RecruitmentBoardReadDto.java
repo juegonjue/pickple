@@ -34,9 +34,9 @@ public class RecruitmentBoardReadDto {
 
         private Integer recNumber;
 
-        private Integer payment_min;
+        private Integer paymentMin;
 
-        private Integer payment_max;
+        private Integer paymentMax;
 
         private LocalDateTime workStartDate;
 
@@ -56,7 +56,7 @@ public class RecruitmentBoardReadDto {
                     .text(recruitmentBoard.getText())
                     .boardType(recruitmentBoard.getBoardType())
                     .isDeleted(recruitmentBoard.getIsDeleted())
-                    .payment_max(recruitmentBoard.getPayment_max())
+                    .paymentMax(recruitmentBoard.getPaymentMax())
                     .workStartDate(recruitmentBoard.getWorkStartDate())
                     .workEndDate(recruitmentBoard.getWorkEndDate())
                     .recStartDate(recruitmentBoard.getRecStartDate())
