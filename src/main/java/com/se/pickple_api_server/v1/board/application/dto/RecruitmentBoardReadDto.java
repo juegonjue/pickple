@@ -2,10 +2,14 @@ package com.se.pickple_api_server.v1.board.application.dto;
 
 import com.se.pickple_api_server.v1.board.domain.entity.BoardType;
 import com.se.pickple_api_server.v1.board.domain.entity.RecruitmentBoard;
+import com.se.pickple_api_server.v1.recboard_tag.domain.entity.RecruitmentBoardTag;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 public class RecruitmentBoardReadDto {
 
@@ -28,7 +32,23 @@ public class RecruitmentBoardReadDto {
 
         private Integer isDeleted;
 
-        public static Response fromEntity(RecruitmentBoard recruitmentBoard) {
+        private Integer recNumber;
+
+        private Integer payment_min;
+
+        private Integer payment_max;
+
+        private LocalDateTime workStartDate;
+
+        private LocalDateTime workEndDate;
+
+        private LocalDateTime recStartDate;
+
+        private LocalDateTime recEndDate;
+
+        //private List<RecruitmentBoardTag> recruitmentBoardTagList;
+
+        static public Response fromEntity(RecruitmentBoard recruitmentBoard) {
             return Response.builder()
                     .boardId(recruitmentBoard.getBoardId())
                     .writerId(recruitmentBoard.getWriterId().getAccountId())
@@ -36,6 +56,12 @@ public class RecruitmentBoardReadDto {
                     .text(recruitmentBoard.getText())
                     .boardType(recruitmentBoard.getBoardType())
                     .isDeleted(recruitmentBoard.getIsDeleted())
+                    .payment_max(recruitmentBoard.getPayment_max())
+                    .workStartDate(recruitmentBoard.getWorkStartDate())
+                    .workEndDate(recruitmentBoard.getWorkEndDate())
+                    .recStartDate(recruitmentBoard.getRecStartDate())
+                    .recEndDate(recruitmentBoard.getRecEndDate())
+                    //.recruitmentBoardTagList(recruitmentBoard.getRecruitmentBoardTagList())
                     .build();
         }
 
@@ -43,4 +69,5 @@ public class RecruitmentBoardReadDto {
 
     // 전체조회
 
+    //static public class ListResponse
 }

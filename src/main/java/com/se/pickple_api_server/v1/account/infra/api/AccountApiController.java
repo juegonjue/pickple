@@ -1,9 +1,6 @@
 package com.se.pickple_api_server.v1.account.infra.api;
 
-import com.se.pickple_api_server.v1.account.application.dto.AccountCreateDto;
-import com.se.pickple_api_server.v1.account.application.dto.AccountDeleteDto;
-import com.se.pickple_api_server.v1.account.application.dto.AccountReadDto;
-import com.se.pickple_api_server.v1.account.application.dto.AccountSignInDto;
+import com.se.pickple_api_server.v1.account.application.dto.*;
 import com.se.pickple_api_server.v1.account.application.service.*;
 import com.se.pickple_api_server.v1.common.infra.dto.PageRequest;
 import com.se.pickple_api_server.v1.common.infra.dto.SuccessResponse;
@@ -11,8 +8,6 @@ import com.se.pickple_api_server.v1.oauth.infra.dto.userinfo.OauthUserInfo;
 import com.se.pickple_api_server.v1.oauth.infra.oauth.OauthType;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -34,6 +29,7 @@ public class AccountApiController {
     private final AccountDeleteService accountDeleteService;
     private final AccountReadService accountReadService;
     private final AccountSocialService accountSocialService;
+    private final AccountUpdateService accountUpdateService;
 
     // test회원가입 -추후삭제
     @ApiOperation(value = "(test) 일반 회원 가입")
@@ -110,11 +106,19 @@ public class AccountApiController {
     // public SuccessResponse
 
     // 유저로딩 부분
-   @ApiOperation(value = "[유저로딩]내 정보 요청")
+    @ApiOperation(value = "[유저로딩]내 정보 요청")
     @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
     @GetMapping(path = "/account/userloading")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<AccountReadDto.Response> userLoading() {
         return new SuccessResponse(HttpStatus.OK.value(), "userloading에 성공하였습니다.", accountReadService.getUserloading());
     }
+
+    // 회원 수정
+//    @ApiOperation(value = "회원 수정")
+//    @PutMapping(path = "/account")
+//    @ResponseStatus(value = HttpStatus.OK)
+//    public SuccessResponse updateAccount(@RequestBody @Validated AccountUpdateDto.Request request) {
+//        return new SuccessResponse(HttpStatus.OK.value(),"",accountUpdateService.update(request));
+//    }
 }
