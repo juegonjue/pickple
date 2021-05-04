@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -38,13 +39,17 @@ public class RecruitmentBoardReadDto {
 
         private Integer paymentMax;
 
-        private LocalDateTime workStartDate;
+        //@DateTimeFormat
+        private String workStartDate;
 
-        private LocalDateTime workEndDate;
+        @DateTimeFormat
+        private String workEndDate;
 
-        private LocalDateTime recStartDate;
+        @DateTimeFormat
+        private String recStartDate;
 
-        private LocalDateTime recEndDate;
+        @DateTimeFormat
+        private String recEndDate;
 
         //private List<RecruitmentBoardTag> recruitmentBoardTagList;
 
@@ -58,10 +63,10 @@ public class RecruitmentBoardReadDto {
                     .isDeleted(recruitmentBoard.getIsDeleted())
                     .recNumber(recruitmentBoard.getRecNumber())
                     .paymentMax(recruitmentBoard.getPaymentMax())
-                    .workStartDate(recruitmentBoard.getWorkStartDate())
-                    .workEndDate(recruitmentBoard.getWorkEndDate())
-                    .recStartDate(recruitmentBoard.getRecStartDate())
-                    .recEndDate(recruitmentBoard.getRecEndDate())
+                    .workStartDate(recruitmentBoard.getWorkStartDate().toString())
+                    .workEndDate(recruitmentBoard.getWorkEndDate().toString())
+                    .recStartDate(recruitmentBoard.getRecStartDate().toString())
+                    .recEndDate(recruitmentBoard.getRecEndDate().toString())
                     //.recruitmentBoardTagList(recruitmentBoard.getRecruitmentBoardTagList())
                     .build();
         }
