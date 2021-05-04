@@ -15,7 +15,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Pageable;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,6 +28,7 @@ public class BoardApiController {
     // UC-RB-01 모집글 등록
     @ApiOperation(value = "모집글 등록")
     @PostMapping(path = "/recboard")
+    @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
     @ResponseStatus(value = HttpStatus.CREATED)
     public SuccessResponse<Long> create(@RequestBody @Validated RecruitmentBoardCreateDto.Request request) {
         return new SuccessResponse(HttpStatus.CREATED.value(), "모집글 등록에 성공했습니다.", recruitmentBoardCreateService.create(request));
@@ -46,6 +46,7 @@ public class BoardApiController {
     // UC-RB-03 모집글 상세 조회
     @ApiOperation(value = "모집글 상세조회")
     @GetMapping(path = "/recboard/{boardId}")
+    @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<RecruitmentBoardReadDto.Response> readRecruitmentBoardById(@PathVariable(name = "boardId") Long boardId) {
         return new SuccessResponse(HttpStatus.OK.value(), "모집글 상세 조회 성공.", recruitmentBoardReadService.readById(boardId));

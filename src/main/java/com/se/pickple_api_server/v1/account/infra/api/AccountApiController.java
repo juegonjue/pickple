@@ -89,6 +89,7 @@ public class AccountApiController {
     @ApiOperation(value = "[관리자] 사용자 목록 조회 (페이징)")
     @GetMapping(path = "/account")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<Pageable> readAllAccount(@Validated PageRequest pageRequest){
         return new SuccessResponse(HttpStatus.OK.value(), "성공적으로 사용자 목록 조회 페이징", accountReadService.readAll(pageRequest.of()));
     }
@@ -97,6 +98,7 @@ public class AccountApiController {
     // UC-AC-07 회원 정보 조회 (관리자)
     @ApiOperation(value = "[관리자] 사용자 idString로 회원 조회")
     @GetMapping(path = "/account/{idString}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<AccountReadDto.Response> readAccountById(@PathVariable(name = "idString") String idString) {
         return new SuccessResponse(HttpStatus.OK.value(),"성공적으로 사용자 정보를 조회하였습니다.", accountReadService.readByIdString(idString));

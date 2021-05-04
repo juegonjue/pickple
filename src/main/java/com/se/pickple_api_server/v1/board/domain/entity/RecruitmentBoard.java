@@ -21,13 +21,13 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RecruitmentBoard extends Board {
 
-    @Column(nullable = false, columnDefinition = "int default 0")
+    @Column(nullable = false)
     private Integer recNumber;
 
-    @Column(nullable = false, columnDefinition = "int default 0")
+    @Column(nullable = false)
     private Integer paymentMin;
 
-    @Column(nullable = false, columnDefinition = "int default 0")
+    @Column(nullable = false)
     private Integer paymentMax;
 
     @Column(nullable = false)
@@ -36,7 +36,7 @@ public class RecruitmentBoard extends Board {
     @Column(nullable = false)
     private LocalDateTime workEndDate;
 
-    @Column(nullable = false, columnDefinition = "datetime default now()")
+    @Column(nullable = false)
     private LocalDateTime recStartDate;
 
     @Column(nullable = false)

@@ -1,12 +1,9 @@
 package com.se.pickple_api_server.v1.board.application.dto;
 
-import com.se.pickple_api_server.v1.account.domain.entity.Account;
 import com.se.pickple_api_server.v1.board.domain.entity.BoardType;
-import com.se.pickple_api_server.v1.recboard_tag.domain.entity.RecruitmentBoardTag;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
-import org.hibernate.internal.build.AllowSysOut;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -67,7 +64,7 @@ public class RecruitmentBoardCreateDto {
     @AllArgsConstructor
     static public class TagDto {
         @ApiModelProperty(notes = "태그 번호", example = "1")
-       private Long tagId;
+        private Long tagId;
     }
 
     @ApiModel("모집글 작성자 불러오기")

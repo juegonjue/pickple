@@ -51,7 +51,7 @@ public class RecruitmentBoardReadDto {
         @DateTimeFormat
         private String recEndDate;
 
-        //private List<RecruitmentBoardTag> recruitmentBoardTagList;
+        private List<RecruitmentBoardTag> recruitmentBoardTagList;
 
         static public Response fromEntity(RecruitmentBoard recruitmentBoard) {
             return Response.builder()

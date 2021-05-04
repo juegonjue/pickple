@@ -41,8 +41,8 @@ public class TagApiController {
 
     // UC-TG-02 태그(전체) 조회_페이징
     @ApiOperation(value = "태그 조회 _ 페이징")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping(path = "/tag")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<PageImpl> readAllPaging(@Validated PageRequest pageRequest) {
         return new SuccessResponse(HttpStatus.OK.value(), "모든 태그 목록 조회(페이징)에 성공했습니다", tagReadService.readAllPaging(pageRequest.of()));
@@ -58,9 +58,10 @@ public class TagApiController {
 
 
 
-    // UC-TG-04 태그 삭제F
+    // UC-TG-04 태그 삭제
     @ApiOperation(value = "태그 삭제")
     @DeleteMapping(path = "/tag/{tagId}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse delete(@PathVariable(value = "tagId") Long id) {
         tagDeleteService.delete(id);

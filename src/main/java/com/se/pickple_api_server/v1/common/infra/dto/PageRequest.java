@@ -17,7 +17,7 @@ public class PageRequest {
   @ApiModelProperty(example = "1", notes = "페이지, 1 이상이야 함")
   @Min(value = 1)
   private int page;
-  @ApiModelProperty(example = "10", notes = "페이지의 사이즈, 1 이상이여ㅇ어야 함")
+  @ApiModelProperty(example = "10", notes = "페이지의 사이즈, 1 이상이어야 함")
   @Min(value = 10)
   private int size;
 

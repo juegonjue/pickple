@@ -10,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +20,6 @@ import java.util.stream.Collectors;
 public class AccountReadService {
 
     private final AccountJpaRepository accountJpaRepository;
-    private final AccountContextService accountContextService;
 
     // id로 조회
     public AccountReadDto.Response readById(Long accountId) {
