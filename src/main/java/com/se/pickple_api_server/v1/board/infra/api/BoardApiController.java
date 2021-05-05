@@ -39,7 +39,7 @@ public class BoardApiController {
     @ApiOperation(value = "모집글 목록 조회 (페이징)")
     @GetMapping(path = "/recboard")
     @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResponse<PageImpl<RecruitmentBoardReadDto.Response>> readAll(@Validated PageRequest pageRequest) {
+    public SuccessResponse<PageImpl<RecruitmentBoardReadDto.ListResponse>> readAll(@Validated PageRequest pageRequest) {
         return new SuccessResponse(HttpStatus.OK.value(), "모집글 전체 목록 페이징 성공", recruitmentBoardReadService.readAll(pageRequest.of()));
     }
 

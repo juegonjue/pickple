@@ -23,6 +23,7 @@ public class RecruitmentBoardReadService {
     private final RecruitmentBoardJpaRepository recruitmentBoardJpaRepository;
 
     // 해당 페이지 상세조회
+    //@Transactional
     public RecruitmentBoardReadDto.Response readById(Long boardId) {
         RecruitmentBoard recruitmentBoard = recruitmentBoardJpaRepository.findById(boardId).orElseThrow(()->new BusinessException(BoardErrorCode.NO_SUCH_BOARD));
         return RecruitmentBoardReadDto.Response.fromEntity(recruitmentBoard);
@@ -31,10 +32,10 @@ public class RecruitmentBoardReadService {
     // 페이징 목록조회
     public PageImpl readAll(Pageable pageable) {
         Page<RecruitmentBoard> recruitmentBoardPage = recruitmentBoardJpaRepository.findAll(pageable);
-        List<RecruitmentBoardReadDto.Response> responseList = recruitmentBoardPage
+        List<RecruitmentBoardReadDto.ListResponse> listResponseList = recruitmentBoardPage
                 .get()
-                .map(recruitmentBoard -> RecruitmentBoardReadDto.Response.fromEntity(recruitmentBoard))
+                .map(recruitmentBoard -> RecruitmentBoardReadDto.ListResponse.fromEntity(recruitmentBoard))
                 .collect(Collectors.toList());
-        return new PageImpl(responseList, recruitmentBoardPage.getPageable(), recruitmentBoardPage.getTotalElements());
+        return new PageImpl(listResponseList, recruitmentBoardPage.getPageable(), recruitmentBoardPage.getTotalElements());
     }
 }
