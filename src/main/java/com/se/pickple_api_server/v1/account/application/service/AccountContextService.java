@@ -33,27 +33,35 @@ public class AccountContextService implements UserDetailsService {
   @Value("${spring.security.anonymous.pw}")
   private String ANONYMOUS_PW;
 
-  @Value("${spring.security.anonymous.auth}")
-  private String ANONYMOUS_AUTH;
-
   @Override
   public UserDetails loadUserByUsername(String accountId) throws UsernameNotFoundException {
     Account account = accountJpaRepository.findById(Long.parseLong(accountId))
         .orElseThrow(() -> new BusinessException(AccountErrorCode.NO_SUCH_ACCOUNT));
     List<GrantedAuthority> grantedAuthorities = Arrays.asList(new SimpleGrantedAuthority(account.getAccountType().toString()));
-    return new User(account.getIdString(), "", grantedAuthorities);
+    return new User(String.valueOf(account.getAccountId()), "", grantedAuthorities);
   }
 
   public UserDetails loadDefaultGroupAuthorities() throws UsernameNotFoundException {
-    List<GrantedAuthority> grantedAuthorities = Arrays.asList(new SimpleGrantedAuthority(ANONYMOUS_AUTH));
+    List<GrantedAuthority> grantedAuthorities = Arrays.asList(new SimpleGrantedAuthority("UNKNOWN"));
     return new User(ANONYMOUS_ID, ANONYMOUS_PW, grantedAuthorities);
   }
+
+  public Account getContextAccount(){
+    return accountJpaRepository.findById(getCurrentAccountId())
+            .orElseThrow(() -> new BusinessException(AccountErrorCode.NO_SUCH_ACCOUNT));
+  }
+
+  private Long getCurrentAccountId() {
+    return Long.parseLong(SecurityContextHolder.getContext().getAuthentication().getName());
+  }
+
 
   public boolean hasAuthority(String auth) {
     Set<String> authorities = AuthorityUtils
         .authorityListToSet(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
     return authorities.contains(auth);
   }
+
 
   public boolean isOwner(Account account) {
     if(SecurityContextHolder.getContext().getAuthentication() == null || SecurityContextHolder.getContext().getAuthentication().getName() == null)
@@ -63,8 +71,15 @@ public class AccountContextService implements UserDetailsService {
 
     if(id.equals(ANONYMOUS_ID))
       return false;
-    if(!id.equals(account.getIdString()))
+    if(!id.equals(String.valueOf(account.getAccountId())))
       return false;
     return true;
+  }
+
+  public boolean isOwner(Long accountId) {
+    if(accountId == null)
+      return false;
+    Account account = accountJpaRepository.findById(accountId).orElseThrow(() -> new BusinessException(AccountErrorCode.NO_SUCH_ACCOUNT));
+    return isOwner(account);
   }
 }

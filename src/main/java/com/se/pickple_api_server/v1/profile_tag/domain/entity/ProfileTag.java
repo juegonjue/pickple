@@ -20,14 +20,22 @@ public class ProfileTag extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(nullable = false, name = "profile_id" , referencedColumnName = "profileId")
-    private Profile profileId;
+    private Profile profile;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(nullable = false, name = "tag_id" , referencedColumnName = "tagId")
-    private Tag tagId;
+    private Tag tag;
 
-    public ProfileTag(Profile profileId, Tag tagId) {
-        this.profileId = profileId;
-        this.tagId = tagId;
+    @Builder
+    public ProfileTag(Long profileTagId, Profile profile, Tag tag) {
+        this.profileTagId = profileTagId;
+        this.profile = profile;
+        this.tag = tag;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+        if (!profile.getProfileTagList().contains(this))
+            profile.addTag(this);
     }
 }

@@ -22,6 +22,8 @@ public class AccountUpdateService {
         // TODO 권한 확인 로직 추가 필요
         if (request.getId() != null)
             updateStudentId(account, request.getNewStudentId());
+        if (request.getEmail() != null)
+            updateEmail(account, request.getEmail());
 
         accountJpaRepository.save(account);
         return true;
@@ -30,4 +32,6 @@ public class AccountUpdateService {
     public void updateStudentId(Account account, String newStudentId) {
         account.updateStudentId(newStudentId);
     }
+
+    public void updateEmail(Account account, String newEmail) { account.updateEmail(newEmail); }
 }

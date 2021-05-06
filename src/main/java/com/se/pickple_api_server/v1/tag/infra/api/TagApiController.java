@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +32,7 @@ public class TagApiController {
 
     // UC-TG-01 태그 등록
     @ApiOperation(value = "태그 등록")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping(path = "/tag")
     @ResponseStatus(value = HttpStatus.CREATED)
     public SuccessResponse<Long> create(@RequestBody @Validated TagCreateDto.Request request) {
@@ -40,18 +42,26 @@ public class TagApiController {
     // UC-TG-02 태그(전체) 조회_페이징
     @ApiOperation(value = "태그 조회 _ 페이징")
     @GetMapping(path = "/tag")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResponse<PageImpl> readAllPaging(@Validated PageRequest pageRequest)
-    {
+    public SuccessResponse<PageImpl> readAllPaging(@Validated PageRequest pageRequest) {
         return new SuccessResponse(HttpStatus.OK.value(), "모든 태그 목록 조회(페이징)에 성공했습니다", tagReadService.readAllPaging(pageRequest.of()));
     }
 
     // UC-TG-03 태그 검색(어 기반 조회)
+    @ApiOperation(value = "태그 조회 (검색어기반)")
+    @PostMapping(path = "/tag/search/{keyword}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SuccessResponse<List<TagReadDto.Response>> readKeyword(@PathVariable(name = "keyword") String keyword ) {
+        return new SuccessResponse(HttpStatus.OK.value(), "검색어 기반 태그 목록 조회 성공", tagReadService.readMatchedKeyword(keyword));
+    }
+
 
 
     // UC-TG-04 태그 삭제
     @ApiOperation(value = "태그 삭제")
     @DeleteMapping(path = "/tag/{tagId}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse delete(@PathVariable(value = "tagId") Long id) {
         tagDeleteService.delete(id);

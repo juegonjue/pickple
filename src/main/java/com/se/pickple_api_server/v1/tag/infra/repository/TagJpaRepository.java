@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface TagJpaRepository extends JpaRepository<Tag, Long> {
     Optional<Tag> findByTagName(String tagName);
-    List<Tag> findByTagNameContaining(String keyword);
+    List<Tag> findByTagNameContainsIgnoreCase(String keyword);
 }
 

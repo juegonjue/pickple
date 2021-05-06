@@ -40,16 +40,16 @@ public class AccountCreateService {
     @Transactional
     public Long signUp(AccountCreateDto.Request request) {
 
-        if (accountJpaRepository.findByIdString(request.getId()).isPresent())
+        if (accountJpaRepository.findByIdString(request.getIdString()).isPresent())
             throw new BusinessException(AccountErrorCode.DUPLICATED_ID);
         Account account = Account.builder()
-                .idString(request.getId())
+                .idString(request.getIdString())
                 .name(request.getName())
-                .accountType(request.getAccountType())
+                .accountType(AccountType.MEMBER)
                 .email(request.getEmail())
-                .isCertified(request.getIsCertified())
+                .isCertified(0)
                 .registerType(request.getRegisterType())
-                .isDeleted((request.getIsDeleted()))
+                .isDeleted(0)
                 .build();
         accountJpaRepository.save(account);
         return account.getAccountId();

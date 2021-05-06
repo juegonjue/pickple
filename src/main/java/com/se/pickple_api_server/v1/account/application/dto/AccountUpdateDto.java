@@ -6,7 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 public class AccountUpdateDto {
 
@@ -19,7 +21,14 @@ public class AccountUpdateDto {
         @ApiModelProperty(name="사용자 아이디")
         private String id;
 
+        @Size(min = 8, max = 20)
         @ApiModelProperty(name="변경할 학번", example = "20100000")
         private String newStudentId;
+
+        @Size(min = 4, max = 40)
+        @Email
+        @ApiModelProperty(name = "변경할 이메일", example = "test@gmail.com")
+        private String email;
+
     }
 }

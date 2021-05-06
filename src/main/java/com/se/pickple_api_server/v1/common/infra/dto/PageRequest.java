@@ -7,8 +7,6 @@ import javax.validation.constraints.Min;
 import lombok.*;
 import org.springframework.data.domain.Sort;
 
-import javax.validation.constraints.Size;
-
 @ApiModel("페이지 요청")
 @Data
 @Builder
@@ -16,11 +14,11 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class PageRequest {
 
-  @ApiModelProperty(example = "1", notes = "페이지, 1 이상이여야 함")
+  @ApiModelProperty(example = "1", notes = "페이지, 1 이상이야 함")
   @Min(value = 1)
   private int page;
-  @ApiModelProperty(example = "10", notes = "페이지의 사이즈, 1 이상이여야 함")
-  @Min(value = 10)
+  @ApiModelProperty(example = "8", notes = "페이지의 사이즈, 8 이상이어야 함")
+  @Min(value = 8)
   private int size;
 
   @ApiModelProperty(example = "ASC", notes = "정렬 방향, 기준(생성일)")
@@ -31,8 +29,8 @@ public class PageRequest {
   }
 
   public void setSize(int size) {
-    int DEFAULT_SIZE = 10;
-    int MAX_SIZE = 50;
+    int DEFAULT_SIZE = 8;
+    int MAX_SIZE = 20;
     this.size = size > MAX_SIZE ? DEFAULT_SIZE : size;
   }
 

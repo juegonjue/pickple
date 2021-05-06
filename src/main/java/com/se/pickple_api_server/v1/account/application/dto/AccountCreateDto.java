@@ -12,34 +12,26 @@ import javax.validation.constraints.Size;
 public class AccountCreateDto {
 
     @Data
+    @Builder
     @NoArgsConstructor
     @AllArgsConstructor
     @ApiModel("회원정보 등록 요청")
-    @Builder
     static public class Request {
 
-        @ApiModelProperty(example = "account", notes = "아이디")
-        private String id;
+        @ApiModelProperty(example = "test", notes = "아이디")
+        private String idString;    // id -> idString 시
 
-        @ApiModelProperty(example = "name", notes = "이름")
+        @ApiModelProperty(example = "홍길동", notes = "이름")
         @Size(min = 2, max = 20)
         private String name;
-
-        @ApiModelProperty(example = "MEMBER", notes = "사용자 타입")
-        private AccountType accountType;
 
         @ApiModelProperty(example = "test@naver.com", notes = "이메일")
         @Size(min = 4, max = 40)
         private String email;
 
-        @ApiModelProperty(example = "0", notes = "금오공대생 인증 여부")
-        private Integer isCertified;
-
         @ApiModelProperty(example = "PICKPLE", notes = "사용자 유입 경로")
         private RegisterType registerType;
 
-        @ApiModelProperty(example = "0", notes = "사용자 탈퇴 여부")
-        private Integer isDeleted;
 
     }
 

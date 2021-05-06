@@ -18,24 +18,20 @@ public class AccountSignInService {
     private final JwtTokenResolver jwtTokenResolver;
     private final AccountJpaRepository accountJpaRepository;
 
+    // accountId로 로그인
     public AccountSignInDto.Response signIn(Long id) {
-
         Account account = accountJpaRepository.findById(id)
                 .orElseThrow(()->new BusinessException(AccountErrorCode.NO_SUCH_ACCOUNT));
-
-        System.out.println("AccountSignInService.signIn");
         String token = jwtTokenResolver.createToken(String.valueOf(account.getAccountId()));
         return new AccountSignInDto.Response(token);
     }
 
-    public AccountSignInDto.Response signInString(String id) {
-
-        Account account = accountJpaRepository.findByIdString(id)
+    // 로그인 시 idString으로 로그인할 때 --> signIn(Long id)로 진행
+    public AccountSignInDto.Response signIn(String idString) {
+        Account account = accountJpaRepository.findByIdString(idString)
                 .orElseThrow(()->new BusinessException(AccountErrorCode.NO_SUCH_ACCOUNT));
-
-        System.out.println("AccountSignInService.signInString");
-        String token = jwtTokenResolver.createToken(String.valueOf(account.getAccountId()));
-        return new AccountSignInDto.Response(token);
+        return signIn(account.getAccountId());
     }
+
 
 }

@@ -1,5 +1,6 @@
 package com.se.pickple_api_server.v1.common.infra.security.config;
 
+//import com.se.pickple_api_server.v1.common.infra.security.filter.JwtAuthenticationFilters;
 import com.se.pickple_api_server.v1.common.infra.security.filter.JwtAuthenticationFilters;
 import com.se.pickple_api_server.v1.common.infra.security.provider.JwtTokenResolver;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/v1/signup", "/api/v1/signin").permitAll()
+                .antMatchers("/api/v1/signup", "/api/v1/signin","/api/v1/signin/*").permitAll()
                 .antMatchers("/swagger-resources/**", "/swagger-ui.html", "/webjars/**").permitAll()
                 .anyRequest().authenticated()
                 .and()

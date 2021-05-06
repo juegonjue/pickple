@@ -3,6 +3,7 @@ package com.se.pickple_api_server.v1.board.domain.entity;
 import com.se.pickple_api_server.v1.common.domain.entity.BaseEntity;
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -18,7 +19,7 @@ public abstract class Board extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boardId;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name="account_id",referencedColumnName = "accountId",nullable = false)
     private Account writerId;
 
@@ -34,10 +35,18 @@ public abstract class Board extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private BoardType boardType;
 
-    @Column(nullable = false, columnDefinition = "int default 0")
+    @Column(nullable = false)
     private Integer hit;
 
-    @Column(nullable = false, columnDefinition = "int default 0")
+    @Column(nullable = false)
     private Integer isDeleted;
 
+    public Board(Account writerId, @Size(min = 2, max = 50) String title, @Size(min = 2, max = 2000) String text, BoardType boardType, Integer hit, Integer isDeleted) {
+        this.writerId = writerId;
+        this.title = title;
+        this.text = text;
+        this.boardType = boardType;
+        this.hit = hit;
+        this.isDeleted = isDeleted;
+    }
 }
