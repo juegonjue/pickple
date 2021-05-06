@@ -24,6 +24,8 @@ public class RecruitmentBoardReadDto {
 
         private Long writerId;
 
+        private String idString;
+
         private String title;
 
         private String text;
@@ -55,6 +57,7 @@ public class RecruitmentBoardReadDto {
             builder
                     .boardId(recruitmentBoard.getBoardId())
                     .writerId(recruitmentBoard.getWriterId().getAccountId())
+                    .idString(recruitmentBoard.getWriterId().getIdString())
                     .title(recruitmentBoard.getTitle())
                     .text(recruitmentBoard.getText())
                     .boardType(recruitmentBoard.getBoardType())
@@ -66,7 +69,7 @@ public class RecruitmentBoardReadDto {
                     .recStartDate(recruitmentBoard.getRecStartDate().toString())
                     .recEndDate(recruitmentBoard.getRecEndDate().toString());
 
-            // 태그리스트 build
+            // 모집글의 태그리스트 build
             builder.recruitmentBoardTagList(
                     recruitmentBoard.getRecruitmentBoardTagList()
                             .stream()
@@ -89,6 +92,8 @@ public class RecruitmentBoardReadDto {
         private Long boardId;
 
         private Long writerId;
+
+        private String idString;
 
         private String title;
 
@@ -118,6 +123,7 @@ public class RecruitmentBoardReadDto {
             builder
                     .boardId(recruitmentBoard.getBoardId())
                     .writerId(recruitmentBoard.getWriterId().getAccountId())
+                    .idString(recruitmentBoard.getWriterId().getIdString())
                     .title(recruitmentBoard.getTitle())
                     .text(recruitmentBoard.getText())
                     .isDeleted(recruitmentBoard.getIsDeleted())
@@ -139,18 +145,17 @@ public class RecruitmentBoardReadDto {
 
     }
 
-
     @Data
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
     static public class TagDto {
-        private Long tagId;
+        //private Long tagId;
         private String tagName;
 
         static public TagDto fromEntity(RecruitmentBoardTag recruitmentBoardTag) {
             return TagDto.builder()
-                    .tagId(recruitmentBoardTag.getTag().getTagId())
+                    ///.tagId(recruitmentBoardTag.getTag().getTagId())
                     .tagName(recruitmentBoardTag.getTag().getTagName())
                     .build();
         }

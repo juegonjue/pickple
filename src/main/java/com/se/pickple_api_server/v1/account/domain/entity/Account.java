@@ -44,14 +44,14 @@ public class  Account extends BaseEntity{
     @Email
     private String email;
 
-    @Column(nullable = false, columnDefinition = "int default 0")
+    @Column(nullable = false)
     private Integer isCertified;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private RegisterType registerType;
 
-    @Column(nullable = false, columnDefinition = "int default 0")
+    @Column(nullable = false)
     private Integer isDeleted;  // 0:존재, 1:삭제
 
     @Builder

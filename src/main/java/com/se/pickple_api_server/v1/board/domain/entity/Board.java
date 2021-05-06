@@ -35,10 +35,10 @@ public abstract class Board extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private BoardType boardType;
 
-    @Column(nullable = false, columnDefinition = "int default 0")
+    @Column(nullable = false)
     private Integer hit;
 
-    @Column(nullable = false, columnDefinition = "int default 0")
+    @Column(nullable = false)
     private Integer isDeleted;
 
     public Board(Account writerId, @Size(min = 2, max = 50) String title, @Size(min = 2, max = 2000) String text, BoardType boardType, Integer hit, Integer isDeleted) {

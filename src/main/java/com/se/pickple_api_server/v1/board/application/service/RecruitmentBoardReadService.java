@@ -23,7 +23,6 @@ public class RecruitmentBoardReadService {
     private final RecruitmentBoardJpaRepository recruitmentBoardJpaRepository;
 
     // 해당 페이지 상세조회
-    //@Transactional
     public RecruitmentBoardReadDto.Response readById(Long boardId) {
         RecruitmentBoard recruitmentBoard = recruitmentBoardJpaRepository.findById(boardId).orElseThrow(()->new BusinessException(BoardErrorCode.NO_SUCH_BOARD));
         return RecruitmentBoardReadDto.Response.fromEntity(recruitmentBoard);

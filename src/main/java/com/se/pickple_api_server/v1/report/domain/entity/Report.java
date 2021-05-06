@@ -26,11 +26,11 @@ public class Report extends BaseEntity {
     @Column(nullable = false)
     private String text;
 
-    @Column(nullable = false, columnDefinition = "varchar(20) default 'BEFORE'")
+    @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private ReportState reportState = ReportState.BEFORE;
 
-    @Column(nullable = false, columnDefinition = "varchar(20) default 'NONE'")
+    @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private ReportResult reportResult = ReportResult.NONE;
 

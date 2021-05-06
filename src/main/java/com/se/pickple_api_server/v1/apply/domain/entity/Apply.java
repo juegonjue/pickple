@@ -28,7 +28,7 @@ public class Apply extends BaseEntity {
     @JoinColumn(name = "recruitment_board_id", referencedColumnName = "boardId")
     private Board boardId;
 
-    @Column(nullable = false, columnDefinition = "int default 0")
+    @Column(nullable = false)
     private Integer isContracted;
 
     @Size(max = 255)
@@ -39,7 +39,7 @@ public class Apply extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private ReviewState reviewState;
 
-    @Column(nullable = false, columnDefinition = "int default 0")
+    @Column(nullable = false)
     private Integer isDeleted;
 
     @Builder

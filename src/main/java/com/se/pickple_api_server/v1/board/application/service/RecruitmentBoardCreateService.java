@@ -54,8 +54,8 @@ public class RecruitmentBoardCreateService {
     }
 
 
-    private Account getWriter(RecruitmentBoardCreateDto.WriterDto writerDto) {
-        return accountJpaRepository.findById(writerDto.getWriterId()).orElseThrow(()->new BusinessException(AccountErrorCode.NO_SUCH_ACCOUNT));
+    private Account getWriter(RecruitmentBoardCreateDto.Account account) {
+        return accountJpaRepository.findById(account.getWriterId()).orElseThrow(()->new BusinessException(AccountErrorCode.NO_SUCH_ACCOUNT));
     }
 
     private List<RecruitmentBoardTag> getTags(List<RecruitmentBoardCreateDto.TagDto> tagDtoList) {

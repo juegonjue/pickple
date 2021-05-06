@@ -25,7 +25,7 @@ public class BookMark{
     @JoinColumn(nullable = false, name="board_id", referencedColumnName = "boardId")
     private Board boardId;
 
-    @Column(nullable = false, columnDefinition = "int default 0")
+    @Column(nullable = false)
     private Integer isDeleted;
 
     @Builder
