@@ -53,17 +53,14 @@ public class RecruitmentBoardCreateService {
         return recruitmentBoard.getBoardId();
     }
 
-
     private Account getWriter(RecruitmentBoardCreateDto.Account account) {
         return accountJpaRepository.findById(account.getWriterId()).orElseThrow(()->new BusinessException(AccountErrorCode.NO_SUCH_ACCOUNT));
     }
 
     private List<RecruitmentBoardTag> getTags(List<RecruitmentBoardCreateDto.TagDto> tagDtoList) {
         return tagDtoList.stream()
-                .map(tagDto ->
-                        RecruitmentBoardTag.builder()
-                        .tag(tagJpaRepository.findById(tagDto.getTagId())
-                                .orElseThrow(() -> new BusinessException(TagErrorCode.NO_SUCH_TAG)))
+                .map(tagDto -> RecruitmentBoardTag.builder()
+                        .tag(tagJpaRepository.findById(tagDto.getTagId()).orElseThrow(() -> new BusinessException(TagErrorCode.NO_SUCH_TAG)))
                         .build())
                 .collect(Collectors.toList());
     }

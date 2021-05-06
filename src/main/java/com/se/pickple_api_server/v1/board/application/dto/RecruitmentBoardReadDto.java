@@ -150,12 +150,12 @@ public class RecruitmentBoardReadDto {
     @NoArgsConstructor
     @AllArgsConstructor
     static public class TagDto {
-        //private Long tagId;
+        private Long tagId;
         private String tagName;
 
         static public TagDto fromEntity(RecruitmentBoardTag recruitmentBoardTag) {
             return TagDto.builder()
-                    ///.tagId(recruitmentBoardTag.getTag().getTagId())
+                    .tagId(recruitmentBoardTag.getTag().getTagId())
                     .tagName(recruitmentBoardTag.getTag().getTagName())
                     .build();
         }

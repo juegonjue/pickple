@@ -1,6 +1,5 @@
 package com.se.pickple_api_server.v1.recboard_tag.domain.entity;
 
-import com.se.pickple_api_server.v1.board.domain.entity.Board;
 import com.se.pickple_api_server.v1.board.domain.entity.RecruitmentBoard;
 import com.se.pickple_api_server.v1.common.domain.entity.BaseEntity;
 import com.se.pickple_api_server.v1.tag.domain.entity.Tag;

@@ -1,5 +1,6 @@
 package com.se.pickple_api_server.v1.profile.application.dto;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -23,22 +24,34 @@ public class ProfileCreateDto {
         @Size(min = 2, max = 20)
         private String kakaoId;
 
-        @ApiModelProperty()
+        @ApiModelProperty(notes = "업무용 이메일", example = "test1@gmail.com")
         @Size(min = 2, max = 20)
         private String workEmail;
 
+        @ApiModelProperty(notes = "블로그 주소", example = "github.com/test1")
+        @Size(max = 255)
         private String blog;
 
+        @ApiModelProperty(notes = "자기소개", example = "자기소개 글입니다.")
+        @Size(min = 2, max = 500)
         private String introduce;
 
         private Integer isOpen;
 
-        // TODO 모집글의 DTO 끌고와도 사용가능?
         @ApiModelProperty(notes = "태그리스트")
         @Singular("tagList")
-        private List<ProfileReadDto.TagDto> tagList;
+        private List<TagDto> tagList;
     }
 
+    @ApiModel("프로필 태그 등록")
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    static public class TagDto {
+        @ApiModelProperty(notes = "태그 번호", example = "1")
+        private Long tagId;
+    }
 
     @ApiModel("프로필 작성자 불러오기")
     @Getter

@@ -22,6 +22,7 @@ public class Profile extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long profileId;
 
+    //@OneToOne(mappedBy = "profile")
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(nullable = false, name = "account_id" , referencedColumnName = "accountId")
     private Account accountId;
