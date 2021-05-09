@@ -12,27 +12,21 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class BookMark{
+public class Bookmark {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long bookMarkId;
+    private Long bookmarkId;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     @JoinColumn(nullable = false, name="account_id", referencedColumnName = "accountId")
-    private Account accountId;
+    private Account account;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     @JoinColumn(nullable = false, name="board_id", referencedColumnName = "boardId")
-    private Board boardId;
+    private Board board;
 
-    @Column(nullable = false)
-    private Integer isDeleted;
-
-    @Builder
-    public BookMark(Long bookMarkId, Account accountId, Board boardId, Integer isDeleted) {
-        this.bookMarkId = bookMarkId;
-        this.accountId = accountId;
-        this.boardId = boardId;
-        this.isDeleted = isDeleted;
+    public Bookmark(Account account, Board board) {
+        this.account = account;
+        this.board = board;
     }
 }
