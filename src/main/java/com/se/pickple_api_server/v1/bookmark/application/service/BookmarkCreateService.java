@@ -29,9 +29,10 @@ public class BookmarkCreateService {
     public Long create(BookmarkCreateDto.Request request) {
 
         Account account = accountContextService.getContextAccount();
-        RecruitmentBoard recruitmentBoard = recruitmentBoardJpaRepository.findById(request.getBoardId()).orElseThrow(() -> new BusinessException(BoardErrorCode.NO_SUCH_BOARD));
+        RecruitmentBoard recruitmentBoard = recruitmentBoardJpaRepository.findById(request.getBoardId())
+                .orElseThrow(() -> new BusinessException(BoardErrorCode.NO_SUCH_BOARD));
 
-        if (bookmarkJpaRepository.findBookmarkByAccountAndBoard_BoardId(account, request.getBoardId()).isPresent())
+        if (bookmarkJpaRepository.findBookmarkByAccountAndBoard(account,recruitmentBoard).isPresent())
             throw new BusinessException(BookmarkErrorCode.DUPLICATED_BOOKMARK);
 
         Bookmark bookmark = new Bookmark(
@@ -41,6 +42,7 @@ public class BookmarkCreateService {
 
         bookmarkJpaRepository.save(bookmark);
         return bookmark.getBookmarkId();
+
     }
 
 }

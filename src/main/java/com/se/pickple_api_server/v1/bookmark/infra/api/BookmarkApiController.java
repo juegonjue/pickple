@@ -3,6 +3,7 @@ package com.se.pickple_api_server.v1.bookmark.infra.api;
 import com.se.pickple_api_server.v1.bookmark.application.dto.BookmarkCreateDto;
 import com.se.pickple_api_server.v1.bookmark.application.dto.BookmarkReadDto;
 import com.se.pickple_api_server.v1.bookmark.application.service.BookmarkCreateService;
+import com.se.pickple_api_server.v1.bookmark.application.service.BookmarkDeleteService;
 import com.se.pickple_api_server.v1.bookmark.application.service.BookmarkReadService;
 import com.se.pickple_api_server.v1.common.infra.dto.SuccessResponse;
 import io.swagger.annotations.Api;
@@ -21,21 +22,32 @@ public class BookmarkApiController {
 
     private final BookmarkCreateService bookmarkCreateService;
     private final BookmarkReadService bookmarkReadService;
+    private final BookmarkDeleteService bookmarkDeleteService;
 
     @ApiOperation(value = "북마크 등록")
     @PostMapping(path = "/bookmark")
+    @PreAuthorize("hasAnyAuthority('ADMIN','MEMBER')")
     @ResponseStatus(value = HttpStatus.CREATED)
     public SuccessResponse<Long> create(@RequestBody @Validated BookmarkCreateDto.Request request) {
         return new SuccessResponse(HttpStatus.CREATED.value(), "북마크 등록 성공", bookmarkCreateService.create(request));
     }
 
 
-    @ApiOperation(value = "내 모든 북마크 불러오기")
+    @ApiOperation(value = "북마크 조회")
     @GetMapping(path = "/bookmark")
     @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<BookmarkReadDto.Response> readMyBookmark() {
         return new SuccessResponse(HttpStatus.OK.value(), "북마크 조회 성공", bookmarkReadService.readAllMyBookmark());
+    }
+
+    @ApiOperation(value = "북마크 해제")
+    @DeleteMapping(path = "/bookmark/{bookmarkId}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','MEMBER')")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SuccessResponse deleteBookmark(@PathVariable(value = "bookmarkId") Long bookmarkId) {
+        bookmarkDeleteService.delete(bookmarkId);
+        return new SuccessResponse(HttpStatus.OK.value(), "북마크 해제 성공");
     }
 
 }

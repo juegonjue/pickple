@@ -6,8 +6,8 @@ import lombok.Getter;
 @Getter
 public enum BookmarkErrorCode implements ErrorCode {
 
-    NO_SUCH_BOOKMARK(400, "BM01", "존재하지 않는 태그"),
-    DUPLICATED_BOOKMARK(401, "BM02", "이미 해당 게시물을 북마크");
+    NO_SUCH_BOOKMARK(400, "BM01", "존재하지 않는 북마크"),
+    DUPLICATED_BOOKMARK(401, "BM02", "이미 해당 게시물에 대한 북마크가 존재함");
 
     private int status;
     private final String code;
