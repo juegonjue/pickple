@@ -42,7 +42,7 @@ public class TagApiController {
     // UC-TG-02 태그(전체) 조회_페이징
     @ApiOperation(value = "태그 조회 _ 페이징")
     @GetMapping(path = "/tag")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    //@PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<PageImpl> readAllPaging(@Validated PageRequest pageRequest) {
         return new SuccessResponse(HttpStatus.OK.value(), "모든 태그 목록 조회(페이징)에 성공했습니다", tagReadService.readAllPaging(pageRequest.of()));

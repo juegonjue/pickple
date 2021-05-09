@@ -88,7 +88,7 @@ public class AccountApiController {
     // UC-AC-06 사용자 목록 조회 (페이징)
     @ApiOperation(value = "[관리자] 사용자 목록 조회 (페이징)")
     @GetMapping(path = "/account")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    //@PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<Pageable> readAllAccount(@Validated PageRequest pageRequest){
         return new SuccessResponse(HttpStatus.OK.value(), "성공적으로 사용자 목록 조회 페이징", accountReadService.readAll(pageRequest.of()));
