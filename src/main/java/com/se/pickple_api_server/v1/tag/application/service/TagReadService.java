@@ -42,11 +42,12 @@ public class TagReadService {
     // 모든 목록 조회
     public List<TagReadDto.Response> readAll() {
         List<Tag> allTags = tagJpaRepository.findAll();
-        List<TagReadDto.Response> responses = allTags
+        List<TagReadDto.Response> allTagsReadDto
+                = allTags
                 .stream()
                 .map(tag -> TagReadDto.Response.fromEntity(tag))
                 .collect(Collectors.toList());
-        return responses;
+        return allTagsReadDto;
 
     }
 

@@ -73,7 +73,7 @@ public class AccountApiController {
     }
 
 
-    // UC-AC-04 회원탈퇴
+    // UC-AC-04 회원탈퇴(본인) 및 회원삭제(관리자)
     @ApiOperation(value = "회원 탈퇴")
     @DeleteMapping(path = "/account")
     @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
@@ -83,12 +83,13 @@ public class AccountApiController {
         return new SuccessResponse(HttpStatus.OK.value(),"성공적으로 삭제되었습니다.");
     }
 
+
     // UC-AC-05 이메일 인증
 
     // UC-AC-06 사용자 목록 조회 (페이징)
     @ApiOperation(value = "[관리자] 사용자 목록 조회 (페이징)")
     @GetMapping(path = "/account")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    //@PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<Pageable> readAllAccount(@Validated PageRequest pageRequest){
         return new SuccessResponse(HttpStatus.OK.value(), "성공적으로 사용자 목록 조회 페이징", accountReadService.readAll(pageRequest.of()));
@@ -113,14 +114,15 @@ public class AccountApiController {
     @GetMapping(path = "/account/userloading")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<AccountReadDto.Response> userLoading() {
-        return new SuccessResponse(HttpStatus.OK.value(), "userloading에 성공하였습니다.", accountReadService.getUserloading());
+        return new SuccessResponse(HttpStatus.OK.value(), "UserLoading 성공.", accountReadService.getUserloading());
     }
 
     // 회원 수정
-//    @ApiOperation(value = "회원 수정")
-//    @PutMapping(path = "/account")
-//    @ResponseStatus(value = HttpStatus.OK)
-//    public SuccessResponse updateAccount(@RequestBody @Validated AccountUpdateDto.Request request) {
-//        return new SuccessResponse(HttpStatus.OK.value(),"",accountUpdateService.update(request));
-//    }
+    @ApiOperation(value = "회원 수정")
+    @PutMapping(path = "/account")
+    @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SuccessResponse updateAccount(@RequestBody @Validated AccountUpdateDto.Request request) {
+        return new SuccessResponse(HttpStatus.OK.value(),"회원 수정 성공",accountUpdateService.update(request));
+    }
 }

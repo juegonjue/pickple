@@ -24,7 +24,8 @@ public class RecruitmentBoardReadDto {
 
         private Long writerId;
 
-        private String idString;
+        private String writerIdString;
+        private String writerName;
 
         private String title;
 
@@ -57,7 +58,8 @@ public class RecruitmentBoardReadDto {
             builder
                     .boardId(recruitmentBoard.getBoardId())
                     .writerId(recruitmentBoard.getWriterId().getAccountId())
-                    .idString(recruitmentBoard.getWriterId().getIdString())
+                    .writerIdString(recruitmentBoard.getWriterId().getIdString())
+                    .writerName(recruitmentBoard.getWriterId().getName())
                     .title(recruitmentBoard.getTitle())
                     .text(recruitmentBoard.getText())
                     .boardType(recruitmentBoard.getBoardType())

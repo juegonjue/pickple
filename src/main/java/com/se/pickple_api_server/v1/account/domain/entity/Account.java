@@ -74,6 +74,10 @@ public class  Account extends BaseEntity{
 
     public void updateEmail(String email) {this.email = email;}
 
+    public void updateAccountType(AccountType accountType) {
+        this.accountType = accountType;
+    }
+
     public void updateIsDeleted(String idString, Integer isDeleted) {
         this.idString = idString;
         this.isDeleted = isDeleted;

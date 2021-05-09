@@ -20,7 +20,8 @@ public class RecruitmentBoardCreateDto {
     static public class Request {
 
         @ApiModelProperty(notes = "작성자 (고유)번호", example = "1")
-        private Account writerId;
+//        private Account writerId;
+        private Long writerId;
 
         @ApiModelProperty(notes = "모집글 제목", example = "제목")
         @Size(min = 2, max = 50)
@@ -67,13 +68,13 @@ public class RecruitmentBoardCreateDto {
         private Long tagId;
     }
 
-    @ApiModel("모집글 작성자 불러오기")
-    @Getter
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    static public class Account {
-        @ApiModelProperty(notes = "글작성자 고유번호",example = "1")
-        private Long writerId;
-    }
+//    @ApiModel("모집글 작성자 불러오기")
+//    @Getter
+//    @Builder
+//    @NoArgsConstructor
+//    @AllArgsConstructor
+//    static public class Account {
+//        @ApiModelProperty(notes = "글작성자 고유번호",example = "1")
+//        private Long writerId;
+//    }
 }
