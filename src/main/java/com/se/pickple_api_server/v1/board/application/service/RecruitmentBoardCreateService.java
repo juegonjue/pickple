@@ -30,7 +30,8 @@ public class RecruitmentBoardCreateService {
     @Transactional
     public Long create(RecruitmentBoardCreateDto.Request request) {
         LocalDateTime now = LocalDateTime.now();
-        Account account = getWriter(request.getWriterId());
+        //Account account = getWriter(request.getWriterId());
+        Account account = accountJpaRepository.findById(request.getWriterId()).orElseThrow(()->new BusinessException(AccountErrorCode.NO_SUCH_ACCOUNT));
         List<RecruitmentBoardTag> tags = getTags(request.getTagList());
         RecruitmentBoard recruitmentBoard = new RecruitmentBoard(
                 account,
@@ -53,9 +54,9 @@ public class RecruitmentBoardCreateService {
         return recruitmentBoard.getBoardId();
     }
 
-    private Account getWriter(RecruitmentBoardCreateDto.Account account) {
-        return accountJpaRepository.findById(account.getWriterId()).orElseThrow(()->new BusinessException(AccountErrorCode.NO_SUCH_ACCOUNT));
-    }
+//    private Account getWriter(RecruitmentBoardCreateDto.Account account) {
+//        return accountJpaRepository.findById(account.getWriterId()).orElseThrow(()->new BusinessException(AccountErrorCode.NO_SUCH_ACCOUNT));
+//    }
 
     private List<RecruitmentBoardTag> getTags(List<RecruitmentBoardCreateDto.TagDto> tagDtoList) {
         return tagDtoList.stream()
