@@ -42,7 +42,7 @@ public class ProfileCreateService {
                 request.getWorkEmail(),
                 request.getBlog(),
                 request.getIntroduce(),
-                0,
+                request.getIsOpen(),
                 tags
         );
 
