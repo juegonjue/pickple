@@ -22,21 +22,12 @@ public class AccountQueryRepositoryImpl extends QuerydslRepositorySupport implem
         QAccount account = QAccount.account;
         JPQLQuery query = from(account);
 
-//        if (searchRequest.getIdString() != null) {
-//            query.where(account.idString.contains(searchRequest.getIdString()));
-//        }
-//
-//        if (searchRequest.getName() != null) {
-//            query.where(account.name.contains(searchRequest.getName()));
-//        }
-
         if (searchRequest.getKeyword() != null) {
             query.where(
                     account.name.contains(searchRequest.getKeyword())
                     .or(account.idString.contains(searchRequest.getKeyword()))
             );
         }
-
         if (searchRequest.getType() != null) {
             query.where(account.accountType.eq(searchRequest.getType()));
         }

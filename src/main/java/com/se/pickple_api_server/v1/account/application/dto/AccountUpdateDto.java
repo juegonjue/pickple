@@ -22,7 +22,7 @@ public class AccountUpdateDto {
     @AllArgsConstructor
     static public class Request {
 
-        @NotEmpty
+        //@NotEmpty
         @ApiModelProperty(name="사용자 아이디")
         private Long accountId;
 //        private String idString;

@@ -20,7 +20,9 @@ public class AccountUpdateService {
     private final AccountContextService accountContextService;
     private final AccountJpaRepository accountJpaRepository;
 
+    @Transactional
     public boolean update(AccountUpdateDto.Request request) {
+
         Account account = accountJpaRepository.findById(request.getAccountId()).orElseThrow(()->new BusinessException(AccountErrorCode.NO_SUCH_ACCOUNT));
 
         Boolean isAdmin = accountContextService.hasAuthority("ADMIN");
@@ -28,8 +30,10 @@ public class AccountUpdateService {
         if (!(accountContextService.isOwner(account) || isAdmin))
             throw new BusinessException(GlobalErrorCode.HANDLE_ACCESS_DENIED);
 
-        if (request.getNewStudentId() != null)
+        if (request.getNewStudentId() != null) {
             updateStudentId(account, request.getNewStudentId());
+        }
+
         if (request.getNewEmail() != null)
             updateEmail(account, request.getNewEmail());
 
@@ -41,9 +45,7 @@ public class AccountUpdateService {
         return true;
     }
 
-    public void updateStudentId(Account account, String newStudentId) {
-        account.updateStudentId(newStudentId);
-    }
+    public void updateStudentId(Account account, String newStudentId) { account.updateStudentId(newStudentId); }
 
     public void updateEmail(Account account, String newEmail) { account.updateEmail(newEmail); }
 

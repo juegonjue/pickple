@@ -22,23 +22,28 @@ public class AccountReadDto {
     @AllArgsConstructor
     @Builder
     static public class Response {
-        private String idString;
-        private String name;
-        private String email;
-        private AccountType accountType;
-        private Integer isDeleted;
 
-        @JsonInclude(Include.NON_NULL)
         private Long accountId;
+
+        private String idString;
+
+        private String name;
+
+        private AccountType accountType;
+
+        private String email;
 
         @JsonInclude(Include.NON_NULL)
         private String studentId;
 
         @JsonInclude(Include.NON_NULL)
-        private Integer isCertified;
+        private RegisterType registerType;
 
         @JsonInclude(Include.NON_NULL)
-        private RegisterType registerType;
+        private Integer isCertified;
+
+        private Integer isDeleted;
+
 
         public static Response fromEntity(Account account) {
             return Response.builder()
@@ -47,8 +52,9 @@ public class AccountReadDto {
                     .name(account.getName())
                     .accountType(account.getAccountType())
                     .email(account.getEmail())
-                    .isCertified(account.getIsCertified())
+                    .studentId(account.getStudentId())
                     .registerType(account.getRegisterType())
+                    .isCertified(account.getIsCertified())
                     .isDeleted(account.getIsDeleted())
                     .build();
         }

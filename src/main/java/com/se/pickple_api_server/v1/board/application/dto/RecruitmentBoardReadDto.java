@@ -152,9 +152,8 @@ public class RecruitmentBoardReadDto {
     @NoArgsConstructor
     @AllArgsConstructor
     static public class SearchRequest {
-        private String boardTitle;
-        private String boardText;
-        private List<TagDto> recruitmentTagList;
+        private String keyword;
+        private List<String> tagString;
 
         @NotNull
         private PageRequest pageRequest;
