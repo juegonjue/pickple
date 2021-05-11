@@ -46,8 +46,8 @@ public class ProfileReadDto {
 
             builder
                     .profileId(profile.getProfileId())
-                    .accountId(profile.getAccountId().getAccountId())
-                    .userName(profile.getAccountId().getName())
+                    .accountId(profile.getAccount().getAccountId())
+                    .userName(profile.getAccount().getName())
                     .kakaoId(profile.getKakaoId())
                     .workEmail(profile.getWorkEmail())
                     .blog(profile.getBlog())
@@ -88,8 +88,8 @@ public class ProfileReadDto {
 
             builder
                     .profileId(profile.getProfileId())
-                    .accountId(profile.getAccountId().getAccountId())
-                    .userName(profile.getAccountId().getName())
+                    .accountId(profile.getAccount().getAccountId())
+                    .userName(profile.getAccount().getName())
                     .introduce(profile.getIntroduce());
 
             // 프로필의 태그리스트 build
@@ -109,12 +109,12 @@ public class ProfileReadDto {
     @NoArgsConstructor
     @AllArgsConstructor
     static public class TagDto {
-       //private Long tagId;
+       private Long tagId;
        private String tagName;
 
        static public TagDto fromEntity (ProfileTag profileTag){
            return TagDto.builder()
-                   //.tagId(profileTag.getTag().getTagId())
+                   .tagId(profileTag.getTag().getTagId())
                    .tagName(profileTag.getTag().getTagName())
                    .build();
         }

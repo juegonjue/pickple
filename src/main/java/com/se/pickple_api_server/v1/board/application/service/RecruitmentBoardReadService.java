@@ -37,4 +37,9 @@ public class RecruitmentBoardReadService {
                 .collect(Collectors.toList());
         return new PageImpl(listResponseList, recruitmentBoardPage.getPageable(), recruitmentBoardPage.getTotalElements());
     }
+
+    // 모집글 검색목록 페이징처리
+//    public PageImpl search(RecruitmentBoardReadDto.SearchRequest pageRequest) {
+//
+//    }
 }

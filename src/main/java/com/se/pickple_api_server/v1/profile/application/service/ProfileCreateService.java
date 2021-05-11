@@ -32,7 +32,7 @@ public class ProfileCreateService {
 
         Account account = getWriter(request.getAccountId());
 
-        if (profileJpaRepository.findByAccountId(account).isPresent())
+        if (profileJpaRepository.findByAccount(account).isPresent())
             throw new BusinessException(ProfileErrorCode.ALREADY_EXIST);
 
         List<ProfileTag> tags = getTags(request.getTagList());

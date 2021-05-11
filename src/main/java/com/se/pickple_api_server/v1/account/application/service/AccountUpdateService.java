@@ -21,7 +21,7 @@ public class AccountUpdateService {
     private final AccountJpaRepository accountJpaRepository;
 
     public boolean update(AccountUpdateDto.Request request) {
-        Account account = accountJpaRepository.findByIdString(request.getIdString()).orElseThrow(()->new BusinessException(AccountErrorCode.NO_SUCH_ACCOUNT));
+        Account account = accountJpaRepository.findById(request.getAccountId()).orElseThrow(()->new BusinessException(AccountErrorCode.NO_SUCH_ACCOUNT));
 
         Boolean isAdmin = accountContextService.hasAuthority("ADMIN");
 

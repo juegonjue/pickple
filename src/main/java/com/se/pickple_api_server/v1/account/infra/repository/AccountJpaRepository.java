@@ -9,6 +9,6 @@ public interface AccountJpaRepository extends JpaRepository<Account, Long> {
 
     @Override
     Optional<Account> findById(Long id);
-
     Optional<Account> findByIdString(String idString);
+
 }
