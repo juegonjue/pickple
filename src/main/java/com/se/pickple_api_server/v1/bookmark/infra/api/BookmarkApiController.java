@@ -6,6 +6,7 @@ import com.se.pickple_api_server.v1.bookmark.application.service.BookmarkCreateS
 import com.se.pickple_api_server.v1.bookmark.application.service.BookmarkDeleteService;
 import com.se.pickple_api_server.v1.bookmark.application.service.BookmarkReadService;
 import com.se.pickple_api_server.v1.common.infra.dto.SuccessResponse;
+import com.sun.net.httpserver.Authenticator;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -50,4 +51,11 @@ public class BookmarkApiController {
         return new SuccessResponse(HttpStatus.OK.value(), "북마크 해제 성공");
     }
 
+    // 현재 모집글의 내 북마크 여부
+    @ApiOperation(value = "현재 모집글에서의 내 북마크 여부")
+    @GetMapping(path = "/bookmark/{boardId}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SuccessResponse<BookmarkReadDto.PresentResponse> readExist(@PathVariable(value = "boardId") Long boardId) {
+        return new SuccessResponse(HttpStatus.OK.value(), "현재 모집글에서 내 북마크여부 조회 성공", bookmarkReadService.readExistInRecboard(boardId));
+    }
 }

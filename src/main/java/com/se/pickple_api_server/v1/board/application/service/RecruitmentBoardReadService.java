@@ -4,6 +4,8 @@ import com.se.pickple_api_server.v1.board.application.dto.RecruitmentBoardReadDt
 import com.se.pickple_api_server.v1.board.application.error.BoardErrorCode;
 import com.se.pickple_api_server.v1.board.domain.entity.RecruitmentBoard;
 import com.se.pickple_api_server.v1.board.infra.repository.RecruitmentBoardJpaRepository;
+import com.se.pickple_api_server.v1.bookmark.application.service.BookmarkReadService;
+import com.se.pickple_api_server.v1.bookmark.infra.repository.BookmarkJpaRepository;
 import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,6 +23,7 @@ import java.util.stream.Collectors;
 public class RecruitmentBoardReadService {
 
     private final RecruitmentBoardJpaRepository recruitmentBoardJpaRepository;
+
 
     // 해당 페이지 상세조회
     public RecruitmentBoardReadDto.Response readById(Long boardId) {
