@@ -30,7 +30,6 @@ public class BookmarkReadDto {
 
     }
 
-    // TODO 현재 페이지에서 내 북마크여부 조회 ? -> 현재 페이지에서 회원의 아이디에 대한 북마크 아이디 돌려줘야함
     @Data
     @Builder
     @NoArgsConstructor

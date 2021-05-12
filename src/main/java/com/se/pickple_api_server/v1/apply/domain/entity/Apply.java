@@ -42,11 +42,10 @@ public class Apply extends BaseEntity {
     private Integer isDeleted;
 
 
-    public Apply(Profile profile, Board board, Integer isContracted, @Size(max = 255) String review, ReviewState reviewState, Integer isDeleted) {
+    public Apply(Profile profile, Board board, Integer isContracted, ReviewState reviewState, Integer isDeleted) {
         this.profile = profile;
         this.board = board;
         this.isContracted = isContracted;
-        this.review = review;
         this.reviewState = reviewState;
         this.isDeleted = isDeleted;
     }

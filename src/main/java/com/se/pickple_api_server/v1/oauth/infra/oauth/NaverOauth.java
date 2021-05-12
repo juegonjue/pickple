@@ -15,7 +15,6 @@ public class NaverOauth implements SocialOauth {
     @Autowired
     private HttpRequestService httpRequestService;
 
-    //TODO 사용자 정보 받아오기
     @Override
     public OauthUserInfo getUserInfo(String token) {
         String header = "Bearer " + token; // Bearer 다음에 공백 추가

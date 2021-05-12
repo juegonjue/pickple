@@ -40,7 +40,6 @@ public class BookmarkReadService {
         return allMyBookmarksReadDto;
     }
 
-    // TODO 현재 모집글의 내 북마크여부 가져오기
     public BookmarkReadDto.ExistResponse isExistInRecboard(Long boardId) {
         RecruitmentBoard recruitmentBoard = recruitmentBoardJpaRepository.findById(boardId)
                 .orElseThrow(() -> new BusinessException(BoardErrorCode.NO_SUCH_BOARD));

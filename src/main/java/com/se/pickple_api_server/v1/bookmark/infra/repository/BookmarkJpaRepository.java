@@ -13,6 +13,5 @@ import java.util.Optional;
 public interface BookmarkJpaRepository extends JpaRepository<Bookmark, Long> {
 
     List<Bookmark> findAllByAccount(Account account);
-    //List<Bookmark> findAllByAccount_AccountId(Long accountId);
     Optional<Bookmark> findBookmarkByAccountAndBoard(Account account, RecruitmentBoard recruitmentBoard);
 }
