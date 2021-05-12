@@ -12,6 +12,7 @@ import java.util.Optional;
 
 public interface ApplyJpaRepository extends JpaRepository<Apply, Long> {
     List<Apply> findAllByProfile_Account(Account account);
+    Optional<Apply> findByProfile_AccountAndBoard(Account account, RecruitmentBoard recruitmentBoard);
     Optional<Apply> findByProfileAndBoard(Profile profile, RecruitmentBoard recruitmentBoard);
 
 }

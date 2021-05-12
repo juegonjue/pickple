@@ -27,7 +27,7 @@ public class BookmarkReadService {
     private final RecruitmentBoardJpaRepository recruitmentBoardJpaRepository;
 
 
-    // (accountId 로)내 모든 북마크 불러오기 --> 보드아이디와 제목 가지고있어야함
+    // 마이페이지 내 모든 북마크 불러오기 --> 보드아이디와 제목 가지고있어야함
     public List<BookmarkReadDto.MyResponse> readAllMyBookmark() {
         Account account = accountContextService.getContextAccount();
         List<Bookmark> allMyBookmarks = bookmarkJpaRepository.findAllByAccount(account);

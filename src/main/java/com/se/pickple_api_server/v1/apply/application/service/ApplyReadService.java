@@ -3,9 +3,15 @@ package com.se.pickple_api_server.v1.apply.application.service;
 import com.se.pickple_api_server.v1.account.application.service.AccountContextService;
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
 import com.se.pickple_api_server.v1.apply.application.dto.ApplyReadDto;
+import com.se.pickple_api_server.v1.apply.application.error.ApplyErrorCode;
 import com.se.pickple_api_server.v1.apply.domain.entity.Apply;
 import com.se.pickple_api_server.v1.apply.infra.repository.ApplyJpaRepository;
+import com.se.pickple_api_server.v1.board.application.error.BoardErrorCode;
+import com.se.pickple_api_server.v1.board.domain.entity.RecruitmentBoard;
 import com.se.pickple_api_server.v1.board.infra.repository.RecruitmentBoardJpaRepository;
+import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
+import com.se.pickple_api_server.v1.profile.application.dto.ProfileReadDto;
+import com.se.pickple_api_server.v1.profile.domain.entity.Profile;
 import com.se.pickple_api_server.v1.profile.infra.repository.ProfileJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,16 +31,7 @@ public class ApplyReadService {
     private final ProfileJpaRepository profileJpaRepository;
 
 
-    // TODO 모집글 상세조회에서 지원 여부
-//    public ProfileReadDto.ExistResponse isExistInRecboard(Long boardId) {
-//        RecruitmentBoard recruitmentBoard = recruitmentBoardJpaRepository.findById(boardId)
-//                .orElseThrow(() -> new BusinessException(BoardErrorCode.NO_SUCH_BOARD));
-//        Apply apply =
-//    }
-
-    // TODO 내 모집글에 들어온 지원서 목록
-
-    // TODO 마이페이지 내가 한 지원
+    // 마이페이지 내가 한 지원
     public List<ApplyReadDto.MyResponse> readAllMyApply() {
         Account account = accountContextService.getContextAccount();
         List<Apply> allMyApply = applyJpaRepository.findAllByProfile_Account(account);
@@ -45,6 +42,19 @@ public class ApplyReadService {
                 .collect(Collectors.toList());
         return allMyApplyReadDto;
     }
+
+    // 현재 모집글에 내가 지원서를 냈는지
+    public ProfileReadDto.ExistResponse isExistInRecboard(Long boardId) {
+        Account account = accountContextService.getContextAccount();
+        RecruitmentBoard recruitmentBoard = recruitmentBoardJpaRepository.findById(boardId)
+                .orElseThrow(() -> new BusinessException(BoardErrorCode.NO_SUCH_BOARD));
+        Apply apply = applyJpaRepository.findByProfile_AccountAndBoard(account, recruitmentBoard)
+                .orElseThrow(() -> new BusinessException(ApplyErrorCode.NO_SUCH_APPLY));
+        return ProfileReadDto.ExistResponse.fromEntity(apply);
+    }
+
+    // TODO 내 모집글에 들어온 지원서 목록
+
 
     // TODO [관리자] 사용자들의 지원 목록 페이징 (전체)
 

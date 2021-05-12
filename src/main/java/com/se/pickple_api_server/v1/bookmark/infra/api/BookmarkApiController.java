@@ -6,7 +6,7 @@ import com.se.pickple_api_server.v1.bookmark.application.service.BookmarkCreateS
 import com.se.pickple_api_server.v1.bookmark.application.service.BookmarkDeleteService;
 import com.se.pickple_api_server.v1.bookmark.application.service.BookmarkReadService;
 import com.se.pickple_api_server.v1.common.infra.dto.SuccessResponse;
-import com.sun.net.httpserver.Authenticator;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

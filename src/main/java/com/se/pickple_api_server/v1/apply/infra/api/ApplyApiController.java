@@ -5,9 +5,11 @@ import com.se.pickple_api_server.v1.apply.application.dto.ApplyReadDto;
 import com.se.pickple_api_server.v1.apply.application.service.ApplyCreateService;
 import com.se.pickple_api_server.v1.apply.application.service.ApplyReadService;
 import com.se.pickple_api_server.v1.common.infra.dto.SuccessResponse;
+import com.se.pickple_api_server.v1.profile.application.dto.ProfileReadDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.AfterDomainEventPublication;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -31,22 +33,29 @@ public class ApplyApiController {
         return new SuccessResponse(HttpStatus.CREATED.value(), "지원서 등록 성공", applyCreateService.create(request));
     }
 
-
     // [지원자] 내가 한 지원+계약 조회
     @ApiOperation(value = "내 지원 조회")
     @GetMapping(path = "/apply/my")
     @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<ApplyReadDto.MyResponse> readMyApply() {
-        return new SuccessResponse(HttpStatus.OK.value(), "내 지원, 계약 목록 조회", applyReadService.readAllMyApply());
+        return new SuccessResponse(HttpStatus.OK.value(), "내 지원, 계약 목록 조회 성공", applyReadService.readAllMyApply());
     }
-
 
     // [모집자] 내 모집글의 지원+계약 조회
 
+    // 현재 모집글의 내 지원여부
+    @ApiOperation(value = "현재 모집글의 내 지원여부")
+    @GetMapping(path = "/apply/{boardId}")
+    @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SuccessResponse<ProfileReadDto.ExistResponse> readExist(@PathVariable(name = "boardId") Long boardId) {
+        return new SuccessResponse(HttpStatus.OK.value(), "현재 모집글에서 내 지원 여부 조회 성공 ", applyReadService.isExistInRecboard(boardId));
+    }
+
     // [모집자] 지원 상태 변경 (계약맺기)
 
-    // [모집자] 내 모집글의 지원자에게 후기 작성 -> 후기 상태 변경, 후기가 승인된것만 후기 보이게 함
+    // [모집자] 내 모집글의 지원자에게 후기 작성 -> 후기 상태 변경, 후기가 승인된것만후기 보이게 함
 
     // [관리자] 후기 승인 (후기 보이게 하기)
 
