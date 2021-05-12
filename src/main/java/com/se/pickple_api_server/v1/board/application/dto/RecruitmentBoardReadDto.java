@@ -2,12 +2,14 @@ package com.se.pickple_api_server.v1.board.application.dto;
 
 import com.se.pickple_api_server.v1.board.domain.entity.BoardType;
 import com.se.pickple_api_server.v1.board.domain.entity.RecruitmentBoard;
+import com.se.pickple_api_server.v1.common.infra.dto.PageRequest;
 import com.se.pickple_api_server.v1.recboard_tag.domain.entity.RecruitmentBoardTag;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,8 +38,6 @@ public class RecruitmentBoardReadDto {
         private Integer isDeleted;
 
         private Integer recNumber;
-
-//        private Integer paymentMin;
 
         private Integer paymentMax;
 
@@ -145,6 +145,18 @@ public class RecruitmentBoardReadDto {
             return builder.build();
         }
 
+    }
+
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    static public class SearchRequest {
+        private String keyword;
+        private List<String> tagString;
+
+        @NotNull
+        private PageRequest pageRequest;
     }
 
     @Data

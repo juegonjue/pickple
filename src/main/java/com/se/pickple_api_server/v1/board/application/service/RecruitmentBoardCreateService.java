@@ -1,6 +1,7 @@
 package com.se.pickple_api_server.v1.board.application.service;
 
 import com.se.pickple_api_server.v1.account.application.error.AccountErrorCode;
+import com.se.pickple_api_server.v1.account.application.service.AccountContextService;
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
 import com.se.pickple_api_server.v1.account.infra.repository.AccountJpaRepository;
 import com.se.pickple_api_server.v1.board.application.dto.RecruitmentBoardCreateDto;
@@ -23,15 +24,17 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class RecruitmentBoardCreateService {
 
+    private final AccountContextService accountContextService;
     private final RecruitmentBoardJpaRepository recruitmentBoardJpaRepository;
     private final TagJpaRepository tagJpaRepository;
-    private final AccountJpaRepository accountJpaRepository;
+    //private final AccountJpaRepository accountJpaRepository;
 
     @Transactional
     public Long create(RecruitmentBoardCreateDto.Request request) {
         LocalDateTime now = LocalDateTime.now();
         //Account account = getWriter(request.getWriterId());
-        Account account = accountJpaRepository.findById(request.getWriterId()).orElseThrow(()->new BusinessException(AccountErrorCode.NO_SUCH_ACCOUNT));
+        //Account account = accountJpaRepository.findById(request.getWriterId())
+        Account account = accountContextService.getContextAccount();
         List<RecruitmentBoardTag> tags = getTags(request.getTagList());
         RecruitmentBoard recruitmentBoard = new RecruitmentBoard(
                 account,
@@ -40,6 +43,7 @@ public class RecruitmentBoardCreateService {
                 request.getBoardType(),
                 0,
                 0,
+
                 request.getRecNumber(),
                 0,
                 request.getPaymentMax(),

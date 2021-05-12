@@ -24,15 +24,18 @@ public class AccountCreateService {
     @Transactional
     public Long signUpBySocial(OauthUserInfo oauthUserInfo, OauthType oauthType) {
         System.out.println("AccountCreateService.signUpBySocial");
-        Account account = Account.builder()
-                .idString(oauthUserInfo.getId())
-                .name(oauthUserInfo.getName())
-                .accountType(AccountType.MEMBER)
-                .email(oauthUserInfo.getEmail())
-                .isCertified(0)
-                .registerType(RegisterType.valueOf(oauthType.toString()))
-                .isDeleted(0)
-                .build();
+        //Account account = Account.builder()
+        Account account = new Account(
+                oauthUserInfo.getId(),
+                oauthUserInfo.getName(),
+                AccountType.MEMBER,
+                oauthUserInfo.getEmail(),
+                0,
+                RegisterType.valueOf(oauthType.toString()),
+                0
+                //.build();
+        );
+
         accountJpaRepository.save(account);
         return account.getAccountId();
     }
@@ -42,15 +45,17 @@ public class AccountCreateService {
 
         if (accountJpaRepository.findByIdString(request.getIdString()).isPresent())
             throw new BusinessException(AccountErrorCode.DUPLICATED_ID);
-        Account account = Account.builder()
-                .idString(request.getIdString())
-                .name(request.getName())
-                .accountType(AccountType.MEMBER)
-                .email(request.getEmail())
-                .isCertified(0)
-                .registerType(request.getRegisterType())
-                .isDeleted(0)
-                .build();
+        //Account account = Account.builder()
+        Account account = new Account(
+                request.getIdString(),
+                request.getName(),
+                AccountType.MEMBER,
+                request.getEmail(),
+                0,
+                request.getRegisterType(),
+                0
+        //        .build();
+        );
         accountJpaRepository.save(account);
         return account.getAccountId();
     }

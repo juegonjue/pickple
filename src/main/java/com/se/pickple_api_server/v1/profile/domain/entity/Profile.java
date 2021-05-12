@@ -25,7 +25,7 @@ public class Profile extends BaseEntity {
     //@OneToOne(mappedBy = "profile")
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(nullable = false, name = "account_id" , referencedColumnName = "accountId")
-    private Account accountId;
+    private Account account;
 
     @Size(min = 2, max = 20)
     @Column(unique = true)
@@ -52,8 +52,8 @@ public class Profile extends BaseEntity {
 
 
     @Builder
-    public Profile(Account accountId, @Size(min = 2, max = 20) String kakaoId, @Size(min = 2, max = 40) @Email String workEmail, @Size(max = 255) String blog, @Size(min = 2, max = 500) String introduce, Integer isOpen, List<ProfileTag> profileTagList) {
-        this.accountId = accountId;
+    public Profile(Account account, @Size(min = 2, max = 20) String kakaoId, @Size(min = 2, max = 40) @Email String workEmail, @Size(max = 255) String blog, @Size(min = 2, max = 500) String introduce, Integer isOpen, List<ProfileTag> profileTagList) {
+        this.account = account;
         this.kakaoId = kakaoId;
         this.workEmail = workEmail;
         this.blog = blog;

@@ -22,9 +22,10 @@ public class AccountUpdateDto {
     @AllArgsConstructor
     static public class Request {
 
-        @NotEmpty
+        //@NotEmpty
         @ApiModelProperty(name="사용자 아이디")
-        private String idString;
+        private Long accountId;
+//        private String idString;
 
         @Size(min = 8, max = 20)
         @ApiModelProperty(name="변경할 학번", example = "01234567")

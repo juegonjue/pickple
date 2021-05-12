@@ -106,12 +106,17 @@ public class AccountApiController {
     }
 
     // UC-AC-08 회원 검색 및 페이징
-    // public SuccessResponse
+    @ApiOperation(value = "회원 검색")
+    @GetMapping(path = "/account/search")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SuccessResponse <Pageable> readSearchAccount(@Validated AccountReadDto.SearchRequest pageRequest) {
+        return new SuccessResponse(HttpStatus.OK.value(), "회원 검색 성공", accountReadService.search(pageRequest));
+    }
 
     // 유저로딩 부분
-    @ApiOperation(value = "[유저로딩]내 정보 요청")
+    @ApiOperation(value = "내 정보 요청")
     @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
-    @GetMapping(path = "/account/userloading")
+    @GetMapping(path = "/account/my")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<AccountReadDto.Response> userLoading() {
         return new SuccessResponse(HttpStatus.OK.value(), "UserLoading 성공.", accountReadService.getUserloading());

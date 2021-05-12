@@ -41,4 +41,8 @@ public class PageRequest {
   public org.springframework.data.domain.PageRequest of() {
     return org.springframework.data.domain.PageRequest.of(page - 1, size, direction, "createdDate");
   }
+
+  public org.springframework.data.domain.PageRequest payOf() {
+    return org.springframework.data.domain.PageRequest.of(page - 1, size, direction, "payment");
+  }
 }

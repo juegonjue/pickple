@@ -1,5 +1,6 @@
 package com.se.pickple_api_server.v1.bookmark.application.dto;
 
+import com.se.pickple_api_server.v1.board.domain.entity.RecruitmentBoard;
 import com.se.pickple_api_server.v1.bookmark.domain.entity.Bookmark;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,22 +14,33 @@ public class BookmarkReadDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    static public class Response {
+    static public class MyResponse {
         private Long boardId;
         private String boardTitle;
 
-        static public Response fromEntity(Bookmark bookmark) {
-            ResponseBuilder builder = Response.builder();
+        static public MyResponse fromEntity(Bookmark bookmark) {
+            MyResponseBuilder builder = MyResponse.builder();
 
             builder
-                    .boardId(bookmark.getBookmarkId())
+                    .boardId(bookmark.getBoard().getBoardId())
                     .boardTitle(bookmark.getBoard().getTitle());
 
             return builder.build();
         }
-
     }
 
-    // TODO 현재 페이지에서 내 북마크여부 조회 ?
 
+    // 해당 모집글의 내 북마크 조회
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    static public class ExistResponse {
+        private Long bookmarkId;
+
+        static public ExistResponse fromEntity(Bookmark bookmark) {
+            ExistResponseBuilder builder = ExistResponse.builder();
+            return builder.bookmarkId(bookmark.getBookmarkId()).build();
+        }
+    }
 }

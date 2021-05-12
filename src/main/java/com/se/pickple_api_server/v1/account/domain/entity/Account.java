@@ -57,7 +57,7 @@ public class  Account extends BaseEntity{
     private Integer isDeleted;  // 0:존재, 1:삭제
 
 
-    @Builder
+    // TODO -- ? @Builder
     public Account(String idString, @Size(min = 2, max = 20) String name, AccountType accountType, @Size(min = 4, max = 40) @Email String email, Integer isCertified, RegisterType registerType, Integer isDeleted) {
         this.idString = idString;
         this.name = name;
