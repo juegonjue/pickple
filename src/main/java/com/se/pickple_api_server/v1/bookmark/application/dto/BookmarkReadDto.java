@@ -1,11 +1,11 @@
 package com.se.pickple_api_server.v1.bookmark.application.dto;
 
+import com.se.pickple_api_server.v1.board.domain.entity.RecruitmentBoard;
 import com.se.pickple_api_server.v1.bookmark.domain.entity.Bookmark;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.boot.autoconfigure.flyway.FlywayDataSource;
 
 public class BookmarkReadDto {
 
@@ -22,7 +22,7 @@ public class BookmarkReadDto {
             ResponseBuilder builder = Response.builder();
 
             builder
-                    .boardId(bookmark.getBookmarkId())
+                    .boardId(bookmark.getBoard().getBoardId())
                     .boardTitle(bookmark.getBoard().getTitle());
 
             return builder.build();
@@ -35,11 +35,11 @@ public class BookmarkReadDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    static public class PresentResponse {
+    static public class ExistResponse {
         private Long bookmarkId;
 
-        static public PresentResponse fromEntity(Bookmark bookmark) {
-            PresentResponseBuilder builder = PresentResponse.builder();
+        static public ExistResponse fromEntity(Bookmark bookmark) {
+            ExistResponseBuilder builder = ExistResponse.builder();
             return builder.bookmarkId(bookmark.getBookmarkId()).build();
         }
     }

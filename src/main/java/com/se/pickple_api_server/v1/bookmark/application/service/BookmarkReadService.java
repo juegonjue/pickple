@@ -27,7 +27,7 @@ public class BookmarkReadService {
     private final RecruitmentBoardJpaRepository recruitmentBoardJpaRepository;
 
 
-    // (accountId 로)내 모든 북마크 불러오기
+    // (accountId 로)내 모든 북마크 불러오기 --> 보드아이디와 제목 가지고있어야함
     public List<BookmarkReadDto.Response> readAllMyBookmark() {
         Account account = accountContextService.getContextAccount();
         List<Bookmark> allMyBookmarks = bookmarkJpaRepository.findAllByAccount(account);
@@ -41,13 +41,13 @@ public class BookmarkReadService {
     }
 
     // TODO 현재 모집글의 내 북마크여부 가져오기
-    public BookmarkReadDto.PresentResponse readExistInRecboard(Long boardId) {
+    public BookmarkReadDto.ExistResponse isExistInRecboard(Long boardId) {
         RecruitmentBoard recruitmentBoard = recruitmentBoardJpaRepository.findById(boardId)
                 .orElseThrow(() -> new BusinessException(BoardErrorCode.NO_SUCH_BOARD));
         Bookmark bookmark = bookmarkJpaRepository.findBookmarkByAccountAndBoard(accountContextService.getContextAccount(), recruitmentBoard)
                 .orElseThrow(() -> new BusinessException(BookmarkErrorCode.NO_SUCH_BOOKMARK));
 
-        return BookmarkReadDto.PresentResponse.fromEntity(bookmark);
+        return BookmarkReadDto.ExistResponse.fromEntity(bookmark);
 
     }
 }

@@ -51,7 +51,7 @@ public class ProfileReadService {
     }
 
     //  프로필 존재 여부 확인
-    public Boolean isPresent(Account account){
+    public Boolean isExist(Account account){
         if (profileJpaRepository.findByAccount(account).isPresent()) return true;
         return false;
     }

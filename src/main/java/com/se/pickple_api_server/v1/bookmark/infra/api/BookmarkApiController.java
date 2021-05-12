@@ -34,7 +34,7 @@ public class BookmarkApiController {
     }
 
 
-    @ApiOperation(value = "북마크 조회")
+    @ApiOperation(value = "내 북마크 조회")
     @GetMapping(path = "/bookmark")
     @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
@@ -55,7 +55,7 @@ public class BookmarkApiController {
     @ApiOperation(value = "현재 모집글에서의 내 북마크 여부")
     @GetMapping(path = "/bookmark/{boardId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResponse<BookmarkReadDto.PresentResponse> readExist(@PathVariable(value = "boardId") Long boardId) {
-        return new SuccessResponse(HttpStatus.OK.value(), "현재 모집글에서 내 북마크여부 조회 성공", bookmarkReadService.readExistInRecboard(boardId));
+    public SuccessResponse<BookmarkReadDto.ExistResponse> readExist(@PathVariable(value = "boardId") Long boardId) {
+        return new SuccessResponse(HttpStatus.OK.value(), "현재 모집글에서 내 북마크여부 조회 성공", bookmarkReadService.isExistInRecboard(boardId));
     }
 }

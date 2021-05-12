@@ -17,15 +17,15 @@ import javax.validation.constraints.Size;
 public class Apply extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long reviewId;
+    private Long applyId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     @JoinColumn(name = "profile_id", referencedColumnName = "profileId")
-    private Profile profileId;
+    private Profile profile;
 
-    @ManyToOne
-    @JoinColumn(name = "recruitment_board_id", referencedColumnName = "boardId")
-    private Board boardId;
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "board_id", referencedColumnName = "boardId")
+    private Board board;
 
     @Column(nullable = false)
     private Integer isContracted;
@@ -41,14 +41,21 @@ public class Apply extends BaseEntity {
     @Column(nullable = false)
     private Integer isDeleted;
 
-    @Builder
-    public Apply(Long reviewId, Profile profileId, Board boardId, Integer isContracted, @Size(max = 255) String review, ReviewState reviewState, Integer isDeleted) {
-        this.reviewId = reviewId;
-        this.profileId = profileId;
-        this.boardId = boardId;
+
+    public Apply(Profile profile, Board board, Integer isContracted, @Size(max = 255) String review, ReviewState reviewState, Integer isDeleted) {
+        this.profile = profile;
+        this.board = board;
         this.isContracted = isContracted;
         this.review = review;
         this.reviewState = reviewState;
         this.isDeleted = isDeleted;
     }
+
+    public void updateIsContracted(Integer isContracted) { this.isContracted = isContracted; }
+
+    public void updateReview(String review) { this.review = review; }
+
+    public void updateReviewState(ReviewState reviewState) {this.reviewState = reviewState; }
+
+    public void updateIsDeleted(Integer isDeleted) { this.isDeleted = isDeleted; }
 }

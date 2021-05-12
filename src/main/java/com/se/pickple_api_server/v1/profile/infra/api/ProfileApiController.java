@@ -8,7 +8,6 @@ import com.se.pickple_api_server.v1.profile.application.dto.ProfileReadDto;
 import com.se.pickple_api_server.v1.profile.application.service.ProfileCreateService;
 import com.se.pickple_api_server.v1.profile.application.service.ProfileReadService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -55,4 +54,6 @@ public class ProfileApiController {
     public SuccessResponse<Pageable> readAllProfile(@Validated PageRequest pageRequest) {
         return new SuccessResponse(HttpStatus.OK.value(), "사용자 목록 조회 페이징 성공", profileReadService.readAll(pageRequest.of()));
     }
+
+    // TODO 프로필 수정
 }
