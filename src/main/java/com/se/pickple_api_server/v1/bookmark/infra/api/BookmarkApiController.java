@@ -38,7 +38,7 @@ public class BookmarkApiController {
     @GetMapping(path = "/bookmark")
     @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResponse<BookmarkReadDto.Response> readMyBookmark() {
+    public SuccessResponse<BookmarkReadDto.MyResponse> readMyBookmark() {
         return new SuccessResponse(HttpStatus.OK.value(), "북마크 조회 성공", bookmarkReadService.readAllMyBookmark());
     }
 

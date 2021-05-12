@@ -14,12 +14,12 @@ public class BookmarkReadDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    static public class Response {
+    static public class MyResponse {
         private Long boardId;
         private String boardTitle;
 
-        static public Response fromEntity(Bookmark bookmark) {
-            ResponseBuilder builder = Response.builder();
+        static public MyResponse fromEntity(Bookmark bookmark) {
+            MyResponseBuilder builder = MyResponse.builder();
 
             builder
                     .boardId(bookmark.getBoard().getBoardId())
@@ -27,9 +27,10 @@ public class BookmarkReadDto {
 
             return builder.build();
         }
-
     }
 
+
+    // 해당 모집글의 내 북마크 조회
     @Data
     @Builder
     @NoArgsConstructor
