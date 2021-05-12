@@ -19,10 +19,6 @@ public class RecruitmentBoardCreateDto {
     @AllArgsConstructor
     static public class Request {
 
-        @ApiModelProperty(notes = "작성자 (고유)번호", example = "1")
-//        private Account writerId;
-        private Long writerId;
-
         @ApiModelProperty(notes = "모집글 제목", example = "제목")
         @Size(min = 2, max = 50)
         @NotNull
@@ -32,10 +28,6 @@ public class RecruitmentBoardCreateDto {
         @Size(min = 2, max = 2000)
         @NotNull
         private String text;
-
-        @ApiModelProperty(notes = "게시글 타입", example = "RECRUITMENT")
-        @NotNull
-        private BoardType boardType;
 
         @ApiModelProperty(notes = "모집 인원", example = "1")
         @NotNull

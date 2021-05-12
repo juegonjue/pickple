@@ -5,6 +5,7 @@ import com.se.pickple_api_server.v1.account.application.service.AccountContextSe
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
 import com.se.pickple_api_server.v1.account.infra.repository.AccountJpaRepository;
 import com.se.pickple_api_server.v1.board.application.dto.RecruitmentBoardCreateDto;
+import com.se.pickple_api_server.v1.board.domain.entity.BoardType;
 import com.se.pickple_api_server.v1.board.domain.entity.RecruitmentBoard;
 import com.se.pickple_api_server.v1.board.infra.repository.RecruitmentBoardJpaRepository;
 import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
@@ -27,20 +28,17 @@ public class RecruitmentBoardCreateService {
     private final AccountContextService accountContextService;
     private final RecruitmentBoardJpaRepository recruitmentBoardJpaRepository;
     private final TagJpaRepository tagJpaRepository;
-    //private final AccountJpaRepository accountJpaRepository;
 
     @Transactional
     public Long create(RecruitmentBoardCreateDto.Request request) {
         LocalDateTime now = LocalDateTime.now();
-        //Account account = getWriter(request.getWriterId());
-        //Account account = accountJpaRepository.findById(request.getWriterId())
         Account account = accountContextService.getContextAccount();
         List<RecruitmentBoardTag> tags = getTags(request.getTagList());
         RecruitmentBoard recruitmentBoard = new RecruitmentBoard(
                 account,
                 request.getTitle(),
                 request.getText(),
-                request.getBoardType(),
+                BoardType.RECRUITMENT,
                 0,
                 0,
 
@@ -57,10 +55,6 @@ public class RecruitmentBoardCreateService {
         recruitmentBoardJpaRepository.save(recruitmentBoard);
         return recruitmentBoard.getBoardId();
     }
-
-//    private Account getWriter(RecruitmentBoardCreateDto.Account account) {
-//        return accountJpaRepository.findById(account.getWriterId()).orElseThrow(()->new BusinessException(AccountErrorCode.NO_SUCH_ACCOUNT));
-//    }
 
     private List<RecruitmentBoardTag> getTags(List<RecruitmentBoardCreateDto.TagDto> tagDtoList) {
         return tagDtoList.stream()

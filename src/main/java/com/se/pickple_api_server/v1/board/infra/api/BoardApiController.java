@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1")
-@Api(tags = "게시물 관리")
+@Api(tags = "게시물_모집글 관리")
 public class BoardApiController {
 
     private final RecruitmentBoardCreateService recruitmentBoardCreateService;
