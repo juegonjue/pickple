@@ -1,6 +1,5 @@
 package com.se.pickple_api_server.v1.bookmark.application.dto;
 
-import com.se.pickple_api_server.v1.board.domain.entity.RecruitmentBoard;
 import com.se.pickple_api_server.v1.bookmark.domain.entity.Bookmark;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

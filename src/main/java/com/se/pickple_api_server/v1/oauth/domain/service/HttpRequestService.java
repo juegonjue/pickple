@@ -14,37 +14,37 @@ import java.util.Map;
 @Service
 public class HttpRequestService {
 
-    public String requestGet(String endPoint){
-        StringBuffer res = null;
-        try{
-            URL url = new URL(endPoint);
-
-            HttpURLConnection con = (HttpURLConnection)url.openConnection();
-            con.setRequestMethod("GET");
-            int responseCode = con.getResponseCode();
-            BufferedReader br;
-            if(responseCode == 200) { // 정상 호출
-                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            } else {  // 에러 발생
-                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-            }
-            String inputLine;
-            res = new StringBuffer();
-            while ((inputLine = br.readLine()) != null) {
-                res.append(inputLine);
-            }
-            br.close();
-            if(responseCode==200) {
-                return res.toString();
-            } else {
-                return null;
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        return res.toString();
-    }
+//    public String requestGet(String endPoint){
+//        StringBuffer res = null;
+//        try{
+//            URL url = new URL(endPoint);
+//
+//            HttpURLConnection con = (HttpURLConnection)url.openConnection();
+//            con.setRequestMethod("GET");
+//            int responseCode = con.getResponseCode();
+//            BufferedReader br;
+//            if(responseCode == 200) { // 정상 호출
+//                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+//            } else {  // 에러 발생
+//                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+//            }
+//            String inputLine;
+//            res = new StringBuffer();
+//            while ((inputLine = br.readLine()) != null) {
+//                res.append(inputLine);
+//            }
+//            br.close();
+//            if(responseCode==200) {
+//                return res.toString();
+//            } else {
+//                return null;
+//            }
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//
+//        return res.toString();
+//    }
 
     public String requestGetWithHeaders(String apiUrl, Map<String, String> requestHeaders) {
         HttpURLConnection con = connect(apiUrl);

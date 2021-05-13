@@ -1,8 +1,9 @@
-package com.se.pickple_api_server.v1.board.domain.entity;
+package com.se.pickple_api_server.v1.recruitment.domain.entity;
 
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
+import com.se.pickple_api_server.v1.board.domain.entity.Board;
+import com.se.pickple_api_server.v1.board.domain.type.BoardType;
 import com.se.pickple_api_server.v1.recboard_tag.domain.entity.RecruitmentBoardTag;
-import com.se.pickple_api_server.v1.tag.domain.entity.Tag;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

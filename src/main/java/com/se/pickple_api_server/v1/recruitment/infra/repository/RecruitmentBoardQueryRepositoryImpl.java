@@ -3,7 +3,7 @@
 //import com.querydsl.jpa.JPQLQuery;
 //import com.se.pickple_api_server.v1.board.application.dto.RecruitmentBoardReadDto;
 //import com.se.pickple_api_server.v1.board.domain.entity.QRecruitmentBoard;
-//import com.se.pickple_api_server.v1.board.domain.entity.RecruitmentBoard;
+//import com.se.pickple_api_server.v1.board.recruitment.domain.entity.RecruitmentBoard;
 //import org.springframework.data.domain.Page;
 //import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 //import org.springframework.stereotype.Repository;

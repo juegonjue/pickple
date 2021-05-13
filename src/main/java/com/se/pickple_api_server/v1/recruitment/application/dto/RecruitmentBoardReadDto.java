@@ -1,7 +1,7 @@
-package com.se.pickple_api_server.v1.board.application.dto;
+package com.se.pickple_api_server.v1.recruitment.application.dto;
 
-import com.se.pickple_api_server.v1.board.domain.entity.BoardType;
-import com.se.pickple_api_server.v1.board.domain.entity.RecruitmentBoard;
+import com.se.pickple_api_server.v1.board.domain.type.BoardType;
+import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoard;
 import com.se.pickple_api_server.v1.common.infra.dto.PageRequest;
 import com.se.pickple_api_server.v1.recboard_tag.domain.entity.RecruitmentBoardTag;
 import lombok.AllArgsConstructor;
@@ -154,18 +154,20 @@ public class RecruitmentBoardReadDto {
     @AllArgsConstructor
     static public class MyResponse {
         private Long boardId;
-        private String boardTitle;
-        private String boardRecEndDate;
-        private String boardWorkStartDate;
+        private String title;
+        private String recEndDate;
+        private String workStartDate;
+        private Integer isDeleted;
 
         static public MyResponse fromEntity(RecruitmentBoard recruitmentBoard) {
             MyResponseBuilder builder = MyResponse.builder();
 
             builder
                     .boardId(recruitmentBoard.getBoardId())
-                    .boardTitle(recruitmentBoard.getTitle())
-                    .boardRecEndDate(recruitmentBoard.getRecEndDate().toString())
-                    .boardWorkStartDate(recruitmentBoard.getWorkStartDate().toString());
+                    .title(recruitmentBoard.getTitle())
+                    .recEndDate(recruitmentBoard.getRecEndDate().toString())
+                    .workStartDate(recruitmentBoard.getWorkStartDate().toString())
+                    .isDeleted(recruitmentBoard.getIsDeleted());
 
             return builder.build();
         }

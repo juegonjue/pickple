@@ -3,6 +3,8 @@ package com.se.pickple_api_server.v1.report.domain.entity;
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
 import com.se.pickple_api_server.v1.board.domain.entity.Board;
 import com.se.pickple_api_server.v1.common.domain.entity.BaseEntity;
+import com.se.pickple_api_server.v1.report.domain.type.ReportResult;
+import com.se.pickple_api_server.v1.report.domain.type.ReportState;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

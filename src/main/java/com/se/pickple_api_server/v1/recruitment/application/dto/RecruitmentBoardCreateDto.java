@@ -1,6 +1,5 @@
-package com.se.pickple_api_server.v1.board.application.dto;
+package com.se.pickple_api_server.v1.recruitment.application.dto;
 
-import com.se.pickple_api_server.v1.board.domain.entity.BoardType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;

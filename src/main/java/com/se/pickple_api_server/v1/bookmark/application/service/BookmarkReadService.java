@@ -2,9 +2,9 @@ package com.se.pickple_api_server.v1.bookmark.application.service;
 
 import com.se.pickple_api_server.v1.account.application.service.AccountContextService;
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
-import com.se.pickple_api_server.v1.board.application.error.BoardErrorCode;
-import com.se.pickple_api_server.v1.board.domain.entity.RecruitmentBoard;
-import com.se.pickple_api_server.v1.board.infra.repository.RecruitmentBoardJpaRepository;
+import com.se.pickple_api_server.v1.recruitment.application.error.BoardErrorCode;
+import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoard;
+import com.se.pickple_api_server.v1.recruitment.infra.repository.RecruitmentBoardJpaRepository;
 import com.se.pickple_api_server.v1.bookmark.application.dto.BookmarkReadDto;
 import com.se.pickple_api_server.v1.bookmark.application.error.BookmarkErrorCode;
 import com.se.pickple_api_server.v1.bookmark.domain.entity.Bookmark;

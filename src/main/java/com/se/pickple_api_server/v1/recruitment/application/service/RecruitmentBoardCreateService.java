@@ -1,13 +1,11 @@
-package com.se.pickple_api_server.v1.board.application.service;
+package com.se.pickple_api_server.v1.recruitment.application.service;
 
-import com.se.pickple_api_server.v1.account.application.error.AccountErrorCode;
 import com.se.pickple_api_server.v1.account.application.service.AccountContextService;
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
-import com.se.pickple_api_server.v1.account.infra.repository.AccountJpaRepository;
-import com.se.pickple_api_server.v1.board.application.dto.RecruitmentBoardCreateDto;
-import com.se.pickple_api_server.v1.board.domain.entity.BoardType;
-import com.se.pickple_api_server.v1.board.domain.entity.RecruitmentBoard;
-import com.se.pickple_api_server.v1.board.infra.repository.RecruitmentBoardJpaRepository;
+import com.se.pickple_api_server.v1.recruitment.application.dto.RecruitmentBoardCreateDto;
+import com.se.pickple_api_server.v1.board.domain.type.BoardType;
+import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoard;
+import com.se.pickple_api_server.v1.recruitment.infra.repository.RecruitmentBoardJpaRepository;
 import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
 import com.se.pickple_api_server.v1.recboard_tag.domain.entity.RecruitmentBoardTag;
 import com.se.pickple_api_server.v1.tag.application.error.TagErrorCode;

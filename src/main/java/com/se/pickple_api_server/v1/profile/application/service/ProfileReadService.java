@@ -2,10 +2,7 @@ package com.se.pickple_api_server.v1.profile.application.service;
 
 import com.se.pickple_api_server.v1.account.application.service.AccountContextService;
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
-import com.se.pickple_api_server.v1.apply.domain.entity.Apply;
-import com.se.pickple_api_server.v1.board.application.error.BoardErrorCode;
-import com.se.pickple_api_server.v1.board.domain.entity.RecruitmentBoard;
-import com.se.pickple_api_server.v1.board.infra.repository.RecruitmentBoardJpaRepository;
+import com.se.pickple_api_server.v1.recruitment.infra.repository.RecruitmentBoardJpaRepository;
 import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
 import com.se.pickple_api_server.v1.profile.application.dto.ProfileReadDto;
 import com.se.pickple_api_server.v1.profile.application.error.ProfileErrorCode;

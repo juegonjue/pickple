@@ -6,13 +6,10 @@ import com.se.pickple_api_server.v1.apply.application.dto.ApplyReadDto;
 import com.se.pickple_api_server.v1.apply.application.error.ApplyErrorCode;
 import com.se.pickple_api_server.v1.apply.domain.entity.Apply;
 import com.se.pickple_api_server.v1.apply.infra.repository.ApplyJpaRepository;
-import com.se.pickple_api_server.v1.board.application.error.BoardErrorCode;
-import com.se.pickple_api_server.v1.board.domain.entity.RecruitmentBoard;
-import com.se.pickple_api_server.v1.board.infra.repository.RecruitmentBoardJpaRepository;
+import com.se.pickple_api_server.v1.recruitment.application.error.BoardErrorCode;
+import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoard;
+import com.se.pickple_api_server.v1.recruitment.infra.repository.RecruitmentBoardJpaRepository;
 import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
-import com.se.pickple_api_server.v1.profile.application.dto.ProfileReadDto;
-import com.se.pickple_api_server.v1.profile.domain.entity.Profile;
-import com.se.pickple_api_server.v1.profile.infra.repository.ProfileJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -62,7 +59,6 @@ public class ApplyReadService {
                 .collect(Collectors.toList());
         return allApplyReadDto;
     }
-
 
     // TODO [관리자] 사용자들의 지원 목록 페이징 (전체)
 

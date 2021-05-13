@@ -1,13 +1,11 @@
-package com.se.pickple_api_server.v1.board.application.service;
+package com.se.pickple_api_server.v1.recruitment.application.service;
 
 import com.se.pickple_api_server.v1.account.application.service.AccountContextService;
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
-import com.se.pickple_api_server.v1.board.application.dto.RecruitmentBoardReadDto;
-import com.se.pickple_api_server.v1.board.application.error.BoardErrorCode;
-import com.se.pickple_api_server.v1.board.domain.entity.RecruitmentBoard;
-import com.se.pickple_api_server.v1.board.infra.repository.RecruitmentBoardJpaRepository;
-import com.se.pickple_api_server.v1.bookmark.application.service.BookmarkReadService;
-import com.se.pickple_api_server.v1.bookmark.infra.repository.BookmarkJpaRepository;
+import com.se.pickple_api_server.v1.recruitment.application.dto.RecruitmentBoardReadDto;
+import com.se.pickple_api_server.v1.recruitment.application.error.BoardErrorCode;
+import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoard;
+import com.se.pickple_api_server.v1.recruitment.infra.repository.RecruitmentBoardJpaRepository;
 import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -43,7 +41,7 @@ public class RecruitmentBoardReadService {
         return new PageImpl(listResponseList, recruitmentBoardPage.getPageable(), recruitmentBoardPage.getTotalElements());
     }
 
-    // TODO 1. 마이페이지 내가 쓴 모집글들 리스트 불러오기 --> boardId 가지고 있어야 함
+    // 마이페이지 내가 쓴 모집글들 리스트 불러오기 --> boardId 가지고 있어야 함
     public List<RecruitmentBoardReadDto.MyResponse> readAllMyRecboard() {
         Account account = accountContextService.getContextAccount();
         List<RecruitmentBoard> allMyRecruitmentBoard = recruitmentBoardJpaRepository.findAllByAccount(account);

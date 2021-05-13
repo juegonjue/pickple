@@ -1,13 +1,12 @@
 package com.se.pickple_api_server.v1.account.domain.entity;
 
+import com.se.pickple_api_server.v1.account.domain.type.AccountType;
+import com.se.pickple_api_server.v1.account.domain.type.RegisterType;
 import com.se.pickple_api_server.v1.common.domain.entity.BaseEntity;
-import com.se.pickple_api_server.v1.profile.domain.entity.Profile;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.jdo.annotations.Join;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;

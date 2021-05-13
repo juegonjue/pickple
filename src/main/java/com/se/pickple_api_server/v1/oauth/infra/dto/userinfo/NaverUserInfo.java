@@ -18,14 +18,12 @@ public class NaverUserInfo implements OauthUserInfo{
     String id;
     String name;
     String email;
-    String mobile;
 
     @JsonProperty("response")
     private void unpack(Map<String, String> response) {
         id = response.get("id");
         name = response.get("name");
         email = response.get("email");
-        //mobile = response.get("mobile");
     }
 
     @Override
@@ -35,9 +33,6 @@ public class NaverUserInfo implements OauthUserInfo{
 
     @Override
     public String getEmail() {return email;}
-
-    //@Override
-    //public String getMobile() {return mobile;}
 
     @Override
     public String getName() {return name;}

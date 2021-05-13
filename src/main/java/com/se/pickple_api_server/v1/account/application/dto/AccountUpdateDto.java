@@ -1,13 +1,11 @@
 package com.se.pickple_api_server.v1.account.application.dto;
 
-import com.se.pickple_api_server.v1.account.domain.entity.AccountType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;

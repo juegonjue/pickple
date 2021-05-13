@@ -1,9 +1,9 @@
-package com.se.pickple_api_server.v1.board.infra.api;
+package com.se.pickple_api_server.v1.recruitment.infra.api;
 
-import com.se.pickple_api_server.v1.board.application.dto.RecruitmentBoardCreateDto;
-import com.se.pickple_api_server.v1.board.application.dto.RecruitmentBoardReadDto;
-import com.se.pickple_api_server.v1.board.application.service.RecruitmentBoardCreateService;
-import com.se.pickple_api_server.v1.board.application.service.RecruitmentBoardReadService;
+import com.se.pickple_api_server.v1.recruitment.application.dto.RecruitmentBoardCreateDto;
+import com.se.pickple_api_server.v1.recruitment.application.dto.RecruitmentBoardReadDto;
+import com.se.pickple_api_server.v1.recruitment.application.service.RecruitmentBoardCreateService;
+import com.se.pickple_api_server.v1.recruitment.application.service.RecruitmentBoardReadService;
 import com.se.pickple_api_server.v1.common.infra.dto.PageRequest;
 import com.se.pickple_api_server.v1.common.infra.dto.SuccessResponse;
 import io.swagger.annotations.Api;
