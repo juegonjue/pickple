@@ -52,4 +52,12 @@ public class BoardApiController {
         return new SuccessResponse(HttpStatus.OK.value(), "모집글 상세 조회 성공.", recruitmentBoardReadService.readById(boardId));
     }
 
+    // 마이페이지 내가 쓴 모집글 조회
+    @ApiOperation(value = "내 모집글 조회")
+    @GetMapping(path = "/recboard/my")
+    @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SuccessResponse<RecruitmentBoardReadDto.MyResponse> readMyRecruitmentBoard() {
+        return new SuccessResponse(HttpStatus.OK.value(), "내 모집글 조회 성공", recruitmentBoardReadService.readAllMyRecboard());
+    }
 }

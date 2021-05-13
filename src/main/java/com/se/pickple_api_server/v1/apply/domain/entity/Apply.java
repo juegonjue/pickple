@@ -1,6 +1,7 @@
 package com.se.pickple_api_server.v1.apply.domain.entity;
 
 import com.se.pickple_api_server.v1.board.domain.entity.Board;
+import com.se.pickple_api_server.v1.board.domain.entity.RecruitmentBoard;
 import com.se.pickple_api_server.v1.common.domain.entity.BaseEntity;
 import com.se.pickple_api_server.v1.profile.domain.entity.Profile;
 import lombok.AccessLevel;
@@ -23,9 +24,10 @@ public class Apply extends BaseEntity {
     @JoinColumn(name = "profile_id", referencedColumnName = "profileId")
     private Profile profile;
 
+    //@JoinColumn(name = "recruitment_board_id", referencedColumnName = "recruitmentBoardId")
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "board_id", referencedColumnName = "boardId")
-    private Board board;
+    @PrimaryKeyJoinColumn(name = "board_id", referencedColumnName = "boardId")
+    private RecruitmentBoard recruitmentBoard;
 
     @Column(nullable = false)
     private Integer isContracted;
@@ -42,9 +44,9 @@ public class Apply extends BaseEntity {
     private Integer isDeleted;
 
 
-    public Apply(Profile profile, Board board, Integer isContracted, ReviewState reviewState, Integer isDeleted) {
+    public Apply(Profile profile, RecruitmentBoard recruitmentBoard, Integer isContracted, ReviewState reviewState, Integer isDeleted) {
         this.profile = profile;
-        this.board = board;
+        this.recruitmentBoard = recruitmentBoard;
         this.isContracted = isContracted;
         this.reviewState = reviewState;
         this.isDeleted = isDeleted;

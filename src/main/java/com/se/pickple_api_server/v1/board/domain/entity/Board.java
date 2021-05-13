@@ -21,7 +21,7 @@ public abstract class Board extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name="account_id",referencedColumnName = "accountId",nullable = false)
-    private Account writerId;
+    private Account account;
 
     @Size(min=2,max=50)
     @Column(nullable=false)
@@ -41,8 +41,8 @@ public abstract class Board extends BaseEntity {
     @Column(nullable = false)
     private Integer isDeleted;
 
-    public Board(Account writerId, @Size(min = 2, max = 50) String title, @Size(min = 2, max = 2000) String text, BoardType boardType, Integer hit, Integer isDeleted) {
-        this.writerId = writerId;
+    public Board(Account account, @Size(min = 2, max = 50) String title, @Size(min = 2, max = 2000) String text, BoardType boardType, Integer hit, Integer isDeleted) {
+        this.account = account;
         this.title = title;
         this.text = text;
         this.boardType = boardType;

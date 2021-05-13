@@ -57,9 +57,9 @@ public class RecruitmentBoardReadDto {
 
             builder
                     .boardId(recruitmentBoard.getBoardId())
-                    .writerId(recruitmentBoard.getWriterId().getAccountId())
-                    .writerIdString(recruitmentBoard.getWriterId().getIdString())
-                    .writerName(recruitmentBoard.getWriterId().getName())
+                    .writerId(recruitmentBoard.getAccount().getAccountId())
+                    .writerIdString(recruitmentBoard.getAccount().getIdString())
+                    .writerName(recruitmentBoard.getAccount().getName())
                     .title(recruitmentBoard.getTitle())
                     .text(recruitmentBoard.getText())
                     .boardType(recruitmentBoard.getBoardType())
@@ -124,8 +124,8 @@ public class RecruitmentBoardReadDto {
 
             builder
                     .boardId(recruitmentBoard.getBoardId())
-                    .writerId(recruitmentBoard.getWriterId().getAccountId())
-                    .idString(recruitmentBoard.getWriterId().getIdString())
+                    .writerId(recruitmentBoard.getAccount().getAccountId())
+                    .idString(recruitmentBoard.getAccount().getIdString())
                     .title(recruitmentBoard.getTitle())
                     .text(recruitmentBoard.getText())
                     .isDeleted(recruitmentBoard.getIsDeleted())
@@ -147,6 +147,32 @@ public class RecruitmentBoardReadDto {
 
     }
 
+    // 내가 쓴 모집글 조회 (보드아이디, 제목, 모집 마감일, 업무 시작일)
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    static public class MyResponse {
+        private Long boardId;
+        private String boardTitle;
+        private String boardRecEndDate;
+        private String boardWorkStartDate;
+
+        static public MyResponse fromEntity(RecruitmentBoard recruitmentBoard) {
+            MyResponseBuilder builder = MyResponse.builder();
+
+            builder
+                    .boardId(recruitmentBoard.getBoardId())
+                    .boardTitle(recruitmentBoard.getTitle())
+                    .boardRecEndDate(recruitmentBoard.getRecEndDate().toString())
+                    .boardWorkStartDate(recruitmentBoard.getWorkStartDate().toString());
+
+            return builder.build();
+        }
+    }
+
+
+   // 검색 조회
     @Data
     @Builder
     @NoArgsConstructor

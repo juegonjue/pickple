@@ -40,7 +40,7 @@ public class ApplyCreateService {
         RecruitmentBoard recruitmentBoard = recruitmentBoardJpaRepository.findById(request.getBoardId())
                 .orElseThrow(() -> new BusinessException(BoardErrorCode.NO_SUCH_BOARD));
 
-        if (applyJpaRepository.findByProfileAndBoard(profile, recruitmentBoard).isPresent())
+        if (applyJpaRepository.findByProfileAndRecruitmentBoard(profile, recruitmentBoard).isPresent())
             throw new BusinessException(ApplyErrorCode.DUPLICATED_APPLY);
 
         Apply apply = new Apply(

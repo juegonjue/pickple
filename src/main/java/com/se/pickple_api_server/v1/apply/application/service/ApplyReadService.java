@@ -48,12 +48,12 @@ public class ApplyReadService {
         Account account = accountContextService.getContextAccount();
         RecruitmentBoard recruitmentBoard = recruitmentBoardJpaRepository.findById(boardId)
                 .orElseThrow(() -> new BusinessException(BoardErrorCode.NO_SUCH_BOARD));
-        Apply apply = applyJpaRepository.findByProfile_AccountAndBoard(account, recruitmentBoard)
+        Apply apply = applyJpaRepository.findByProfile_AccountAndRecruitmentBoard(account, recruitmentBoard)
                 .orElseThrow(() -> new BusinessException(ApplyErrorCode.NO_SUCH_APPLY));
         return ProfileReadDto.ExistResponse.fromEntity(apply);
     }
 
-    // TODO 내 모집글에 들어온 지원서 목록
+    // TODO 내 모집글에 들어온 지원서 목록 --> 내가 쓴 모집글 목록에서 긁어와서, 해당 모집글에 들어온 지원서 목록을 보여주고, 지원서마다 프로필아이디 걸어줌
 
 
     // TODO [관리자] 사용자들의 지원 목록 페이징 (전체)
