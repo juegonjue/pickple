@@ -33,6 +33,10 @@ public class ApplyApiController {
         return new SuccessResponse(HttpStatus.CREATED.value(), "지원서 등록 성공", applyCreateService.create(request));
     }
 
+    // [ 관리자 ] 모든 지원 조회
+
+
+
     // [지원자] 내가 한 지원+계약 조회
     @ApiOperation(value = "내 지원 조회")
     @GetMapping(path = "/apply/my")
@@ -42,15 +46,21 @@ public class ApplyApiController {
         return new SuccessResponse(HttpStatus.OK.value(), "내 지원, 계약 목록 조회 성공", applyReadService.readAllMyApply());
     }
 
-    // [모집자] 내 모집글의 지원+계약 조회
+    // 특정 모집글의 지원+계약 조회
+    @ApiOperation(value = "(특정 모집글에 들어온) 지원 목록 조회")
+    @GetMapping(path = "/apply/{boardId}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SuccessResponse<ApplyReadDto.MeResponse> readApplyInRecboard(@PathVariable(name = "boardId") Long boardId) {
+        return new SuccessResponse(HttpStatus.OK.value(), "특정 모집글 지원 목록 조회 성공", applyReadService.readApplyInRecboard(boardId));
+    }
 
     // 현재 모집글의 내 지원여부
     @ApiOperation(value = "현재 모집글의 내 지원여부")
-    @GetMapping(path = "/apply/{boardId}")
+    @GetMapping(path = "/apply/my/{boardId}")
     @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<ProfileReadDto.ExistResponse> readExist(@PathVariable(name = "boardId") Long boardId) {
-        return new SuccessResponse(HttpStatus.OK.value(), "현재 모집글에서 내 지원 여부 조회 성공 ", applyReadService.isExistInRecboard(boardId));
+        return new SuccessResponse(HttpStatus.OK.value(), "현재 모집글에서 내 지원 여부 조회 성공 ", applyReadService.myApplyInRecboard(boardId));
     }
 
     // [모집자] 지원 상태 변경 (계약맺기)

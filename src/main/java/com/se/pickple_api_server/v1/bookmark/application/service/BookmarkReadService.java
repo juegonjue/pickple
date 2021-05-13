@@ -41,7 +41,7 @@ public class BookmarkReadService {
     }
 
     // 해당 모집글에 내 북마크 존재하는지
-    public BookmarkReadDto.ExistResponse isExistInRecboard(Long boardId) {
+    public BookmarkReadDto.ExistResponse myBookmarkInRecboard(Long boardId) {
         RecruitmentBoard recruitmentBoard = recruitmentBoardJpaRepository.findById(boardId)
                 .orElseThrow(() -> new BusinessException(BoardErrorCode.NO_SUCH_BOARD));
         Bookmark bookmark = bookmarkJpaRepository.findBookmarkByAccountAndBoard(accountContextService.getContextAccount(), recruitmentBoard)

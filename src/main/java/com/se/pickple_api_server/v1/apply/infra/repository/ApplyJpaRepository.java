@@ -14,4 +14,5 @@ public interface ApplyJpaRepository extends JpaRepository<Apply, Long> {
     List<Apply> findAllByProfile_Account(Account account);
     Optional<Apply> findByProfile_AccountAndRecruitmentBoard(Account account, RecruitmentBoard recruitmentBoard);
     Optional<Apply> findByProfileAndRecruitmentBoard(Profile profile, RecruitmentBoard recruitmentBoard);
+    List<Apply> findAllByRecruitmentBoard_BoardId(Long boardId);
 }

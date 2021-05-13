@@ -53,9 +53,9 @@ public class BookmarkApiController {
 
     // 현재 모집글의 내 북마크 여부
     @ApiOperation(value = "현재 모집글에서의 내 북마크 여부")
-    @GetMapping(path = "/bookmark/{boardId}")
+    @GetMapping(path = "/bookmark/my/{boardId}")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<BookmarkReadDto.ExistResponse> readExist(@PathVariable(value = "boardId") Long boardId) {
-        return new SuccessResponse(HttpStatus.OK.value(), "현재 모집글에서 내 북마크여부 조회 성공", bookmarkReadService.isExistInRecboard(boardId));
+        return new SuccessResponse(HttpStatus.OK.value(), "현재 모집글에서 내 북마크여부 조회 성공", bookmarkReadService.myBookmarkInRecboard(boardId));
     }
 }
