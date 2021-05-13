@@ -15,18 +15,24 @@ public class ApplyReadDto {
     @NoArgsConstructor
     @AllArgsConstructor
     static public class MyResponse {
+        private Long applyId;
         private Long boardId;
         private String boardTitle;
         private String boardRecEndDate;
         private String boardWordStartDate;
+        private Integer applyIsContracted;
+        private Integer applyIsDeleted;
 
         static public MyResponse fromEntity(Apply apply) {
             MyResponseBuilder builder = MyResponse.builder();
             builder
+                    .applyId(apply.getApplyId())
                     .boardId(apply.getRecruitmentBoard().getBoardId())
                     .boardTitle(apply.getRecruitmentBoard().getTitle())
                     .boardRecEndDate(apply.getRecruitmentBoard().getRecEndDate().toString())
-                    .boardWordStartDate(apply.getRecruitmentBoard().getWorkStartDate().toString());
+                    .boardWordStartDate(apply.getRecruitmentBoard().getWorkStartDate().toString())
+                    .applyIsContracted(apply.getIsContracted())
+                    .applyIsDeleted(apply.getIsDeleted());
             return builder.build();
         }
     }
