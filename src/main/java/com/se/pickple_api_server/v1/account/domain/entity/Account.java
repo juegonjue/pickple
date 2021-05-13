@@ -1,5 +1,6 @@
 package com.se.pickple_api_server.v1.account.domain.entity;
 
+import com.se.pickple_api_server.v1.account.application.dto.AccountUpdateDto;
 import com.se.pickple_api_server.v1.account.domain.type.AccountType;
 import com.se.pickple_api_server.v1.account.domain.type.RegisterType;
 import com.se.pickple_api_server.v1.common.domain.entity.BaseEntity;
@@ -14,7 +15,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class  Account extends BaseEntity{
+public class  Account extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -67,15 +68,21 @@ public class  Account extends BaseEntity{
         this.isDeleted = isDeleted;
     }
 
-    public void updateStudentId(String studentId) {
-        this.studentId = studentId;
+    public void changeAccountInfo(AccountUpdateDto.Request request) {
+        this.studentId = request.getNewStudentId();
+        this.email = request.getNewEmail();
+        this.accountType = AccountType.valueOf(request.getAccountType());
     }
 
-    public void updateEmail(String email) {this.email = email;}
-
-    public void updateAccountType(AccountType accountType) {
-        this.accountType = accountType;
-    }
+//    public void updateStudentId(String studentId) {
+//        this.studentId = studentId;
+//    }
+//
+//    public void updateEmail(String email) {this.email = email;}
+//
+//    public void updateAccountType(AccountType accountType) {
+//        this.accountType = accountType;
+//    }
 
     public void updateIsDeleted(String idString, Integer isDeleted) {
         this.idString = idString;

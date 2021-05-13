@@ -1,5 +1,6 @@
 package com.se.pickple_api_server.v1.common.domain.entity;
 
+import com.se.pickple_api_server.v1.account.domain.entity.Account;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;

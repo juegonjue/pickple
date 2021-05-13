@@ -1,5 +1,6 @@
 package com.se.pickple_api_server.v1.account.application.dto;
 
+import com.se.pickple_api_server.v1.account.domain.type.AccountType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -20,10 +21,8 @@ public class AccountUpdateDto {
     @AllArgsConstructor
     static public class Request {
 
-        //@NotEmpty
         @ApiModelProperty(name="사용자 아이디")
         private Long accountId;
-//        private String idString;
 
         @Size(min = 8, max = 20)
         @ApiModelProperty(name="변경할 학번", example = "01234567")

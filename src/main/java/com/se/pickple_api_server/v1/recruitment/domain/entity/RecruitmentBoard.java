@@ -4,6 +4,7 @@ import com.se.pickple_api_server.v1.account.domain.entity.Account;
 import com.se.pickple_api_server.v1.board.domain.entity.Board;
 import com.se.pickple_api_server.v1.board.domain.type.BoardType;
 import com.se.pickple_api_server.v1.recboard_tag.domain.entity.RecruitmentBoardTag;
+import com.se.pickple_api_server.v1.recruitment.application.dto.RecruitmentBoardUpdateDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -70,5 +71,10 @@ public class RecruitmentBoard extends Board {
     public void addTag(RecruitmentBoardTag recruitmentBoardTag) {
         this.recruitmentBoardTagList.add(recruitmentBoardTag);
     }
+
+
+//    public void changeRecruitmentBoardInfo(RecruitmentBoardUpdateDto.Request request) {
+//        super()
+//    }
 }
 

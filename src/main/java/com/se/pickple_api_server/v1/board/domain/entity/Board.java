@@ -49,4 +49,5 @@ public abstract class Board extends BaseEntity {
         this.hit = hit;
         this.isDeleted = isDeleted;
     }
+
 }
