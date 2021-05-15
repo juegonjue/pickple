@@ -52,8 +52,9 @@ public class ProfileApiController {
     @GetMapping(path = "/profile")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<Pageable> readAllProfile(@Validated PageRequest pageRequest) {
-        return new SuccessResponse(HttpStatus.OK.value(), "사용자 목록 조회 페이징 성공", profileReadService.readAll(pageRequest.of()));
+        return new SuccessResponse(HttpStatus.OK.value(), "프로필 목록 조회 페이징 성공", profileReadService.readAll(pageRequest.of()));
     }
 
     // TODO 프로필 수정
+
 }

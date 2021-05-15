@@ -1,4 +1,4 @@
-package com.se.pickple_api_server.v1.recboard_tag.domain.entity;
+package com.se.pickple_api_server.v1.recruitment.domain.entity;
 
 import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoard;
 import com.se.pickple_api_server.v1.common.domain.entity.BaseEntity;
@@ -20,13 +20,12 @@ public class RecruitmentBoardTag extends BaseEntity {
     private Long recruitmentBoardTagId;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(nullable = false, name = "board_id", referencedColumnName = "board_id")
+    @PrimaryKeyJoinColumn(name = "board_id", referencedColumnName = "boardId")
     private RecruitmentBoard recruitmentBoard;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(nullable = false, name = "tag_id", referencedColumnName = "tagId")
+    @JoinColumn(name = "tag_id", referencedColumnName = "tagId")
     private Tag tag;
-
 
     @Builder
     public RecruitmentBoardTag(Long recruitmentBoardTagId, RecruitmentBoard recruitmentBoard, Tag tag) {

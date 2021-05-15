@@ -2,10 +2,12 @@ package com.se.pickple_api_server.v1.recruitment.infra.api;
 
 import com.se.pickple_api_server.v1.recruitment.application.dto.RecruitmentBoardCreateDto;
 import com.se.pickple_api_server.v1.recruitment.application.dto.RecruitmentBoardReadDto;
+import com.se.pickple_api_server.v1.recruitment.application.dto.RecruitmentBoardUpdateDto;
 import com.se.pickple_api_server.v1.recruitment.application.service.RecruitmentBoardCreateService;
 import com.se.pickple_api_server.v1.recruitment.application.service.RecruitmentBoardReadService;
 import com.se.pickple_api_server.v1.common.infra.dto.PageRequest;
 import com.se.pickple_api_server.v1.common.infra.dto.SuccessResponse;
+import com.se.pickple_api_server.v1.recruitment.application.service.RecruitmentBoardUpdateService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -19,11 +21,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1")
-@Api(tags = "게시물_모집글 관리")
-public class BoardApiController {
+@Api(tags = "모집글 관리")
+public class RecruitmentBoardApiController {
 
     private final RecruitmentBoardCreateService recruitmentBoardCreateService;
     private final RecruitmentBoardReadService recruitmentBoardReadService;
+    private final RecruitmentBoardUpdateService recruitmentBoardUpdateService;
 
     // UC-RB-01 모집글 등록
     @ApiOperation(value = "모집글 등록")
@@ -59,5 +62,14 @@ public class BoardApiController {
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<RecruitmentBoardReadDto.MyResponse> readMyRecruitmentBoard() {
         return new SuccessResponse(HttpStatus.OK.value(), "내 모집글 조회 성공", recruitmentBoardReadService.readAllMyRecboard());
+    }
+
+    // 모집글 수정
+    //@ApiOperation(value = "모집글 수정")
+    //@PutMapping(path = "/recboard")
+    @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SuccessResponse<RecruitmentBoardUpdateDto.Request> update(@RequestBody @Validated RecruitmentBoardUpdateDto.Request request) {
+        return new SuccessResponse(HttpStatus.OK.value(), "모집글 수정 성공", recruitmentBoardUpdateService.update(request));
     }
 }

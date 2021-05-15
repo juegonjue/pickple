@@ -19,6 +19,17 @@ public class ApplyReadDto {
         private Integer isContracted;
         private String review;
         private String reviewState;
+
+        static public ListResponse formEntity(Apply apply) {
+            ListResponseBuilder builder = ListResponse.builder();
+            builder
+                    .applyId(apply.getApplyId())
+                    .recruitmentBoardId(apply.getRecruitmentBoard().getBoardId())
+                    .isContracted(apply.getIsContracted())
+                    .review(apply.getReview())
+                    .reviewState(apply.getReviewState().toString());
+            return builder.build();
+        }
     }
 
     // 해당 지원 상세조회 (관리자, 모집자(고용주))

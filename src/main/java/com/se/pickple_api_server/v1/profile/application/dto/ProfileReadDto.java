@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.se.pickple_api_server.v1.apply.domain.entity.Apply;
 import com.se.pickple_api_server.v1.profile.domain.entity.Profile;
-import com.se.pickple_api_server.v1.profile_tag.domain.entity.ProfileTag;
+import com.se.pickple_api_server.v1.profile.domain.entity.ProfileTag;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -3,7 +3,7 @@ package com.se.pickple_api_server.v1.recruitment.application.dto;
 import com.se.pickple_api_server.v1.board.domain.type.BoardType;
 import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoard;
 import com.se.pickple_api_server.v1.common.infra.dto.PageRequest;
-import com.se.pickple_api_server.v1.recboard_tag.domain.entity.RecruitmentBoardTag;
+import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoardTag;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

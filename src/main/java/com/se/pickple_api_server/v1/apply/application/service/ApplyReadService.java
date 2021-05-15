@@ -11,6 +11,9 @@ import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoard;
 import com.se.pickple_api_server.v1.recruitment.infra.repository.RecruitmentBoardJpaRepository;
 import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,6 +64,14 @@ public class ApplyReadService {
     }
 
     // TODO [관리자] 사용자들의 지원 목록 페이징 (전체)
+    public PageImpl readAll(Pageable pageable) {
+        Page<Apply> applyPage = applyJpaRepository.findAll(pageable);
+        List<ApplyReadDto.ListResponse> listResponseList = applyPage
+                .get()
+                .map(apply -> ApplyReadDto.ListResponse.formEntity(apply))
+                .collect(Collectors.toList());
+        return new PageImpl(listResponseList, applyPage.getPageable(), applyPage.getTotalElements());
+    }
 
     // TODO [관리자] 사용자들의 지원목록에서 리뷰 신청 온것
 

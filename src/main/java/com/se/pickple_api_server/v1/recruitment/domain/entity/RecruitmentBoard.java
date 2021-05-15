@@ -3,10 +3,7 @@ package com.se.pickple_api_server.v1.recruitment.domain.entity;
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
 import com.se.pickple_api_server.v1.board.domain.entity.Board;
 import com.se.pickple_api_server.v1.board.domain.type.BoardType;
-import com.se.pickple_api_server.v1.recboard_tag.domain.entity.RecruitmentBoardTag;
-import com.se.pickple_api_server.v1.recruitment.application.dto.RecruitmentBoardUpdateDto;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -44,11 +41,10 @@ public class RecruitmentBoard extends Board {
     @Column(nullable = false)
     private LocalDateTime recEndDate;
 
-    @OneToMany(mappedBy = "recruitmentBoard", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "recruitmentBoard", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, orphanRemoval = false)
     private List<RecruitmentBoardTag> recruitmentBoardTagList = new ArrayList<>();
 
 
-    @Builder
     public RecruitmentBoard(Account writerId, @Size(min = 2, max = 50) String title, @Size(min = 2, max = 2000) String text, BoardType boardType, Integer hit, Integer isDeleted, Integer recNumber, Integer paymentMin, Integer paymentMax, LocalDateTime workStartDate, LocalDateTime workEndDate, LocalDateTime recStartDate, LocalDateTime recEndDate, List<RecruitmentBoardTag> recruitmentBoardTagList) {
         super(writerId, title, text, boardType, hit, isDeleted);
         this.recNumber = recNumber;
@@ -58,6 +54,7 @@ public class RecruitmentBoard extends Board {
         this.workEndDate = workEndDate;
         this.recStartDate = recStartDate;
         this.recEndDate = recEndDate;
+        this.recruitmentBoardTagList = recruitmentBoardTagList;
         addTags(recruitmentBoardTagList);
     }
 
@@ -68,13 +65,31 @@ public class RecruitmentBoard extends Board {
                 .forEach(tag -> tag.setRecBoard(this));
     }
 
+    // 모집글_태그 리스트에 원소 추가
     public void addTag(RecruitmentBoardTag recruitmentBoardTag) {
         this.recruitmentBoardTagList.add(recruitmentBoardTag);
     }
 
+    public void updateRecContents(Integer recNumber, Integer paymentMax,
+                                  LocalDateTime workStartDate, LocalDateTime workEndDate, LocalDateTime recStartDate, LocalDateTime recEndDate) {
 
-//    public void changeRecruitmentBoardInfo(RecruitmentBoardUpdateDto.Request request) {
-//        super()
-//    }
+        this.recNumber = recNumber;
+        this.paymentMax = paymentMax;
+        this.workStartDate = workStartDate;
+        this.workEndDate = workEndDate;
+        this.recStartDate = recStartDate;
+        this.recEndDate = recEndDate;
+    }
+
+    public void updateTagContents(List<RecruitmentBoardTag> recruitmentBoardTagList) {
+        recruitmentBoardTagList
+                .stream()
+                .forEach(recruitmentBoardTag -> {
+                    if(!this.recruitmentBoardTagList.contains(recruitmentBoardTag)) {
+                        addTag(recruitmentBoardTag);
+                    }
+                });
+    }
+
 }
 

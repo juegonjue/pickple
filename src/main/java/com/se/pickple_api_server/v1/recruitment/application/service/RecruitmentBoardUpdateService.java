@@ -1,18 +1,23 @@
 package com.se.pickple_api_server.v1.recruitment.application.service;
 
-import com.se.pickple_api_server.v1.account.application.error.AccountErrorCode;
 import com.se.pickple_api_server.v1.account.application.service.AccountContextService;
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
-import com.se.pickple_api_server.v1.account.infra.repository.AccountJpaRepository;
 import com.se.pickple_api_server.v1.common.domain.error.GlobalErrorCode;
 import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
+import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoardTag;
+import com.se.pickple_api_server.v1.recruitment.application.dto.RecruitmentBoardCreateDto;
 import com.se.pickple_api_server.v1.recruitment.application.dto.RecruitmentBoardUpdateDto;
 import com.se.pickple_api_server.v1.recruitment.application.error.BoardErrorCode;
 import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoard;
 import com.se.pickple_api_server.v1.recruitment.infra.repository.RecruitmentBoardJpaRepository;
+import com.se.pickple_api_server.v1.tag.application.error.TagErrorCode;
+import com.se.pickple_api_server.v1.tag.infra.repository.TagJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -21,26 +26,44 @@ public class RecruitmentBoardUpdateService {
 
     private final AccountContextService accountContextService;
     private final RecruitmentBoardJpaRepository recruitmentBoardJpaRepository;
-    private final AccountJpaRepository accountJpaRepository;
+    private final TagJpaRepository tagJpaRepository;
 
     @Transactional
     public boolean update(RecruitmentBoardUpdateDto.Request request) {
-        Account account = accountJpaRepository.findById(request.getAccountId())
-                .orElseThrow(()->new BusinessException(AccountErrorCode.NO_SUCH_ACCOUNT));
-        Boolean isAdmin = accountContextService.hasAuthority("ADMIN");
         RecruitmentBoard recruitmentBoard = recruitmentBoardJpaRepository.findById(request.getBoardId())
                 .orElseThrow(() -> new BusinessException(BoardErrorCode.NO_SUCH_BOARD));
+        Account account = recruitmentBoard.getAccount();
 
-        if (!(accountContextService.isOwner(account) || isAdmin))
+        if (!(accountContextService.isOwner(account)))
             throw new BusinessException(GlobalErrorCode.HANDLE_ACCESS_DENIED);
 
-        recruitmentBoard.changeRecruitmentBoardInfo(request);
+        recruitmentBoard.updateBoardContents(
+                request.getNewTitle(),
+                request.getNewText());
+        recruitmentBoard.updateRecContents(
+                request.getNewRecNumber(),
+                request.getNewPaymentMax(),
+                request.getNewWorkStartDate(),
+                request.getNewWorkEndDate(),
+                request.getNewRecStartDate(),
+                request.getNewRecEndDate()
+                );
+        //recruitmentBoard.addTags(getTags(request.getTagList()));
+        recruitmentBoard.updateTagContents(getTags(request.getTagList()));
 
         recruitmentBoardJpaRepository.save(recruitmentBoard);
         return true;
     }
 
-//    public void updateTitle(RecruitmentBoard recruitmentBoard, String title) {
-//        recruitmentBoard.updateTitle(title);
-//    }
+    private List<RecruitmentBoardTag> getTags(List<RecruitmentBoardCreateDto.TagDto> tagDtoList) {
+        return tagDtoList.stream()
+                .map(tag -> RecruitmentBoardTag.builder()
+                    .tag(tagJpaRepository.findById(tag.getTagId())
+                        .orElseThrow(() -> new BusinessException(TagErrorCode.NO_SUCH_TAG)))
+                    .build()
+                )
+                .collect(Collectors.toList());
+
+    }
+
 }

@@ -7,7 +7,7 @@ import com.se.pickple_api_server.v1.board.domain.type.BoardType;
 import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoard;
 import com.se.pickple_api_server.v1.recruitment.infra.repository.RecruitmentBoardJpaRepository;
 import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
-import com.se.pickple_api_server.v1.recboard_tag.domain.entity.RecruitmentBoardTag;
+import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoardTag;
 import com.se.pickple_api_server.v1.tag.application.error.TagErrorCode;
 import com.se.pickple_api_server.v1.tag.infra.repository.TagJpaRepository;
 import lombok.RequiredArgsConstructor;
@@ -53,6 +53,7 @@ public class RecruitmentBoardCreateService {
         recruitmentBoardJpaRepository.save(recruitmentBoard);
         return recruitmentBoard.getBoardId();
     }
+
 
     private List<RecruitmentBoardTag> getTags(List<RecruitmentBoardCreateDto.TagDto> tagDtoList) {
         return tagDtoList.stream()

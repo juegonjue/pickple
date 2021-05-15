@@ -4,12 +4,14 @@ import com.se.pickple_api_server.v1.apply.application.dto.ApplyCreateDto;
 import com.se.pickple_api_server.v1.apply.application.dto.ApplyReadDto;
 import com.se.pickple_api_server.v1.apply.application.service.ApplyCreateService;
 import com.se.pickple_api_server.v1.apply.application.service.ApplyReadService;
+import com.se.pickple_api_server.v1.common.infra.dto.PageRequest;
 import com.se.pickple_api_server.v1.common.infra.dto.SuccessResponse;
 import com.se.pickple_api_server.v1.profile.application.dto.ProfileReadDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.AfterDomainEventPublication;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -34,8 +36,12 @@ public class ApplyApiController {
     }
 
     // [ 관리자 ] 모든 지원 조회
-
-
+    @ApiOperation(value = "지원 목록 조회 페이징")
+    @GetMapping(path = "/apply")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SuccessResponse<Pageable> readAllApply(@Validated PageRequest pageRequest) {
+        return new SuccessResponse(HttpStatus.OK.value(), "지원 목록 조회 페이징 성공", applyReadService.readAll(pageRequest.of()));
+    }
 
     // [지원자] 내가 한 지원+계약 조회
     @ApiOperation(value = "내 지원 조회")

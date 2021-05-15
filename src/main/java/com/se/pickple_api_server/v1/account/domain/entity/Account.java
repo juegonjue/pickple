@@ -37,10 +37,6 @@ public class  Account extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private AccountType accountType;
 
-//    @Size(min = 10, max = 20)
-//    @Column(nullable = false, unique = true)
-//    private String phoneNumber;
-
     @Size(min = 4, max = 40)
     @Column(unique = true)
     @Email
@@ -74,6 +70,10 @@ public class  Account extends BaseEntity {
         this.accountType = AccountType.valueOf(request.getAccountType());
     }
 
+    public void updateIsDeleted(String idString, Integer isDeleted) {
+        this.idString = idString;
+        this.isDeleted = isDeleted;
+    }
 //    public void updateStudentId(String studentId) {
 //        this.studentId = studentId;
 //    }
@@ -84,9 +84,6 @@ public class  Account extends BaseEntity {
 //        this.accountType = accountType;
 //    }
 
-    public void updateIsDeleted(String idString, Integer isDeleted) {
-        this.idString = idString;
-        this.isDeleted = isDeleted;
-    }
+
 
 }

@@ -8,7 +8,7 @@ import com.se.pickple_api_server.v1.profile.application.dto.ProfileCreateDto;
 import com.se.pickple_api_server.v1.profile.application.error.ProfileErrorCode;
 import com.se.pickple_api_server.v1.profile.domain.entity.Profile;
 import com.se.pickple_api_server.v1.profile.infra.repository.ProfileJpaRepository;
-import com.se.pickple_api_server.v1.profile_tag.domain.entity.ProfileTag;
+import com.se.pickple_api_server.v1.profile.domain.entity.ProfileTag;
 import com.se.pickple_api_server.v1.tag.application.error.TagErrorCode;
 import com.se.pickple_api_server.v1.tag.infra.repository.TagJpaRepository;
 import lombok.RequiredArgsConstructor;

@@ -17,9 +17,6 @@ public class RecruitmentBoardUpdateDto {
     @AllArgsConstructor
     static public class Request {
 
-        @ApiModelProperty(name="사용자 아이디")
-        private Long accountId;
-
         @ApiModelProperty(name="보드 아이디")
         private Long boardId;
 
@@ -37,30 +34,30 @@ public class RecruitmentBoardUpdateDto {
         @ApiModelProperty(notes = "변경할 금액", example = "100000")
         private Integer newPaymentMax;
 
-        @ApiModelProperty(notes = "변경할 업무 시작일", example = "2020-01-01T00:00:00")
+        @ApiModelProperty(notes = "변경할 업무 시작일", example = "2020-02-02T00:00:00")
         private LocalDateTime newWorkStartDate;
 
-        @ApiModelProperty(notes = "변경할 업무 종료일", example = "2020-01-01T00:00:00")
+        @ApiModelProperty(notes = "변경할 업무 종료일", example = "2020-02-02T00:00:00")
         private LocalDateTime newWorkEndDate;
 
-        @ApiModelProperty(notes = "변경할 모집 시작일", example = "2020-01-01T00:00:00")
+        @ApiModelProperty(notes = "변경할 모집 시작일", example = "2020-02-02T00:00:00")
         private LocalDateTime newRecStartDate;
 
-        @ApiModelProperty(notes = "변경할 모집 마감일", example = "2020-01-01T00:00:00")
+        @ApiModelProperty(notes = "변경할 모집 마감일", example = "2020-02-02T00:00:00")
         private LocalDateTime newRecEndDate;
 
         @ApiModelProperty(notes = "변경할 태그리스트")
         @Singular("tagList")
-        private List<TagDto> tagList;
+        private List<RecruitmentBoardCreateDto.TagDto> tagList;
     }
 
-    @ApiModel("모집글 태그 등록")
-    @Getter
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    static public class TagDto {
-        @ApiModelProperty(notes = "태그 번호", example = "1")
-        private Long tagId;
-    }
+//    @ApiModel("모집글 태그 등록")
+//    @Getter
+//    @Builder
+//    @NoArgsConstructor
+//    @AllArgsConstructor
+//    static public class TagDto {
+//        @ApiModelProperty(notes = "태그 번호", example = "1")
+//        private Long tagId;
+//    }
 }

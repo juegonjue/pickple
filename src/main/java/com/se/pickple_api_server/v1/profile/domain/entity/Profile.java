@@ -2,7 +2,6 @@ package com.se.pickple_api_server.v1.profile.domain.entity;
 
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
 import com.se.pickple_api_server.v1.common.domain.entity.BaseEntity;
-import com.se.pickple_api_server.v1.profile_tag.domain.entity.ProfileTag;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
