@@ -28,16 +28,19 @@ public class Report extends BaseEntity {
     @Column(nullable = false)
     private String text;
 
+    // 처리 상태
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private ReportState reportState = ReportState.BEFORE;
 
+    // 처리 결과
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private ReportResult reportResult = ReportResult.NONE;
 
+    // 담당자
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
-    @JoinColumn(nullable = false, name="manager", referencedColumnName = "accountId")
+    @JoinColumn(name="manager", referencedColumnName = "accountId")
     private Account manager;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
@@ -48,15 +51,18 @@ public class Report extends BaseEntity {
     @JoinColumn(nullable = false, name="reported", referencedColumnName = "accountId")
     private Account reported;
 
-    @Builder
-    public Report(Long reportId, Board boardId, @Size(min = 2, max = 255) String text, ReportState reportState, ReportResult reportResult, Account manager, Account reporter, Account reported) {
-        this.reportId = reportId;
+
+    public Report(Board boardId, @Size(min = 2, max = 255) String text, ReportState reportState, ReportResult reportResult, Account reporter, Account reported) {
         this.boardId = boardId;
         this.text = text;
         this.reportState = reportState;
         this.reportResult = reportResult;
-        this.manager = manager;
         this.reporter = reporter;
         this.reported = reported;
     }
+
+    // 신고 상태 업데이트 -> manager, reportState
+    //public updateReportState()
+
+    // 신고 처리되었을 때 -> reportState, reportResult
 }

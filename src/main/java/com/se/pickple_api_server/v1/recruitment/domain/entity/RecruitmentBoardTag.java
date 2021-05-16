@@ -20,7 +20,7 @@ public class RecruitmentBoardTag extends BaseEntity {
     private Long recruitmentBoardTagId;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @PrimaryKeyJoinColumn(name = "board_id", referencedColumnName = "boardId")
+    @PrimaryKeyJoinColumn(name = "board_id", referencedColumnName = "board_id")
     private RecruitmentBoard recruitmentBoard;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)

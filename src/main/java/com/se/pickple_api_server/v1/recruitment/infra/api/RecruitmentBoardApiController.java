@@ -65,8 +65,8 @@ public class RecruitmentBoardApiController {
     }
 
     // 모집글 수정
-    //@ApiOperation(value = "모집글 수정")
-    //@PutMapping(path = "/recboard")
+    @ApiOperation(value = "모집글 수정")
+    @PutMapping(path = "/recboard")
     @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<RecruitmentBoardUpdateDto.Request> update(@RequestBody @Validated RecruitmentBoardUpdateDto.Request request) {
