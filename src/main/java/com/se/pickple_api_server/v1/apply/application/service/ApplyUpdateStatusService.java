@@ -24,9 +24,9 @@ public class ApplyUpdateStatusService {
 
     // [모집자] update, 지원 상태 변경 (계약맺기) isContracted : 0 -> 1
     @Transactional
-    public boolean contractStatus(Long applyId) {
+    public boolean contractStatus(ApplyUpdateDto.ContractRequest request) {
 
-        Apply apply = applyJpaRepository.findById(applyId)
+        Apply apply = applyJpaRepository.findById(request.getApplyId())
                 .orElseThrow(() -> new BusinessException(ApplyErrorCode.NO_SUCH_APPLY));
 
         // 작성자가 아니면 상태 변경 불가

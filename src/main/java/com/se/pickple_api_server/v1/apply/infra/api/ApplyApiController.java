@@ -83,11 +83,11 @@ public class ApplyApiController {
 
     // [모집자] update, 지원 상태 변경 (계약맺기) isContracted : 0 -> 1
     @ApiOperation(value = "계약 맺기")
-    @PutMapping(path = "/apply/contract/{applyId}")
+    @PutMapping(path = "/apply/contract")
     @PreAuthorize("hasAnyAuthority('MEMBER')")
     @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResponse makeContract(@PathVariable(name = "applyId") Long applyId) {
-        applyUpdateStatusService.contractStatus(applyId);
+    public SuccessResponse makeContract(@RequestBody @Validated ApplyUpdateDto.ContractRequest request) {
+        applyUpdateStatusService.contractStatus(request);
         return new SuccessResponse(HttpStatus.OK.value(), "계약 맺기 성공");
     }
 

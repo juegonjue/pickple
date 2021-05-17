@@ -20,6 +20,13 @@ public class ApplyUpdateDto {
         private String review;
     }
 
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    static public class ContractRequest {
+        private Long applyId;
+    }
+
     // 관리자 후기 승인 / 반려
     @Data
     @NoArgsConstructor

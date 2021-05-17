@@ -12,8 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.se.pickple_api_server.v1.apply.domain.entity.ReviewState.ACCEPT;
-
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
