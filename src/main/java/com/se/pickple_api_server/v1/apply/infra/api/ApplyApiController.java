@@ -99,7 +99,14 @@ public class ApplyApiController {
     public SuccessResponse writeReview(@RequestBody @Validated ApplyUpdateDto.ReviewRequest request) {
         return new SuccessResponse(HttpStatus.OK.value(), "계약 후기 작성 성공", applyUpdateReviewService.updateReview(request));
     }
-    // [관리자] update, 후기 승인 (후기 보이게 하기) waiting -> accept, reject
 
+    // [관리자] update, 후기 승인 (후기 보이게 하기) waiting -> accept, reject
+    @ApiOperation(value = "후기 처리")
+    @PutMapping(path = "/apply/manage")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SuccessResponse manageReview(@RequestBody @Validated ApplyUpdateDto.ReviewStatusRequest request) {
+        return new SuccessResponse(HttpStatus.OK.value(), "후기 처리 성공", applyUpdateStatusService.updateReviewStatus(request));
+    }
 
 }
