@@ -2,8 +2,10 @@ package com.se.pickple_api_server.v1.apply.infra.api;
 
 import com.se.pickple_api_server.v1.apply.application.dto.ApplyCreateDto;
 import com.se.pickple_api_server.v1.apply.application.dto.ApplyReadDto;
+import com.se.pickple_api_server.v1.apply.application.dto.ApplyUpdateDto;
 import com.se.pickple_api_server.v1.apply.application.service.ApplyCreateService;
 import com.se.pickple_api_server.v1.apply.application.service.ApplyReadService;
+import com.se.pickple_api_server.v1.apply.application.service.ApplyUpdateReviewService;
 import com.se.pickple_api_server.v1.apply.application.service.ApplyUpdateStatusService;
 import com.se.pickple_api_server.v1.common.infra.dto.PageRequest;
 import com.se.pickple_api_server.v1.common.infra.dto.SuccessResponse;
@@ -11,7 +13,6 @@ import com.se.pickple_api_server.v1.profile.application.dto.ProfileReadDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.AfterDomainEventPublication;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,7 +28,7 @@ public class ApplyApiController {
     private final ApplyCreateService applyCreateService;
     private final ApplyReadService applyReadService;
     private final ApplyUpdateStatusService applyUpdateStatusService;
-
+    private final ApplyUpdateReviewService applyUpdateReviewService;
 
     // [지원자] 지원 등록
     @ApiOperation(value = "지원 등록")
@@ -85,13 +86,19 @@ public class ApplyApiController {
     @PutMapping(path = "/apply/contract/{applyId}")
     @PreAuthorize("hasAnyAuthority('MEMBER')")
     @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResponse contracted(@PathVariable(name = "applyId") Long applyId) {
-        applyUpdateStatusService.updateContractedStatus(applyId);
+    public SuccessResponse makeContract(@PathVariable(name = "applyId") Long applyId) {
+        applyUpdateStatusService.contractStatus(applyId);
         return new SuccessResponse(HttpStatus.OK.value(), "계약 맺기 성공");
     }
 
-    // [모집자] update, 내 모집글의 지원자에게 후기 작성 -> 후기 상태(before -> waiting), 후기가 승인된것만 후기 보이게 함
-
+    // [모집자] update, writeReview  내 모집글의 지원자에게 후기 작성 -> 후기 상태(before -> waiting), 후기가 승인된것만 후기 보이게 함
+    @ApiOperation(value = "프로필에 후기 작성")
+    @PutMapping(path = "/apply/review")
+    @PreAuthorize("hasAnyAuthority('MEMBER')")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SuccessResponse writeReview(@RequestBody @Validated ApplyUpdateDto.ReviewRequest request) {
+        return new SuccessResponse(HttpStatus.OK.value(), "계약 후기 작성 성공", applyUpdateReviewService.updateReview(request));
+    }
     // [관리자] update, 후기 승인 (후기 보이게 하기) waiting -> accept
 
     // [관리자] update, 후기 반려 (후기 안보이게 하기 ) waiting -> reject
