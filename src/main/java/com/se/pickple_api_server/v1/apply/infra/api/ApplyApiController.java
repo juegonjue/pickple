@@ -99,8 +99,7 @@ public class ApplyApiController {
     public SuccessResponse writeReview(@RequestBody @Validated ApplyUpdateDto.ReviewRequest request) {
         return new SuccessResponse(HttpStatus.OK.value(), "계약 후기 작성 성공", applyUpdateReviewService.updateReview(request));
     }
-    // [관리자] update, 후기 승인 (후기 보이게 하기) waiting -> accept
+    // [관리자] update, 후기 승인 (후기 보이게 하기) waiting -> accept, reject
 
-    // [관리자] update, 후기 반려 (후기 안보이게 하기 ) waiting -> reject
 
 }
