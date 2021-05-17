@@ -26,10 +26,5 @@ public class ReportCreateDto {
         @Size(min = 2, max = 255)
         private String text;
 
-        @ApiModelProperty(notes = "처리 담당자", example = "2")
-        private Long manager;
-
-        @ApiModelProperty(notes = "피신고자", example = "2")
-        private Long reported;
     }
 }
