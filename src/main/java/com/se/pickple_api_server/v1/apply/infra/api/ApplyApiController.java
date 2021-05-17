@@ -4,6 +4,7 @@ import com.se.pickple_api_server.v1.apply.application.dto.ApplyCreateDto;
 import com.se.pickple_api_server.v1.apply.application.dto.ApplyReadDto;
 import com.se.pickple_api_server.v1.apply.application.service.ApplyCreateService;
 import com.se.pickple_api_server.v1.apply.application.service.ApplyReadService;
+import com.se.pickple_api_server.v1.apply.application.service.ApplyUpdateStatusService;
 import com.se.pickple_api_server.v1.common.infra.dto.PageRequest;
 import com.se.pickple_api_server.v1.common.infra.dto.SuccessResponse;
 import com.se.pickple_api_server.v1.profile.application.dto.ProfileReadDto;
@@ -25,6 +26,7 @@ public class ApplyApiController {
 
     private final ApplyCreateService applyCreateService;
     private final ApplyReadService applyReadService;
+    private final ApplyUpdateStatusService applyUpdateStatusService;
 
 
     // [지원자] 지원 등록
@@ -73,15 +75,25 @@ public class ApplyApiController {
     @ApiOperation(value = "지원 상세 조회")
     @GetMapping(path = "/apply/{applyId}")
     @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
+    @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<ApplyReadDto.Response> readApply(@PathVariable(name = "applyId") Long applyId) {
         return new SuccessResponse(HttpStatus.OK.value(), "지원 상세 조회", applyReadService.readApply(applyId));
     }
 
-    // [모집자] 지원 상태 변경 (계약맺기)
+    // [모집자] update, 지원 상태 변경 (계약맺기) isContracted : 0 -> 1
+    @ApiOperation(value = "계약 맺기")
+    @PutMapping(path = "/apply/contract/{applyId}")
+    @PreAuthorize("hasAnyAuthority('MEMBER')")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SuccessResponse contracted(@PathVariable(name = "applyId") Long applyId) {
+        applyUpdateStatusService.updateContractedStatus(applyId);
+        return new SuccessResponse(HttpStatus.OK.value(), "계약 맺기 성공");
+    }
 
-    // [모집자] 내 모집글의 지원자에게 후기 작성 -> 후기 상태 변경, 후기가 승인된것만후기 보이게 함
+    // [모집자] update, 내 모집글의 지원자에게 후기 작성 -> 후기 상태(before -> waiting), 후기가 승인된것만 후기 보이게 함
 
-    // [관리자] 후기 승인 (후기 보이게 하기)
+    // [관리자] update, 후기 승인 (후기 보이게 하기) waiting -> accept
 
+    // [관리자] update, 후기 반려 (후기 안보이게 하기 ) waiting -> reject
 
 }

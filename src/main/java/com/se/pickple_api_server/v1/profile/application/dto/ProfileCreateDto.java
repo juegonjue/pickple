@@ -17,9 +17,6 @@ public class ProfileCreateDto {
     @AllArgsConstructor
     static public class Request {
 
-        @ApiModelProperty(notes = "프로필 작성자 (고유번호)", example = "1")
-        private Account accountId;
-
         @ApiModelProperty(notes = "카카오 아이디",  example = "imkakao")
         @Size(min = 2, max = 20)
         private String kakaoId;

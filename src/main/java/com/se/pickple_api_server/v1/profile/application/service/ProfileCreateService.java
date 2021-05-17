@@ -1,6 +1,7 @@
 package com.se.pickple_api_server.v1.profile.application.service;
 
 import com.se.pickple_api_server.v1.account.application.error.AccountErrorCode;
+import com.se.pickple_api_server.v1.account.application.service.AccountContextService;
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
 import com.se.pickple_api_server.v1.account.infra.repository.AccountJpaRepository;
 import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
@@ -23,14 +24,14 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class ProfileCreateService {
 
+    private final AccountContextService accountContextService;
     private final ProfileJpaRepository profileJpaRepository;
     private final TagJpaRepository tagJpaRepository;
-    private final AccountJpaRepository accountJpaRepository;
 
     @Transactional
     public Long create(ProfileCreateDto.Request request) {
 
-        Account account = getWriter(request.getAccountId());
+        Account account = accountContextService.getContextAccount();
 
         if (profileJpaRepository.findByAccount(account).isPresent())
             throw new BusinessException(ProfileErrorCode.ALREADY_EXIST);
@@ -48,11 +49,6 @@ public class ProfileCreateService {
 
         profileJpaRepository.save(profile);
         return profile.getProfileId();
-    }
-
-    public Account getWriter(ProfileCreateDto.Account account) {
-        System.out.println("ProfileCreateService.getWriter : "+ account.getWriterId());
-        return accountJpaRepository.findById(account.getWriterId()).orElseThrow(() -> new BusinessException(AccountErrorCode.NO_SUCH_ACCOUNT));
     }
 
     public List<ProfileTag> getTags(List<ProfileCreateDto.TagDto> tagDtoList) {

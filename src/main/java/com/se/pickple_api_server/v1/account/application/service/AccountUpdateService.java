@@ -3,7 +3,6 @@ package com.se.pickple_api_server.v1.account.application.service;
 import com.se.pickple_api_server.v1.account.application.dto.AccountUpdateDto;
 import com.se.pickple_api_server.v1.account.application.error.AccountErrorCode;
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
-import com.se.pickple_api_server.v1.account.domain.type.AccountType;
 import com.se.pickple_api_server.v1.account.infra.repository.AccountJpaRepository;
 import com.se.pickple_api_server.v1.common.domain.error.GlobalErrorCode;
 import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
@@ -35,25 +34,5 @@ public class AccountUpdateService {
         return true;
 
     }
-
-//        if (request.getNewStudentId() != null) {
-//            updateStudentId(account, request.getNewStudentId());
-//        }
-//
-//        if (request.getNewEmail() != null)
-//            updateEmail(account, request.getNewEmail());
-//
-//        //관리자만
-//        if (request.getAccountType() != null && isAdmin)
-//            updateAccountType(account, request.getAccountType());
-
-
-//    public void updateStudentId(Account account, String newStudentId) { account.updateStudentId(newStudentId); }
-//
-//    public void updateEmail(Account account, String newEmail) { account.updateEmail(newEmail); }
-//
-//    public void updateAccountType(Account account, String newAccountType) {
-//        account.updateAccountType(AccountType.valueOf(newAccountType));
-//    }
 
 }
