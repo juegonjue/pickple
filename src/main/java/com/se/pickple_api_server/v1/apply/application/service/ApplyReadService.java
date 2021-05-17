@@ -63,7 +63,7 @@ public class ApplyReadService {
         return allApplyReadDto;
     }
 
-    // TODO [관리자] 사용자들의 지원 목록 페이징 (전체)
+    // [관리자] 사용자들의 지원 목록 페이징 (전체)
     public PageImpl readAll(Pageable pageable) {
         Page<Apply> applyPage = applyJpaRepository.findAll(pageable);
         List<ApplyReadDto.ListResponse> listResponseList = applyPage
@@ -71,6 +71,14 @@ public class ApplyReadService {
                 .map(apply -> ApplyReadDto.ListResponse.formEntity(apply))
                 .collect(Collectors.toList());
         return new PageImpl(listResponseList, applyPage.getPageable(), applyPage.getTotalElements());
+    }
+
+
+    // 한개의 지원 상세조회
+    public ApplyReadDto.Response readApply(Long applyId) {
+        Apply apply = applyJpaRepository.findById(applyId)
+                .orElseThrow(() -> new BusinessException(ApplyErrorCode.NO_SUCH_APPLY));
+        return ApplyReadDto.Response.fromEntity(apply);
     }
 
     // TODO [관리자] 사용자들의 지원목록에서 리뷰 신청 온것
