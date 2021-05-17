@@ -24,7 +24,7 @@ public class ApplyUpdateStatusService {
 
     // [모집자] update, 지원 상태 변경 (계약맺기) isContracted : 0 -> 1
     @Transactional
-    public boolean contractStatus(ApplyUpdateDto.ContractRequest request) {
+    public void contractStatus(ApplyUpdateDto.ContractRequest request) {
 
         Apply apply = applyJpaRepository.findById(request.getApplyId())
                 .orElseThrow(() -> new BusinessException(ApplyErrorCode.NO_SUCH_APPLY));
@@ -35,7 +35,6 @@ public class ApplyUpdateStatusService {
 
         apply.updateIsContracted(1);
         applyJpaRepository.save(apply);
-        return true;
     }
 
 

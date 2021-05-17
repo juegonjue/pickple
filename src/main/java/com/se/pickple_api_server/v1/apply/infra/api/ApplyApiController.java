@@ -1,12 +1,10 @@
 package com.se.pickple_api_server.v1.apply.infra.api;
 
 import com.se.pickple_api_server.v1.apply.application.dto.ApplyCreateDto;
+import com.se.pickple_api_server.v1.apply.application.dto.ApplyDeleteDto;
 import com.se.pickple_api_server.v1.apply.application.dto.ApplyReadDto;
 import com.se.pickple_api_server.v1.apply.application.dto.ApplyUpdateDto;
-import com.se.pickple_api_server.v1.apply.application.service.ApplyCreateService;
-import com.se.pickple_api_server.v1.apply.application.service.ApplyReadService;
-import com.se.pickple_api_server.v1.apply.application.service.ApplyUpdateReviewService;
-import com.se.pickple_api_server.v1.apply.application.service.ApplyUpdateStatusService;
+import com.se.pickple_api_server.v1.apply.application.service.*;
 import com.se.pickple_api_server.v1.common.infra.dto.PageRequest;
 import com.se.pickple_api_server.v1.common.infra.dto.SuccessResponse;
 import com.se.pickple_api_server.v1.profile.application.dto.ProfileReadDto;
@@ -18,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.annotation.RequestScope;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,6 +28,7 @@ public class ApplyApiController {
     private final ApplyReadService applyReadService;
     private final ApplyUpdateStatusService applyUpdateStatusService;
     private final ApplyUpdateReviewService applyUpdateReviewService;
+    private final ApplyDeleteService applyDeleteService;
 
     // [지원자] 지원 등록
     @ApiOperation(value = "지원 등록")
@@ -107,6 +107,16 @@ public class ApplyApiController {
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse manageReview(@RequestBody @Validated ApplyUpdateDto.ReviewStatusRequest request) {
         return new SuccessResponse(HttpStatus.OK.value(), "후기 처리 성공", applyUpdateStatusService.updateReviewStatus(request));
+    }
+
+    // 지원 취소
+    @ApiOperation(value = "지원 취소")
+    @DeleteMapping(path = "/apply")
+    @PreAuthorize("hasAnyAuthority('MEMBER')")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SuccessResponse cancelApply(@RequestBody @Validated ApplyDeleteDto.Request request) {
+        applyDeleteService.delete(request);
+        return new SuccessResponse(HttpStatus.OK.value(), "지원 취소 성공");
     }
 
 }
