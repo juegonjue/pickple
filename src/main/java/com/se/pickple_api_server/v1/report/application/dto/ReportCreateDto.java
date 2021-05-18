@@ -1,6 +1,5 @@
 package com.se.pickple_api_server.v1.report.application.dto;
 
-import com.se.pickple_api_server.v1.account.domain.entity.Account;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

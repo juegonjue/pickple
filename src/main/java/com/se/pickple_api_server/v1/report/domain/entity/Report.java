@@ -22,7 +22,7 @@ public class Report extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     @JoinColumn(name="board_id", referencedColumnName = "boardId")
-    private Board boardId;
+    private Board board;
 
     @Size(min=2, max=255)
     @Column(nullable = false)
@@ -52,8 +52,8 @@ public class Report extends BaseEntity {
     private Account reported;
 
 
-    public Report(Board boardId, @Size(min = 2, max = 255) String text, ReportState reportState, ReportResult reportResult, Account reporter, Account reported) {
-        this.boardId = boardId;
+    public Report(Board board, @Size(min = 2, max = 255) String text, ReportState reportState, ReportResult reportResult, Account reporter, Account reported) {
+        this.board = board;
         this.text = text;
         this.reportState = reportState;
         this.reportResult = reportResult;
