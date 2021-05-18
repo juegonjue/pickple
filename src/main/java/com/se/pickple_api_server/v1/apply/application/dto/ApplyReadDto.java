@@ -1,10 +1,13 @@
 package com.se.pickple_api_server.v1.apply.application.dto;
 
 import com.se.pickple_api_server.v1.apply.domain.entity.Apply;
+import com.se.pickple_api_server.v1.common.infra.dto.PageRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotNull;
 
 public class ApplyReadDto {
 
@@ -72,7 +75,6 @@ public class ApplyReadDto {
         private String boardRecEndDate;
         private String boardWordStartDate;
         private Integer applyIsContracted;
-        private Integer applyIsDeleted;
 
         static public MyResponse fromEntity(Apply apply) {
             MyResponseBuilder builder = MyResponse.builder();
@@ -82,8 +84,7 @@ public class ApplyReadDto {
                     .boardTitle(apply.getRecruitmentBoard().getTitle())
                     .boardRecEndDate(apply.getRecruitmentBoard().getRecEndDate().toString())
                     .boardWordStartDate(apply.getRecruitmentBoard().getWorkStartDate().toString())
-                    .applyIsContracted(apply.getIsContracted())
-                    .applyIsDeleted(apply.getIsDeleted());
+                    .applyIsContracted(apply.getIsContracted());
             return builder.build();
         }
     }
@@ -99,6 +100,7 @@ public class ApplyReadDto {
         private String accountName;
         private String profileIntroduce;
         private Integer isContracted;
+        private String review;
         private String reviewState;
 
         static public MeResponse fromEntity(Apply apply) {
@@ -109,6 +111,7 @@ public class ApplyReadDto {
                     .accountName(apply.getProfile().getAccount().getName())
                     .profileIntroduce(apply.getProfile().getIntroduce())
                     .isContracted(apply.getIsContracted())
+                    .review(apply.getReview())
                     .reviewState(apply.getReviewState().toString());
 
             return builder.build();
@@ -128,5 +131,4 @@ public class ApplyReadDto {
             return builder.applyId(apply.getApplyId()).build();
         }
     }
-
 }

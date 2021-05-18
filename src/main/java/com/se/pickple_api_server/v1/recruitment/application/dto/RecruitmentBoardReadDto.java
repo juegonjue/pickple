@@ -101,17 +101,9 @@ public class RecruitmentBoardReadDto {
 
         private String text;
 
-        private Integer isDeleted;
-
         private Integer recNumber;
 
-//        private Integer paymentMin;
-
         private Integer paymentMax;
-
-//        private String workStartDate;
-
-//        private String workEndDate;
 
         private String recStartDate;
 
@@ -128,7 +120,6 @@ public class RecruitmentBoardReadDto {
                     .idString(recruitmentBoard.getAccount().getIdString())
                     .title(recruitmentBoard.getTitle())
                     .text(recruitmentBoard.getText())
-                    .isDeleted(recruitmentBoard.getIsDeleted())
                     .recNumber(recruitmentBoard.getRecNumber())
                     .paymentMax(recruitmentBoard.getPaymentMax())
                     .recStartDate(recruitmentBoard.getRecStartDate().toString())

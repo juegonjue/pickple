@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ApplyJpaRepository extends JpaRepository<Apply, Long> {
-    List<Apply> findAllByProfile_Account(Account account);
     Optional<Apply> findByProfile_AccountAndRecruitmentBoard(Account account, RecruitmentBoard recruitmentBoard);
     Optional<Apply> findByProfileAndRecruitmentBoard(Profile profile, RecruitmentBoard recruitmentBoard);
-    List<Apply> findAllByRecruitmentBoard_BoardId(Long boardId);
+    List<Apply> findAllByRecruitmentBoard_BoardIdAndIsDeletedEquals(Long boardId, Integer isDeleted);
+    List<Apply> findAllByProfile_AccountAndIsDeletedEquals(Account account, Integer isDeleted);
 }

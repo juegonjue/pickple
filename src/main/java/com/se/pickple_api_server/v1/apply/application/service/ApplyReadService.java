@@ -33,7 +33,7 @@ public class ApplyReadService {
     // 마이페이지 내가 한 지원 목록
     public List<ApplyReadDto.MyResponse> readAllMyApply() {
         Account account = accountContextService.getContextAccount();
-        List<Apply> allMyApply = applyJpaRepository.findAllByProfile_Account(account);
+        List<Apply> allMyApply = applyJpaRepository.findAllByProfile_AccountAndIsDeletedEquals(account,0);
         List<ApplyReadDto.MyResponse> allMyApplyReadDto
                 = allMyApply
                 .stream()
@@ -54,7 +54,7 @@ public class ApplyReadService {
 
     // 특정 모집글에 들어온 지원서 목록
     public List<ApplyReadDto.MeResponse> readApplyInRecboard(Long boardId) {
-        List<Apply> allApply = applyJpaRepository.findAllByRecruitmentBoard_BoardId(boardId);
+        List<Apply> allApply = applyJpaRepository.findAllByRecruitmentBoard_BoardIdAndIsDeletedEquals(boardId, 0);
         List<ApplyReadDto.MeResponse> allApplyReadDto
                 = allApply
                 .stream()
@@ -83,5 +83,6 @@ public class ApplyReadService {
 
     // TODO [관리자] 사용자들의 지원목록에서 리뷰 신청 온것
 
+    // 지원 목록
 
 }
