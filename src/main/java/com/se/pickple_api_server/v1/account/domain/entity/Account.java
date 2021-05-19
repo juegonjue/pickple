@@ -1,13 +1,13 @@
 package com.se.pickple_api_server.v1.account.domain.entity;
 
+import com.se.pickple_api_server.v1.account.application.dto.AccountUpdateDto;
+import com.se.pickple_api_server.v1.account.domain.type.AccountType;
+import com.se.pickple_api_server.v1.account.domain.type.RegisterType;
 import com.se.pickple_api_server.v1.common.domain.entity.BaseEntity;
-import com.se.pickple_api_server.v1.profile.domain.entity.Profile;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.jdo.annotations.Join;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class  Account extends BaseEntity{
+public class  Account extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,10 +36,6 @@ public class  Account extends BaseEntity{
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private AccountType accountType;
-
-//    @Size(min = 10, max = 20)
-//    @Column(nullable = false, unique = true)
-//    private String phoneNumber;
 
     @Size(min = 4, max = 40)
     @Column(unique = true)
@@ -68,19 +64,26 @@ public class  Account extends BaseEntity{
         this.isDeleted = isDeleted;
     }
 
-    public void updateStudentId(String studentId) {
-        this.studentId = studentId;
-    }
-
-    public void updateEmail(String email) {this.email = email;}
-
-    public void updateAccountType(AccountType accountType) {
-        this.accountType = accountType;
+    public void changeAccountInfo(AccountUpdateDto.Request request) {
+        this.studentId = request.getNewStudentId();
+        this.email = request.getNewEmail();
+        this.accountType = AccountType.valueOf(request.getAccountType());
     }
 
     public void updateIsDeleted(String idString, Integer isDeleted) {
         this.idString = idString;
         this.isDeleted = isDeleted;
     }
+//    public void updateStudentId(String studentId) {
+//        this.studentId = studentId;
+//    }
+//
+//    public void updateEmail(String email) {this.email = email;}
+//
+//    public void updateAccountType(AccountType accountType) {
+//        this.accountType = accountType;
+//    }
+
+
 
 }

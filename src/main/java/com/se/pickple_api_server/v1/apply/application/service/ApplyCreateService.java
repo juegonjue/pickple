@@ -5,11 +5,11 @@ import com.se.pickple_api_server.v1.account.domain.entity.Account;
 import com.se.pickple_api_server.v1.apply.application.dto.ApplyCreateDto;
 import com.se.pickple_api_server.v1.apply.application.error.ApplyErrorCode;
 import com.se.pickple_api_server.v1.apply.domain.entity.Apply;
-import com.se.pickple_api_server.v1.apply.domain.entity.ReviewState;
+import com.se.pickple_api_server.v1.apply.domain.type.ReviewState;
 import com.se.pickple_api_server.v1.apply.infra.repository.ApplyJpaRepository;
-import com.se.pickple_api_server.v1.board.application.error.BoardErrorCode;
-import com.se.pickple_api_server.v1.board.domain.entity.RecruitmentBoard;
-import com.se.pickple_api_server.v1.board.infra.repository.RecruitmentBoardJpaRepository;
+import com.se.pickple_api_server.v1.recruitment.application.error.BoardErrorCode;
+import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoard;
+import com.se.pickple_api_server.v1.recruitment.infra.repository.RecruitmentBoardJpaRepository;
 import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
 import com.se.pickple_api_server.v1.profile.application.error.ProfileErrorCode;
 import com.se.pickple_api_server.v1.profile.domain.entity.Profile;
@@ -40,7 +40,7 @@ public class ApplyCreateService {
         RecruitmentBoard recruitmentBoard = recruitmentBoardJpaRepository.findById(request.getBoardId())
                 .orElseThrow(() -> new BusinessException(BoardErrorCode.NO_SUCH_BOARD));
 
-        if (applyJpaRepository.findByProfileAndBoard(profile, recruitmentBoard).isPresent())
+        if (applyJpaRepository.findByProfileAndRecruitmentBoard(profile, recruitmentBoard).isPresent())
             throw new BusinessException(ApplyErrorCode.DUPLICATED_APPLY);
 
         Apply apply = new Apply(

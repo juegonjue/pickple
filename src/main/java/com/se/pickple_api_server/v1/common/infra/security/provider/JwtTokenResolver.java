@@ -30,7 +30,7 @@ public class JwtTokenResolver {
   @Value("${spring.jwt.secret}")
   private String securityKey;
 
-  private final Long tokenExpirePeriod = 1000L * 60 * 60;
+  private final Long tokenExpirePeriod = 1000L * 60 * 60 * 3;
 
   @PostConstruct
   protected void init() {

@@ -1,7 +1,6 @@
 package com.se.pickple_api_server.v1.account.application.dto;
 
-import com.se.pickple_api_server.v1.account.domain.entity.AccountType;
-import com.se.pickple_api_server.v1.account.domain.entity.RegisterType;
+import com.se.pickple_api_server.v1.account.domain.type.RegisterType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 

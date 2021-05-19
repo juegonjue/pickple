@@ -2,9 +2,9 @@ package com.se.pickple_api_server.v1.bookmark.application.service;
 
 import com.se.pickple_api_server.v1.account.application.service.AccountContextService;
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
-import com.se.pickple_api_server.v1.board.application.error.BoardErrorCode;
-import com.se.pickple_api_server.v1.board.domain.entity.RecruitmentBoard;
-import com.se.pickple_api_server.v1.board.infra.repository.RecruitmentBoardJpaRepository;
+import com.se.pickple_api_server.v1.recruitment.application.error.BoardErrorCode;
+import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoard;
+import com.se.pickple_api_server.v1.recruitment.infra.repository.RecruitmentBoardJpaRepository;
 import com.se.pickple_api_server.v1.bookmark.application.dto.BookmarkReadDto;
 import com.se.pickple_api_server.v1.bookmark.application.error.BookmarkErrorCode;
 import com.se.pickple_api_server.v1.bookmark.domain.entity.Bookmark;
@@ -27,7 +27,7 @@ public class BookmarkReadService {
     private final RecruitmentBoardJpaRepository recruitmentBoardJpaRepository;
 
 
-    // (accountId 로)내 모든 북마크 불러오기 --> 보드아이디와 제목 가지고있어야함
+    // 마이페이지 내 모든 북마크 불러오기 --> 보드아이디와 제목 가지고있어야함
     public List<BookmarkReadDto.MyResponse> readAllMyBookmark() {
         Account account = accountContextService.getContextAccount();
         List<Bookmark> allMyBookmarks = bookmarkJpaRepository.findAllByAccount(account);
@@ -41,7 +41,7 @@ public class BookmarkReadService {
     }
 
     // 해당 모집글에 내 북마크 존재하는지
-    public BookmarkReadDto.ExistResponse isExistInRecboard(Long boardId) {
+    public BookmarkReadDto.ExistResponse myBookmarkInRecboard(Long boardId) {
         RecruitmentBoard recruitmentBoard = recruitmentBoardJpaRepository.findById(boardId)
                 .orElseThrow(() -> new BusinessException(BoardErrorCode.NO_SUCH_BOARD));
         Bookmark bookmark = bookmarkJpaRepository.findBookmarkByAccountAndBoard(accountContextService.getContextAccount(), recruitmentBoard)

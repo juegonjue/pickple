@@ -6,7 +6,7 @@ import com.se.pickple_api_server.v1.bookmark.application.service.BookmarkCreateS
 import com.se.pickple_api_server.v1.bookmark.application.service.BookmarkDeleteService;
 import com.se.pickple_api_server.v1.bookmark.application.service.BookmarkReadService;
 import com.se.pickple_api_server.v1.common.infra.dto.SuccessResponse;
-import com.sun.net.httpserver.Authenticator;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +35,7 @@ public class BookmarkApiController {
 
 
     @ApiOperation(value = "내 북마크 조회")
-    @GetMapping(path = "/bookmark")
+    @GetMapping(path = "/bookmark/my")
     @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<BookmarkReadDto.MyResponse> readMyBookmark() {
@@ -53,9 +53,9 @@ public class BookmarkApiController {
 
     // 현재 모집글의 내 북마크 여부
     @ApiOperation(value = "현재 모집글에서의 내 북마크 여부")
-    @GetMapping(path = "/bookmark/{boardId}")
+    @GetMapping(path = "/bookmark/my/{boardId}")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<BookmarkReadDto.ExistResponse> readExist(@PathVariable(value = "boardId") Long boardId) {
-        return new SuccessResponse(HttpStatus.OK.value(), "현재 모집글에서 내 북마크여부 조회 성공", bookmarkReadService.isExistInRecboard(boardId));
+        return new SuccessResponse(HttpStatus.OK.value(), "현재 모집글에서 내 북마크여부 조회 성공", bookmarkReadService.myBookmarkInRecboard(boardId));
     }
 }
