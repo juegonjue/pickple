@@ -83,7 +83,7 @@ public class ApplyApiController {
     // [모집자] update, 지원 상태 변경 (계약맺기) isContracted : 0 -> 1
     @ApiOperation(value = "계약 맺기")
     @PutMapping(path = "/apply/contract")
-    @PreAuthorize("hasAnyAuthority('MEMBER')")
+    @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse makeContract(@RequestBody @Validated ApplyUpdateDto.ContractRequest request) {
         applyUpdateStatusService.contractStatus(request);
@@ -93,7 +93,7 @@ public class ApplyApiController {
     // [모집자] update, writeReview  내 모집글의 지원자에게 후기 작성 -> 후기 상태(before -> waiting), 후기가 승인된것만 후기 보이게 함
     @ApiOperation(value = "프로필에 후기 작성")
     @PutMapping(path = "/apply/review")
-    @PreAuthorize("hasAnyAuthority('MEMBER')")
+    @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse writeReview(@RequestBody @Validated ApplyUpdateDto.ReviewRequest request) {
         return new SuccessResponse(HttpStatus.OK.value(), "계약 후기 작성 성공", applyUpdateReviewService.updateReview(request));
@@ -111,11 +111,19 @@ public class ApplyApiController {
     // 지원 취소
     @ApiOperation(value = "지원 취소")
     @DeleteMapping(path = "/apply")
-    @PreAuthorize("hasAnyAuthority('MEMBER')")
+    @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse cancelApply(@RequestBody @Validated ApplyDeleteDto.Request request) {
         applyDeleteService.delete(request);
         return new SuccessResponse(HttpStatus.OK.value(), "지원 취소 성공");
     }
 
+    // 나에게 쓴 리뷰들 조회 -> applyJpaRepo에서, profileId조회해서 Accepted된 리뷰들만 뽑아
+    @ApiOperation(value = "특정 사용자에 대한 후기 보기")
+    @GetMapping(path = "/apply/review/{profileId}")
+    @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SuccessResponse readReviewOnProfile(@PathVariable(name = "profileId") Long profileId) {
+        return new SuccessResponse(HttpStatus.OK.value(), "특정 사용자 후기 보기 성공", applyReadService.readReviewByProfileId(profileId));
+    }
 }

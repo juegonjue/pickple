@@ -5,7 +5,11 @@ import com.se.pickple_api_server.v1.account.domain.entity.Account;
 import com.se.pickple_api_server.v1.apply.application.dto.ApplyReadDto;
 import com.se.pickple_api_server.v1.apply.application.error.ApplyErrorCode;
 import com.se.pickple_api_server.v1.apply.domain.entity.Apply;
+import com.se.pickple_api_server.v1.apply.domain.type.ReviewState;
 import com.se.pickple_api_server.v1.apply.infra.repository.ApplyJpaRepository;
+import com.se.pickple_api_server.v1.profile.application.error.ProfileErrorCode;
+import com.se.pickple_api_server.v1.profile.domain.entity.Profile;
+import com.se.pickple_api_server.v1.profile.infra.repository.ProfileJpaRepository;
 import com.se.pickple_api_server.v1.recruitment.application.error.BoardErrorCode;
 import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoard;
 import com.se.pickple_api_server.v1.recruitment.infra.repository.RecruitmentBoardJpaRepository;
@@ -28,6 +32,7 @@ public class ApplyReadService {
     private final AccountContextService accountContextService;
     private final ApplyJpaRepository applyJpaRepository;
     private final RecruitmentBoardJpaRepository recruitmentBoardJpaRepository;
+    private final ProfileJpaRepository profileJpaRepository;
 
 
     // 마이페이지 내가 한 지원 목록
@@ -83,6 +88,16 @@ public class ApplyReadService {
 
     // TODO [관리자] 사용자들의 지원목록에서 리뷰 신청 온것
 
-    // 지원 목록
+    // 특정 사용자를 평가한(프로필에 보여지는) 리뷰 모아보기
+    public List<ApplyReadDto.ReviewResponse> readReviewByProfileId(Long profileId) {
+        Profile profile = profileJpaRepository.findById(profileId)
+                .orElseThrow(() -> new BusinessException(ProfileErrorCode.NO_SUCH_PROFILE));
+        List<Apply> applyReviewList = applyJpaRepository.findAllByProfileAndReviewStateEquals(profile, ReviewState.ACCEPT);
+        List<ApplyReadDto.ReviewResponse> reviewResponseList = applyReviewList
+                .stream()
+                .map(review -> ApplyReadDto.ReviewResponse.fromEntity(review))
+                .collect(Collectors.toList());
+        return reviewResponseList;
+    }
 
 }

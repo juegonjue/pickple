@@ -131,4 +131,21 @@ public class ApplyReadDto {
             return builder.applyId(apply.getApplyId()).build();
         }
     }
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    static public class ReviewResponse {
+        private String reviewWriterName;
+        private String review;
+
+        static public ReviewResponse fromEntity(Apply apply) {
+            ReviewResponseBuilder builder = ReviewResponse.builder();
+            return builder
+                    .reviewWriterName(apply.getRecruitmentBoard().getAccount().getName())
+                    .review(apply.getReview())
+                    .build();
+        }
+    }
+
 }
