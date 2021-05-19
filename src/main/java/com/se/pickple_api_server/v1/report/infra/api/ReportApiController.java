@@ -53,7 +53,7 @@ public class ReportApiController {
 
     @ApiOperation(value = "관리자 신고 목록 조회")
     @GetMapping(path = "/report")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    //@PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<Pageable> readAllReport (@Validated PageRequest pageRequest) {
         return new SuccessResponse(HttpStatus.OK.value(), "관리자 신고 목록 조회 성공", reportReadService.readAll(pageRequest.of()));
