@@ -5,7 +5,7 @@ import com.se.pickple_api_server.v1.account.domain.entity.Account;
 import com.se.pickple_api_server.v1.apply.application.dto.ApplyCreateDto;
 import com.se.pickple_api_server.v1.apply.application.error.ApplyErrorCode;
 import com.se.pickple_api_server.v1.apply.domain.entity.Apply;
-import com.se.pickple_api_server.v1.apply.domain.entity.ReviewState;
+import com.se.pickple_api_server.v1.apply.domain.type.ReviewState;
 import com.se.pickple_api_server.v1.apply.infra.repository.ApplyJpaRepository;
 import com.se.pickple_api_server.v1.recruitment.application.error.BoardErrorCode;
 import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoard;

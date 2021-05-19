@@ -3,6 +3,7 @@ package com.se.pickple_api_server.v1.report.domain.entity;
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
 import com.se.pickple_api_server.v1.board.domain.entity.Board;
 import com.se.pickple_api_server.v1.common.domain.entity.BaseEntity;
+import com.se.pickple_api_server.v1.report.application.dto.ReportUpdateDto;
 import com.se.pickple_api_server.v1.report.domain.type.ReportResult;
 import com.se.pickple_api_server.v1.report.domain.type.ReportState;
 import lombok.AccessLevel;
@@ -31,12 +32,12 @@ public class Report extends BaseEntity {
     // 처리 상태
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
-    private ReportState reportState = ReportState.BEFORE;
+    private ReportState reportState;
 
     // 처리 결과
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
-    private ReportResult reportResult = ReportResult.NONE;
+    private ReportResult reportResult;
 
     // 담당자
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
@@ -61,8 +62,16 @@ public class Report extends BaseEntity {
         this.reported = reported;
     }
 
-    // 신고 상태 업데이트 -> manager, reportState
-    //public updateReportState()
+    public void updateManager(Account manager) {
+        this.manager = manager;
+    }
 
-    // 신고 처리되었을 때 -> reportState, reportResult
+    public void updateState(ReportState reportState) {
+        this.reportState = reportState;
+    }
+
+    public void updateResult(ReportResult reportResult) {
+        this.reportResult = reportResult;
+    }
+
 }

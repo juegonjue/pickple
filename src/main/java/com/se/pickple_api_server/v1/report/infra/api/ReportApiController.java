@@ -46,4 +46,7 @@ public class ReportApiController {
         return new SuccessResponse(HttpStatus.OK.value(), "내 신고 조회 성공", reportReadService.readMyReport());
     }
 
+    // 신고 처리
+    // BEFORE, NONE --> AFTER, ( , )
+
 }

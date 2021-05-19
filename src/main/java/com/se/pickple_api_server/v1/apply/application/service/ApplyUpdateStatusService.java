@@ -4,7 +4,7 @@ import com.se.pickple_api_server.v1.account.application.service.AccountContextSe
 import com.se.pickple_api_server.v1.apply.application.dto.ApplyUpdateDto;
 import com.se.pickple_api_server.v1.apply.application.error.ApplyErrorCode;
 import com.se.pickple_api_server.v1.apply.domain.entity.Apply;
-import com.se.pickple_api_server.v1.apply.domain.entity.ReviewState;
+import com.se.pickple_api_server.v1.apply.domain.type.ReviewState;
 import com.se.pickple_api_server.v1.apply.infra.repository.ApplyJpaRepository;
 import com.se.pickple_api_server.v1.common.domain.error.GlobalErrorCode;
 import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
@@ -44,10 +44,6 @@ public class ApplyUpdateStatusService {
 
         Apply apply = applyJpaRepository.findById(request.getApplyId())
                 .orElseThrow(() -> new BusinessException((ApplyErrorCode.NO_SUCH_APPLY)));
-        Boolean isAdmin = accountContextService.hasAuthority("ADMIN");
-
-        if (!isAdmin)
-            throw new BusinessException(GlobalErrorCode.HANDLE_ACCESS_DENIED);
 
         // 후기 상태가 waiting 이거나 reject가 아니면 reviewState 변경 불가
         if (!(apply.getReviewState().toString().equals("WAITING") || apply.getReviewState().toString().equals("REJECT")))

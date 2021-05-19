@@ -1,5 +1,6 @@
 package com.se.pickple_api_server.v1.apply.domain.entity;
 
+import com.se.pickple_api_server.v1.apply.domain.type.ReviewState;
 import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoard;
 import com.se.pickple_api_server.v1.common.domain.entity.BaseEntity;
 import com.se.pickple_api_server.v1.profile.domain.entity.Profile;

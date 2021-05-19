@@ -28,6 +28,7 @@ public class RecruitmentBoardReadDto {
 
         private String writerIdString;
         private String writerName;
+        private Integer writerIsDeleted;
 
         private String title;
 
@@ -60,6 +61,7 @@ public class RecruitmentBoardReadDto {
                     .writerId(recruitmentBoard.getAccount().getAccountId())
                     .writerIdString(recruitmentBoard.getAccount().getIdString())
                     .writerName(recruitmentBoard.getAccount().getName())
+                    .writerIsDeleted(recruitmentBoard.getAccount().getIsDeleted())
                     .title(recruitmentBoard.getTitle())
                     .text(recruitmentBoard.getText())
                     .boardType(recruitmentBoard.getBoardType())
