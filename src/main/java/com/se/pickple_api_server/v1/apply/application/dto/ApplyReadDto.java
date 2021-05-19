@@ -23,7 +23,7 @@ public class ApplyReadDto {
         private String review;
         private String reviewState;
 
-        static public ListResponse formEntity(Apply apply) {
+        static public ListResponse fromEntity(Apply apply) {
             ListResponseBuilder builder = ListResponse.builder();
             builder
                     .applyId(apply.getApplyId())

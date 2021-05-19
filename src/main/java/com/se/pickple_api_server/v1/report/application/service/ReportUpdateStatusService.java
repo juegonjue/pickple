@@ -23,8 +23,7 @@ public class ReportUpdateStatusService {
     @Transactional
     public void updateReportStatus(ReportUpdateDto.Request request) {
 
-        //if (request.)
-
+        //
         Account manager = accountContextService.getContextAccount();
 
         Report report = reportJpaRepository.findById(request.getReportId())

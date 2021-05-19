@@ -8,6 +8,9 @@ import com.se.pickple_api_server.v1.report.application.error.ReportErrorCode;
 import com.se.pickple_api_server.v1.report.domain.entity.Report;
 import com.se.pickple_api_server.v1.report.infra.repository.ReportJpaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +34,14 @@ public class ReportReadService {
     }
 
     // 관리자 신고 목록 조회 (페이징)
+    public PageImpl readAll(Pageable pageable) {
+        Page<Report> reportPage = reportJpaRepository.findAll(pageable);
+        List<ReportReadDto.ListResponse> listResponseList = reportPage
+                .get()
+                .map(report -> ReportReadDto.ListResponse.fromEntity(report))
+                .collect(Collectors.toList());
+        return new PageImpl(listResponseList, reportPage.getPageable(), reportPage.getTotalElements());
+    }
 
     // 관리자 신고 처리 -> manager에 관리자 id 들어가야 함
 

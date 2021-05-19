@@ -68,7 +68,7 @@ public class ApplyReadService {
         Page<Apply> applyPage = applyJpaRepository.findAll(pageable);
         List<ApplyReadDto.ListResponse> listResponseList = applyPage
                 .get()
-                .map(apply -> ApplyReadDto.ListResponse.formEntity(apply))
+                .map(apply -> ApplyReadDto.ListResponse.fromEntity(apply))
                 .collect(Collectors.toList());
         return new PageImpl(listResponseList, applyPage.getPageable(), applyPage.getTotalElements());
     }

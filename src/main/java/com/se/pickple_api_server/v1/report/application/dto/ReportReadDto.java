@@ -72,6 +72,8 @@ public class ReportReadDto {
         private Long boardId;
         private String reportText;
         private String reporterString;
+        private String reportState;
+        private String reportResult;
 
         static public ListResponse fromEntity(Report report) {
             ListResponseBuilder builder = ListResponse.builder();
@@ -79,7 +81,10 @@ public class ReportReadDto {
                     .reportId(report.getReportId())
                     .boardId(report.getBoard().getBoardId())
                     .reportText(report.getText())
-                    .reporterString(report.getReporter().getIdString());
+                    .reporterString(report.getReporter().getIdString())
+                    .reportState(report.getReportState().toString())
+                    .reportResult(report.getReportResult().toString());
+
             return builder.build();
         }
     }
