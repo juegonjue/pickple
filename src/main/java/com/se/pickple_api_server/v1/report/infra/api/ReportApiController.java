@@ -4,8 +4,10 @@ import com.se.pickple_api_server.v1.common.infra.dto.PageRequest;
 import com.se.pickple_api_server.v1.common.infra.dto.SuccessResponse;
 import com.se.pickple_api_server.v1.report.application.dto.ReportCreateDto;
 import com.se.pickple_api_server.v1.report.application.dto.ReportReadDto;
+import com.se.pickple_api_server.v1.report.application.dto.ReportUpdateDto;
 import com.se.pickple_api_server.v1.report.application.service.ReportCreateService;
 import com.se.pickple_api_server.v1.report.application.service.ReportReadService;
+import com.se.pickple_api_server.v1.report.application.service.ReportUpdateStatusService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,7 @@ public class ReportApiController {
 
     private final ReportCreateService reportCreateService;
     private final ReportReadService reportReadService;
+    private final ReportUpdateStatusService reportUpdateStatusService;
 
     @ApiOperation(value = "신고하기")
     @PostMapping(path = "/report")
@@ -53,10 +56,17 @@ public class ReportApiController {
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<Pageable> readAllReport (@Validated PageRequest pageRequest) {
-        return new SuccessResponse(HttpStatus.OK.value(), "관리자 신고 처리", reportReadService.readAll(pageRequest.of()));
+        return new SuccessResponse(HttpStatus.OK.value(), "관리자 신고 목록 조회 성공", reportReadService.readAll(pageRequest.of()));
     }
 
     // 신고 처리
-    // BEFORE, NONE --> AFTER, ( , )
-
+    // BEFORE, NONE --> AFTER, ( , ), who is manager
+    @ApiOperation(value = "신고 처리")
+    @PutMapping(path = "/report/manage")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SuccessResponse manageReport(@RequestBody @Validated ReportUpdateDto.Request request) {
+        reportUpdateStatusService.updateReportStatus(request);
+        return new SuccessResponse(HttpStatus.OK.value(), "관리자 신고 처리 성공");
+    }
 }

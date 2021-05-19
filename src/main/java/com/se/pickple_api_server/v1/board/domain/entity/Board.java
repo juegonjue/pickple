@@ -1,6 +1,5 @@
 package com.se.pickple_api_server.v1.board.domain.entity;
 
-import com.se.pickple_api_server.v1.board.domain.application.dto.BoardUpdateDto;
 import com.se.pickple_api_server.v1.board.domain.type.BoardType;
 import com.se.pickple_api_server.v1.common.domain.entity.BaseEntity;
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
@@ -50,11 +49,6 @@ public abstract class Board extends BaseEntity {
         this.hit = hit;
         this.isDeleted = isDeleted;
     }
-
-//    public void updateBoardInfo(BoardUpdateDto.Request request) {
-//        this.title = request.getTitle();
-//        this.text = request.getText();
-//    }
 
     public void updateBoardContents(String title, String text) {
         this.title = title;
