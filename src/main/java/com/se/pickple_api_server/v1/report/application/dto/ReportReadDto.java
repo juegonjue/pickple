@@ -16,6 +16,8 @@ public class ReportReadDto {
     @AllArgsConstructor
     static public class Response {
         private Long reportId;
+        private String reportText;
+
         private Long boardId;
         private String boardTitle;
         private String boardText;
@@ -39,6 +41,7 @@ public class ReportReadDto {
             ResponseBuilder builder = Response.builder();
             builder
                     .reportedId(report.getReportId())
+                    .reportText(report.getText())
                     .boardId(report.getBoard().getBoardId())
                     .boardTitle(report.getBoard().getTitle())
                     .boardText(report.getBoard().getText());

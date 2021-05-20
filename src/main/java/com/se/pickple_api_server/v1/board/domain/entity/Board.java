@@ -54,4 +54,8 @@ public abstract class Board extends BaseEntity {
         this.title = title;
         this.text = text;
     }
+
+    public void updateIsDeleted(Integer isDeleted) {
+        this.isDeleted = isDeleted;
+    }
 }

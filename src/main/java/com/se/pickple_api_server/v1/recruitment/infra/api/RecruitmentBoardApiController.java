@@ -4,6 +4,7 @@ import com.se.pickple_api_server.v1.recruitment.application.dto.RecruitmentBoard
 import com.se.pickple_api_server.v1.recruitment.application.dto.RecruitmentBoardReadDto;
 import com.se.pickple_api_server.v1.recruitment.application.dto.RecruitmentBoardUpdateDto;
 import com.se.pickple_api_server.v1.recruitment.application.service.RecruitmentBoardCreateService;
+import com.se.pickple_api_server.v1.recruitment.application.service.RecruitmentBoardDeleteService;
 import com.se.pickple_api_server.v1.recruitment.application.service.RecruitmentBoardReadService;
 import com.se.pickple_api_server.v1.common.infra.dto.PageRequest;
 import com.se.pickple_api_server.v1.common.infra.dto.SuccessResponse;
@@ -27,6 +28,7 @@ public class RecruitmentBoardApiController {
     private final RecruitmentBoardCreateService recruitmentBoardCreateService;
     private final RecruitmentBoardReadService recruitmentBoardReadService;
     private final RecruitmentBoardUpdateService recruitmentBoardUpdateService;
+    private final RecruitmentBoardDeleteService recruitmentBoardDeleteService;
 
     // UC-RB-01 모집글 등록
     @ApiOperation(value = "모집글 등록")
@@ -72,4 +74,12 @@ public class RecruitmentBoardApiController {
 //    public SuccessResponse<RecruitmentBoardUpdateDto.Request> update(@RequestBody @Validated RecruitmentBoardUpdateDto.Request request) {
 //        return new SuccessResponse(HttpStatus.OK.value(), "모집글 수정 성공", recruitmentBoardUpdateService.update(request));
 //    }
+    @ApiOperation(value = "모집글 삭제")
+    @DeleteMapping(path = "/recboard/{boardId}")
+    @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SuccessResponse delete(@PathVariable(name = "boardId") Long boardId) {
+        recruitmentBoardDeleteService.delete(boardId);
+        return new SuccessResponse(HttpStatus.OK.value(), "모집글 삭제 성공");
+    }
 }
