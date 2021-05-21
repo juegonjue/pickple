@@ -72,7 +72,7 @@ public class ProfileApiController {
     @PutMapping(path = "/profile/visibility")
     @PreAuthorize("hasAnyAuthority('MEMBER')")
     @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResponse updateIsOpen(@Validated ProfileUpdateDto.IsOpenRequest request) {
+    public SuccessResponse updateIsOpen(@RequestBody @Validated ProfileUpdateDto.IsOpenRequest request) {
         profileUpdateService.updateIsOpen(request);
         return new SuccessResponse(HttpStatus.OK.value(), "프로필 수정 성공");
     }

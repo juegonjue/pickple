@@ -78,7 +78,7 @@ public class AccountApiController {
     @DeleteMapping(path = "/account")
     @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResponse deleteAccount(@Validated AccountDeleteDto.Request request) {
+    public SuccessResponse deleteAccount(@RequestBody @Validated AccountDeleteDto.Request request) {
         accountDeleteService.delete(request);
         return new SuccessResponse(HttpStatus.OK.value(),"성공적으로 삭제되었습니다.");
     }
