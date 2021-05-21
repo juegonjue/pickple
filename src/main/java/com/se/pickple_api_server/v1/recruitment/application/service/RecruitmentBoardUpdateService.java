@@ -51,8 +51,6 @@ public class RecruitmentBoardUpdateService {
                 tags
         );
 
-
-
         recruitmentBoardJpaRepository.save(recruitmentBoard);
         return recruitmentBoard.getBoardId();
     }
@@ -65,7 +63,6 @@ public class RecruitmentBoardUpdateService {
                     .build()
                 )
                 .collect(Collectors.toList());
-
     }
 
 }

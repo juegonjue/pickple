@@ -5,8 +5,10 @@ import com.se.pickple_api_server.v1.common.infra.dto.PageRequest;
 import com.se.pickple_api_server.v1.common.infra.dto.SuccessResponse;
 import com.se.pickple_api_server.v1.profile.application.dto.ProfileCreateDto;
 import com.se.pickple_api_server.v1.profile.application.dto.ProfileReadDto;
+import com.se.pickple_api_server.v1.profile.application.dto.ProfileUpdateDto;
 import com.se.pickple_api_server.v1.profile.application.service.ProfileCreateService;
 import com.se.pickple_api_server.v1.profile.application.service.ProfileReadService;
+import com.se.pickple_api_server.v1.profile.application.service.ProfileUpdateService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +26,7 @@ public class ProfileApiController {
 
     private final ProfileCreateService profileCreateService;
     private final ProfileReadService profileReadService;
+    private final ProfileUpdateService profileUpdateService;
 
     @ApiOperation(value = "프로필 등록")
     @PostMapping(path = "/profile")
@@ -55,10 +58,24 @@ public class ProfileApiController {
         return new SuccessResponse(HttpStatus.OK.value(), "프로필 목록 조회 페이징 성공", profileReadService.readAll(pageRequest.of()));
     }
 
-    // TODO 프로필 수정
+    // 프로필 수정
+    @ApiOperation(value = "프로필 상세 내용 수정")
+    @PutMapping(path = "/profile")
+    @PreAuthorize("hasAnyAuthority('MEMBER')")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SuccessResponse<Long> update(@RequestBody @Validated ProfileUpdateDto.Request request) {
+        return new SuccessResponse(HttpStatus.OK.value(), "프로필 수정 성공", profileUpdateService.update(request));
+    }
 
-
-    // 프로필, 내 리뷰리스트 요청
+    // 프로필 공개/비공개
+    @ApiOperation(value = "프로필 공개/비공개")
+    @PutMapping(path = "/profile/visibility")
+    @PreAuthorize("hasAnyAuthority('MEMBER')")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SuccessResponse updateIsOpen(@Validated ProfileUpdateDto.IsOpenRequest request) {
+        profileUpdateService.updateIsOpen(request);
+        return new SuccessResponse(HttpStatus.OK.value(), "프로필 수정 성공");
+    }
 
 
 }

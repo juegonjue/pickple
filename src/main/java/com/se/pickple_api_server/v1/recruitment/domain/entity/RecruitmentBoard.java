@@ -54,7 +54,6 @@ public class RecruitmentBoard extends Board {
         this.workEndDate = workEndDate;
         this.recStartDate = recStartDate;
         this.recEndDate = recEndDate;
-        //this.recruitmentBoardTagList = recruitmentBoardTagList;
         addTags(recruitmentBoardTagList);
     }
 
@@ -82,21 +81,11 @@ public class RecruitmentBoard extends Board {
         this.recEndDate = recEndDate;
     }
 
-    public void updateTagContents(List<RecruitmentBoardTag> recruitmentBoardTagList) {
+    public void updateTagContents(List<RecruitmentBoardTag> newRecruitmentBoardTagList) {
         this.recruitmentBoardTagList
-                .forEach(recruitmentBoardTag -> {
-                    recruitmentBoardTag.setRecBoard(null);
-                });
+                .forEach(recruitmentBoardTag -> recruitmentBoardTag.setRecBoard(null));
         this.recruitmentBoardTagList.clear();
-        addTags(recruitmentBoardTagList);
-
-//        recruitmentBoardTagList
-//                .stream()
-//                .forEach(recruitmentBoardTag -> {
-//                    if(!this.recruitmentBoardTagList.contains(recruitmentBoardTag)) {
-//                        addTag(recruitmentBoardTag);
-//                    }
-//                });
+        addTags(newRecruitmentBoardTagList);
     }
 
     public void update(String title, String text,

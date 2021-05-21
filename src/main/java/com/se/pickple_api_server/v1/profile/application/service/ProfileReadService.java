@@ -25,7 +25,6 @@ public class ProfileReadService {
 
     private final AccountContextService accountContextService;
     private final ProfileJpaRepository profileJpaRepository;
-    private final RecruitmentBoardJpaRepository recruitmentBoardJpaRepository;
 
     // 내 프로필 조회
     public ProfileReadDto.Response readMyProfile() {
@@ -44,7 +43,17 @@ public class ProfileReadService {
 
     // 프로필 목록조회 페이징
     public PageImpl readAll(Pageable pageable) {
-        Page<Profile> profilePage = profileJpaRepository.findAll(pageable);
+
+        Page<Profile> profilePage;
+        // 관리자
+        if (accountContextService.hasAuthority("ADMIN")) {
+            profilePage = profileJpaRepository.findAll(pageable);
+        }
+        // 일반인
+        else {
+            profilePage = profileJpaRepository.findAllByIsOpenEquals(pageable, 1);
+        }
+
         List<ProfileReadDto.ListResponse> listResponseList = profilePage
                 .get()
                 .map(profile -> ProfileReadDto.ListResponse.fromEntity(profile))
@@ -52,9 +61,4 @@ public class ProfileReadService {
         return new PageImpl(listResponseList, profilePage.getPageable(), profilePage.getTotalElements());
     }
 
-    //  프로필 존재 여부 확인
-    public Boolean isExist(Account account){
-        if (profileJpaRepository.findByAccount(account).isPresent()) return true;
-        return false;
-    }
 }

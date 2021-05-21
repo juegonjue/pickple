@@ -42,8 +42,6 @@ public class ProfileReadDto {
 
         private List<TagReadDto.TagDto> profileTagList;
 
-        private List<String> reviewList;
-
         static public Response fromEntity (Profile profile) {
             ResponseBuilder builder = Response.builder();
 
