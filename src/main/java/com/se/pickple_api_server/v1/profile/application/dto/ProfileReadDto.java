@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.se.pickple_api_server.v1.apply.domain.entity.Apply;
 import com.se.pickple_api_server.v1.profile.domain.entity.Profile;
-import com.se.pickple_api_server.v1.profile.domain.entity.ProfileTag;
+import com.se.pickple_api_server.v1.tag.application.dto.TagReadDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -40,7 +40,9 @@ public class ProfileReadDto {
 
         private Integer isOpen;
 
-        private List<TagDto> profileTagList;
+        private List<TagReadDto.TagDto> profileTagList;
+
+        private List<String> reviewList;
 
         static public Response fromEntity (Profile profile) {
             ResponseBuilder builder = Response.builder();
@@ -59,7 +61,7 @@ public class ProfileReadDto {
             builder.profileTagList(
                     profile.getProfileTagList()
                             .stream()
-                            .map(tag -> TagDto.fromEntity(tag))
+                            .map(tag -> TagReadDto.TagDto.fromEntity(tag))
                             .collect(Collectors.toList())
             );
 
@@ -82,7 +84,7 @@ public class ProfileReadDto {
 
         private String introduce;
 
-        private List<TagDto> profileTagList;
+        private List<TagReadDto.TagDto> profileTagList;
 
         static public ListResponse fromEntity (Profile profile) {
             ListResponseBuilder builder = ListResponse.builder();
@@ -97,27 +99,11 @@ public class ProfileReadDto {
             builder.profileTagList(
                     profile.getProfileTagList()
                             .stream()
-                            .map(tag -> TagDto.fromEntity(tag))
+                            .map(tag -> TagReadDto.TagDto.fromEntity(tag))
                             .collect(Collectors.toList())
             );
 
             return builder.build();
-        }
-    }
-
-    @Data
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    static public class TagDto {
-       private Long tagId;
-       private String tagName;
-
-       static public TagDto fromEntity (ProfileTag profileTag){
-           return TagDto.builder()
-                   .tagId(profileTag.getTag().getTagId())
-                   .tagName(profileTag.getTag().getTagName())
-                   .build();
         }
     }
 
@@ -134,4 +120,5 @@ public class ProfileReadDto {
         }
 
     }
+
 }

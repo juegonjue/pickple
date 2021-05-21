@@ -1,20 +1,12 @@
 package com.se.pickple_api_server.v1.tag.application.dto;
 
+import com.se.pickple_api_server.v1.profile.domain.entity.ProfileTag;
+import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoardTag;
 import com.se.pickple_api_server.v1.tag.domain.entity.Tag;
 import io.swagger.annotations.ApiModel;
 import lombok.*;
 
 public class TagReadDto {
-
-    // 태그 아이디로 조회 요청
-//    @Data
-//    @NoArgsConstructor
-//    @Builder
-//    @AllArgsConstructor
-//    @ApiModel("태그 아이디로 조회 요청")
-//    static public class ReadByIdRequest {
-//        private Long id;
-//    }
 
     @Data
     @NoArgsConstructor
@@ -31,6 +23,29 @@ public class TagReadDto {
                     .build();
         }
 
+    }
+
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    static public class TagDto {
+        private Long tagId;
+        private String tagName;
+
+        static public TagDto fromEntity(RecruitmentBoardTag recruitmentBoardTag) {
+            return TagDto.builder()
+                    .tagId(recruitmentBoardTag.getTag().getTagId())
+                    .tagName(recruitmentBoardTag.getTag().getTagName())
+                    .build();
+        }
+
+        static public TagDto fromEntity(ProfileTag profileTag) {
+            return TagDto.builder()
+                    .tagId(profileTag.getTag().getTagId())
+                    .tagName(profileTag.getTag().getTagName())
+                    .build();
+        }
     }
 
 }

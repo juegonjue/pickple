@@ -1,5 +1,7 @@
 package com.se.pickple_api_server.v1.recruitment.application.dto;
 
+import com.se.pickple_api_server.v1.tag.application.dto.TagCreateDto;
+import com.se.pickple_api_server.v1.tag.application.dto.TagReadDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -46,26 +48,7 @@ public class RecruitmentBoardCreateDto {
 
         @ApiModelProperty(notes = "태그리스트")
         @Singular("tagList")
-        private List<TagDto> tagList;
+        private List<TagCreateDto.TagDto> tagList;
     }
 
-    @ApiModel("모집글 태그 등록")
-    @Getter
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    static public class TagDto {
-        @ApiModelProperty(notes = "태그 번호", example = "1")
-        private Long tagId;
-    }
-
-//    @ApiModel("모집글 작성자 불러오기")
-//    @Getter
-//    @Builder
-//    @NoArgsConstructor
-//    @AllArgsConstructor
-//    static public class Account {
-//        @ApiModelProperty(notes = "글작성자 고유번호",example = "1")
-//        private Long writerId;
-//    }
 }

@@ -57,4 +57,8 @@ public class ProfileApiController {
 
     // TODO 프로필 수정
 
+
+    // 프로필, 내 리뷰리스트 요청
+
+
 }

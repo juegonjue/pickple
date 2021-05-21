@@ -57,5 +57,4 @@ public class ProfileReadService {
         if (profileJpaRepository.findByAccount(account).isPresent()) return true;
         return false;
     }
-
 }

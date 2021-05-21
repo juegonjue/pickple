@@ -8,6 +8,7 @@ import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoard;
 import com.se.pickple_api_server.v1.recruitment.infra.repository.RecruitmentBoardJpaRepository;
 import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
 import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoardTag;
+import com.se.pickple_api_server.v1.tag.application.dto.TagCreateDto;
 import com.se.pickple_api_server.v1.tag.application.error.TagErrorCode;
 import com.se.pickple_api_server.v1.tag.infra.repository.TagJpaRepository;
 import lombok.RequiredArgsConstructor;
@@ -55,7 +56,7 @@ public class RecruitmentBoardCreateService {
     }
 
 
-    private List<RecruitmentBoardTag> getTags(List<RecruitmentBoardCreateDto.TagDto> tagDtoList) {
+    private List<RecruitmentBoardTag> getTags(List<TagCreateDto.TagDto> tagDtoList) {
         return tagDtoList.stream()
                 .map(tagDto -> RecruitmentBoardTag.builder()
                         .tag(tagJpaRepository.findById(tagDto.getTagId()).orElseThrow(() -> new BusinessException(TagErrorCode.NO_SUCH_TAG)))

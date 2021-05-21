@@ -1,5 +1,6 @@
 package com.se.pickple_api_server.v1.profile.application.dto;
 
+import com.se.pickple_api_server.v1.tag.application.dto.TagCreateDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -37,18 +38,18 @@ public class ProfileCreateDto {
 
         @ApiModelProperty(notes = "태그리스트")
         @Singular("tagList")
-        private List<TagDto> tagList;
+        private List<TagCreateDto.TagDto> tagList;
     }
 
-    @ApiModel("프로필 태그 등록")
-    @Getter
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    static public class TagDto {
-        @ApiModelProperty(notes = "태그 번호", example = "1")
-        private Long tagId;
-    }
+//    @ApiModel("프로필 태그 등록")
+//    @Getter
+//    @Builder
+//    @NoArgsConstructor
+//    @AllArgsConstructor
+//    static public class TagDto {
+//        @ApiModelProperty(notes = "태그 번호", example = "1")
+//        private Long tagId;
+//    }
 
     @ApiModel("프로필 작성자 불러오기")
     @Getter

@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class ApplyUpdateDto {
 
     // 후기 쓰기
@@ -16,6 +19,8 @@ public class ApplyUpdateDto {
         private Long applyId;
 
         @ApiModelProperty(notes = "작성할 리뷰", example = "이 친구 잘해요~")
+        @Size(min = 2, max = 255)
+        @NotNull
         private String review;
     }
 
@@ -35,6 +40,7 @@ public class ApplyUpdateDto {
         private Long applyId;
 
         @ApiModelProperty(notes = "리뷰 승인/반려", example = "ACCEPT/REJECT")
+        @NotNull
         private String reviewState;
     }
 

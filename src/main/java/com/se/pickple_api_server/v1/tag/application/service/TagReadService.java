@@ -24,12 +24,6 @@ public class TagReadService {
 
     private final TagJpaRepository tagJpaRepository;
 
-    // id 로 조회
-    public TagReadDto.Response readById(Long tagId) {
-        Tag tag = tagJpaRepository.findById(tagId).orElseThrow(()->new BusinessException(TagErrorCode.NO_SUCH_TAG));
-        return TagReadDto.Response.fromEntity(tag);
-    }
-
     // 검색어 기반 조회
     public List<TagReadDto.Response> readMatchedKeyword(String keyword) {
         List<Tag> tags = tagJpaRepository.findByTagNameContainsIgnoreCase(keyword.toLowerCase());

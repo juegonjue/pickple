@@ -43,8 +43,6 @@ public class ReportReadService {
         return new PageImpl(listResponseList, reportPage.getPageable(), reportPage.getTotalElements());
     }
 
-    // 관리자 신고 처리 -> manager에 관리자 id 들어가야 함
-
     // 마이페이지 내가 한 신고 내역 및 현황 조회
     public List<ReportReadDto.MyResponse> readMyReport() {
         Account account = accountContextService.getContextAccount();

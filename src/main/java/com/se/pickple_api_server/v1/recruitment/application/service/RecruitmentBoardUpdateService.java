@@ -5,11 +5,11 @@ import com.se.pickple_api_server.v1.account.domain.entity.Account;
 import com.se.pickple_api_server.v1.common.domain.error.GlobalErrorCode;
 import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
 import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoardTag;
-import com.se.pickple_api_server.v1.recruitment.application.dto.RecruitmentBoardCreateDto;
 import com.se.pickple_api_server.v1.recruitment.application.dto.RecruitmentBoardUpdateDto;
 import com.se.pickple_api_server.v1.recruitment.application.error.BoardErrorCode;
 import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoard;
 import com.se.pickple_api_server.v1.recruitment.infra.repository.RecruitmentBoardJpaRepository;
+import com.se.pickple_api_server.v1.tag.application.dto.TagCreateDto;
 import com.se.pickple_api_server.v1.tag.application.error.TagErrorCode;
 import com.se.pickple_api_server.v1.tag.infra.repository.TagJpaRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +29,7 @@ public class RecruitmentBoardUpdateService {
     private final TagJpaRepository tagJpaRepository;
 
     @Transactional
-    public boolean update(RecruitmentBoardUpdateDto.Request request) {
+    public Long update(RecruitmentBoardUpdateDto.Request request) {
         RecruitmentBoard recruitmentBoard = recruitmentBoardJpaRepository.findById(request.getBoardId())
                 .orElseThrow(() -> new BusinessException(BoardErrorCode.NO_SUCH_BOARD));
         Account account = recruitmentBoard.getAccount();
@@ -37,25 +37,27 @@ public class RecruitmentBoardUpdateService {
         if (!(accountContextService.isOwner(account)))
             throw new BusinessException(GlobalErrorCode.HANDLE_ACCESS_DENIED);
 
-        recruitmentBoard.updateBoardContents(
+        List<RecruitmentBoardTag> tags = getTags(request.getTagList());
+
+        recruitmentBoard.update(
                 request.getNewTitle(),
-                request.getNewText());
-        recruitmentBoard.updateRecContents(
+                request.getNewText(),
                 request.getNewRecNumber(),
                 request.getNewPaymentMax(),
                 request.getNewWorkStartDate(),
                 request.getNewWorkEndDate(),
                 request.getNewRecStartDate(),
-                request.getNewRecEndDate()
-                );
-        //recruitmentBoard.addTags(getTags(request.getTagList()));
-        recruitmentBoard.updateTagContents(getTags(request.getTagList()));
+                request.getNewRecEndDate(),
+                tags
+        );
+
+
 
         recruitmentBoardJpaRepository.save(recruitmentBoard);
-        return true;
+        return recruitmentBoard.getBoardId();
     }
 
-    private List<RecruitmentBoardTag> getTags(List<RecruitmentBoardCreateDto.TagDto> tagDtoList) {
+    private List<RecruitmentBoardTag> getTags(List<TagCreateDto.TagDto> tagDtoList) {
         return tagDtoList.stream()
                 .map(tag -> RecruitmentBoardTag.builder()
                     .tag(tagJpaRepository.findById(tag.getTagId())
