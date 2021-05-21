@@ -43,6 +43,7 @@ public class ProfileUpdateDto {
     }
 
     @Data
+    @NoArgsConstructor
     @AllArgsConstructor
     static public class IsOpenRequest {
         @ApiModelProperty(notes = "프로필 공개여부", example = "0/1")
