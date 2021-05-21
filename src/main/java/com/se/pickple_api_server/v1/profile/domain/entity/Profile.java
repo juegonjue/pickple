@@ -45,7 +45,7 @@ public class Profile extends BaseEntity {
     @Column(nullable = false)
     private Integer isOpen;
 
-    @OneToMany(mappedBy = "profile", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "profile", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<ProfileTag> profileTagList = new ArrayList<>();
 
 
