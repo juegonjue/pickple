@@ -1,12 +1,14 @@
 //package com.se.pickple_api_server.v1.board.infra.repository;
 //
 //import com.querydsl.jpa.JPQLQuery;
-//import com.se.pickple_api_server.v1.board.application.dto.RecruitmentBoardReadDto;
-//import com.se.pickple_api_server.v1.board.domain.entity.QRecruitmentBoard;
-//import com.se.pickple_api_server.v1.board.recruitment.domain.entity.RecruitmentBoard;
+//import com.se.pickple_api_server.v1.recruitment.application.dto.RecruitmentBoardReadDto;
+//import com.se.pickple_api_server.v1.recruitment.domain.entity.QRecruitmentBoard;
+//import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoard;
+//import com.se.pickple_api_server.v1.recruitment.infra.repository.RecruitmentBoardQueryRepository;
 //import org.springframework.data.domain.Page;
 //import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 //import org.springframework.stereotype.Repository;
+//
 //
 //@Repository
 //public class RecruitmentBoardQueryRepositoryImpl extends QuerydslRepositorySupport implements RecruitmentBoardQueryRepository {
@@ -17,24 +19,19 @@
 //        QRecruitmentBoard recruitmentBoard = QRecruitmentBoard.recruitmentBoard;
 //        JPQLQuery query = from(recruitmentBoard);
 //
+//
 //        if (searchRequest.getKeyword() != null) {
 //            query.where(
 //                    recruitmentBoard.title.contains(searchRequest.getKeyword())
-//                    .or(recruitmentBoard.text.contains(searchRequest.getKeyword()))
+//                .or(recruitmentBoard.text.contains(searchRequest.getKeyword()))
 //            );
 //        }
 //
-////        if (!searchRequest.getTagString().isEmpty()) {
-////            searchRequest.getTagString()
-////                    .stream()
-////                    .map(tag -> query.where(recruitmentBoard.recruitmentBoardTagList.contains(tag)));
-////
-////            )
-////        }
+//        query.where(recruitmentBoard.title.in(searchRequest.getTagStringList()));
+//        if (searchRequest.getTagStringList() != null) {
+//            query.where(recruitmentBoard.recruitmentBoardTagList.contains(searchRequest.getTagStringList());
+//        }
 //
-//        if (!searchRequest.getTagString().isEmpty()) {
-//            query.where(
 //
-//            )
 //    }
 //}

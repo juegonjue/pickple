@@ -10,6 +10,7 @@ import com.se.pickple_api_server.v1.profile.application.error.ProfileErrorCode;
 import com.se.pickple_api_server.v1.profile.domain.entity.Profile;
 import com.se.pickple_api_server.v1.profile.infra.repository.ProfileJpaRepository;
 import com.se.pickple_api_server.v1.profile.domain.entity.ProfileTag;
+import com.se.pickple_api_server.v1.tag.application.dto.TagCreateDto;
 import com.se.pickple_api_server.v1.tag.application.error.TagErrorCode;
 import com.se.pickple_api_server.v1.tag.infra.repository.TagJpaRepository;
 import lombok.RequiredArgsConstructor;
@@ -51,7 +52,7 @@ public class ProfileCreateService {
         return profile.getProfileId();
     }
 
-    public List<ProfileTag> getTags(List<ProfileCreateDto.TagDto> tagDtoList) {
+    public List<ProfileTag> getTags(List<TagCreateDto.TagDto> tagDtoList) {
         return tagDtoList.stream()
                 .map(tagDto -> ProfileTag.builder()
                     .tag(tagJpaRepository.findById(tagDto.getTagId()).orElseThrow(() -> new BusinessException(TagErrorCode.NO_SUCH_TAG)))

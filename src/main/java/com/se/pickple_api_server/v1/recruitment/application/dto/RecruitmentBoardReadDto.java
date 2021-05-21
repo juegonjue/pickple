@@ -1,9 +1,11 @@
 package com.se.pickple_api_server.v1.recruitment.application.dto;
 
 import com.se.pickple_api_server.v1.board.domain.type.BoardType;
+import com.se.pickple_api_server.v1.profile.domain.entity.ProfileTag;
 import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoard;
 import com.se.pickple_api_server.v1.common.infra.dto.PageRequest;
 import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoardTag;
+import com.se.pickple_api_server.v1.tag.application.dto.TagReadDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -50,7 +52,7 @@ public class RecruitmentBoardReadDto {
 
         private String recEndDate;
 
-        private List<TagDto> recruitmentBoardTagList;
+        private List<TagReadDto.TagDto> recruitmentBoardTagList;
 
         static public Response fromEntity(RecruitmentBoard recruitmentBoard) {
 
@@ -77,7 +79,7 @@ public class RecruitmentBoardReadDto {
             builder.recruitmentBoardTagList(
                     recruitmentBoard.getRecruitmentBoardTagList()
                             .stream()
-                            .map(tag -> TagDto.fromEntity(tag))
+                            .map(tag -> TagReadDto.TagDto.fromEntity(tag))
                             .collect(Collectors.toList())
             );
 
@@ -111,7 +113,7 @@ public class RecruitmentBoardReadDto {
 
         private String recEndDate;
 
-        private List<TagDto> recruitmentBoardTagList;
+        private List<TagReadDto.TagDto> recruitmentBoardTagList;
 
         static public ListResponse fromEntity(RecruitmentBoard recruitmentBoard) {
             ListResponseBuilder builder = ListResponse.builder();
@@ -131,7 +133,7 @@ public class RecruitmentBoardReadDto {
             builder.recruitmentBoardTagList(
                     recruitmentBoard.getRecruitmentBoardTagList()
                             .stream()
-                            .map(tag -> TagDto.fromEntity(tag))
+                            .map(tag -> TagReadDto.TagDto.fromEntity(tag))
                             .collect(Collectors.toList())
             );
 
@@ -173,26 +175,11 @@ public class RecruitmentBoardReadDto {
     @NoArgsConstructor
     @AllArgsConstructor
     static public class SearchRequest {
+
         private String keyword;
-        private List<String> tagString;
 
         @NotNull
         private PageRequest pageRequest;
     }
 
-    @Data
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    static public class TagDto {
-        private Long tagId;
-        private String tagName;
-
-        static public TagDto fromEntity(RecruitmentBoardTag recruitmentBoardTag) {
-            return TagDto.builder()
-                    .tagId(recruitmentBoardTag.getTag().getTagId())
-                    .tagName(recruitmentBoardTag.getTag().getTagName())
-                    .build();
-        }
-    }
 }

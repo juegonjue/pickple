@@ -12,4 +12,5 @@ public interface RecruitmentBoardJpaRepository extends JpaRepository<Recruitment
     List<RecruitmentBoard> findAllByAccountAndIsDeletedEquals(Account account, Integer isDeleted);
     Page<RecruitmentBoard> findAllByIsDeletedEquals(Pageable pageable, Integer isDeleted);
 
+    //List<RecruitmentBoard> findAllByTitleOrTextOOrderByRecruitmentBoardTagList
 }

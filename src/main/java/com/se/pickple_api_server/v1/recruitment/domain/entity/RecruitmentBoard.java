@@ -41,7 +41,7 @@ public class RecruitmentBoard extends Board {
     @Column(nullable = false)
     private LocalDateTime recEndDate;
 
-    @OneToMany(mappedBy = "recruitmentBoard", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, orphanRemoval = false)
+    @OneToMany(mappedBy = "recruitmentBoard", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<RecruitmentBoardTag> recruitmentBoardTagList = new ArrayList<>();
 
 
@@ -54,11 +54,11 @@ public class RecruitmentBoard extends Board {
         this.workEndDate = workEndDate;
         this.recStartDate = recStartDate;
         this.recEndDate = recEndDate;
-        this.recruitmentBoardTagList = recruitmentBoardTagList;
+        //this.recruitmentBoardTagList = recruitmentBoardTagList;
         addTags(recruitmentBoardTagList);
     }
 
-    // 등록에 필요
+    // 모집글_태그 등록에 필요
     public void addTags(List<RecruitmentBoardTag> recruitmentBoardTagList) {
         recruitmentBoardTagList
                 .stream()
@@ -71,7 +71,8 @@ public class RecruitmentBoard extends Board {
     }
 
     public void updateRecContents(Integer recNumber, Integer paymentMax,
-                                  LocalDateTime workStartDate, LocalDateTime workEndDate, LocalDateTime recStartDate, LocalDateTime recEndDate) {
+                                  LocalDateTime workStartDate, LocalDateTime workEndDate,
+                                  LocalDateTime recStartDate, LocalDateTime recEndDate) {
 
         this.recNumber = recNumber;
         this.paymentMax = paymentMax;
@@ -82,13 +83,31 @@ public class RecruitmentBoard extends Board {
     }
 
     public void updateTagContents(List<RecruitmentBoardTag> recruitmentBoardTagList) {
-        recruitmentBoardTagList
-                .stream()
+        this.recruitmentBoardTagList
                 .forEach(recruitmentBoardTag -> {
-                    if(!this.recruitmentBoardTagList.contains(recruitmentBoardTag)) {
-                        addTag(recruitmentBoardTag);
-                    }
+                    recruitmentBoardTag.setRecBoard(null);
                 });
+        this.recruitmentBoardTagList.clear();
+        addTags(recruitmentBoardTagList);
+
+//        recruitmentBoardTagList
+//                .stream()
+//                .forEach(recruitmentBoardTag -> {
+//                    if(!this.recruitmentBoardTagList.contains(recruitmentBoardTag)) {
+//                        addTag(recruitmentBoardTag);
+//                    }
+//                });
     }
+
+    public void update(String title, String text,
+                       Integer recNumber, Integer paymentMax,
+                       LocalDateTime workStartDate, LocalDateTime workEndDate,
+                       LocalDateTime recStartDate, LocalDateTime recEndDate,
+                       List<RecruitmentBoardTag> recruitmentBoardTagList) {
+        updateBoardContents(title, text);
+        updateRecContents(recNumber, paymentMax, workStartDate, workEndDate, recStartDate, recEndDate);
+        updateTagContents(recruitmentBoardTagList);
+    }
+
 }
 

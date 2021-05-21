@@ -36,7 +36,9 @@ public class RecruitmentBoardTag extends BaseEntity {
 
     public void setRecBoard(RecruitmentBoard recruitmentBoard) {
         this.recruitmentBoard = recruitmentBoard;
+        if (recruitmentBoard == null) return;
         if (!recruitmentBoard.getRecruitmentBoardTagList().contains(this))
             recruitmentBoard.addTag(this);
     }
+
 }
