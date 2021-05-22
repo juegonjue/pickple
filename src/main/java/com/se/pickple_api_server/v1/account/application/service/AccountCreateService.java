@@ -24,7 +24,12 @@ public class AccountCreateService {
     @Transactional
     public Long signUpBySocial(OauthUserInfo oauthUserInfo, OauthType oauthType) {
         System.out.println("AccountCreateService.signUpBySocial");
-        //Account account = Account.builder()
+
+        if (accountJpaRepository.findByIdString(oauthUserInfo.getId()).isPresent())
+            throw new BusinessException(AccountErrorCode.DUPLICATED_ID);
+        if (accountJpaRepository.findByEmail(oauthUserInfo.getEmail()).isPresent())
+            throw new BusinessException(AccountErrorCode.DUPLICATED_EMAIL);
+
         Account account = new Account(
                 oauthUserInfo.getId(),
                 oauthUserInfo.getName(),
@@ -33,9 +38,7 @@ public class AccountCreateService {
                 0,
                 RegisterType.valueOf(oauthType.toString()),
                 0
-                //.build();
         );
-
         accountJpaRepository.save(account);
         return account.getAccountId();
     }
@@ -45,7 +48,9 @@ public class AccountCreateService {
 
         if (accountJpaRepository.findByIdString(request.getIdString()).isPresent())
             throw new BusinessException(AccountErrorCode.DUPLICATED_ID);
-        //Account account = Account.builder()
+        if (accountJpaRepository.findByEmail(request.getEmail()).isPresent())
+            throw new BusinessException(AccountErrorCode.DUPLICATED_EMAIL);
+
         Account account = new Account(
                 request.getIdString(),
                 request.getName(),
@@ -54,22 +59,9 @@ public class AccountCreateService {
                 0,
                 request.getRegisterType(),
                 0
-        //        .build();
         );
         accountJpaRepository.save(account);
         return account.getAccountId();
     }
 
-//    @Transactional
-//    public Long signUpBySocial(OauthUserInfo oauthUserInfo) {
-//
-//        if (accountJpaRepository.findByIdString(oauthUserInfo.getId()).isPresent())
-//            throw new BusinessException(AccountErrorCode.DUPLICATED_ID);
-//        Account account = Account.builder()
-//                .idString(oauthUserInfo.getId())
-//                .password(passwordEncoder.encode(oauthUserInfo.getId()))
-//                .build();
-//        accountJpaRepository.save(account);
-//        return account.getAccountId();
-//    }
 }

@@ -5,9 +5,12 @@ import lombok.Getter;
 
 @Getter
 public enum ProfileErrorCode implements ErrorCode {
-    NO_SUCH_PROFILE(400, "PE01", "존재하지 않는 프로필"),
-    INVALID_INPUT(400, "PE02", "입력값이 올바르지 않음"),
-    ALREADY_EXIST(400, "PE03", "프로필이 이미 존재함");
+    NO_SUCH_PROFILE(400, "PF01", "존재하지 않는 프로필"),
+    INVALID_INPUT(401, "PF02", "입력값이 올바르지 않음"),
+    ALREADY_EXIST(401, "PF03", "프로필이 이미 존재함"),
+    DUPLICATED_KAKAOID(401, "PF04", "중복된 카카오아이디 이미 존재함"),
+    DUPLICATED_WORKEMAIL(401, "PF05", "중복된 업무이메일 이미 존재함"),
+    DUPLICATED_BLOG(401, "PF06", "중복된 블로그주소 이미 존재함");
 
     private int status;
     private final String code;
