@@ -38,6 +38,7 @@ public class ProfileApiController {
 
     @ApiOperation(value = "내 프로필 조회")
     @GetMapping(path = "/profile/my")
+    @PreAuthorize("hasAnyAuthority('MEMBER')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<ProfileReadDto.Response> readMyProfile() {
         return new SuccessResponse(HttpStatus.OK.value(), "내 프로필 조회 성공", profileReadService.readMyProfile());
@@ -45,6 +46,7 @@ public class ProfileApiController {
 
     @ApiOperation(value = "프로필 상세조회")
     @GetMapping(path = "/profile/{profileId}")
+    @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<ProfileReadDto.Response> readProfileDetail(@PathVariable(name = "profileId") Long profileId) {
         return new SuccessResponse(HttpStatus.OK.value(), "프로필 상세조회 성공", profileReadService.readById(profileId));
