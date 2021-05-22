@@ -16,13 +16,15 @@ public class BookmarkReadDto {
     static public class MyResponse {
         private Long boardId;
         private String boardTitle;
+        private Integer boardIsDeleted;
 
         static public MyResponse fromEntity(Bookmark bookmark) {
             MyResponseBuilder builder = MyResponse.builder();
 
             builder
                     .boardId(bookmark.getBoard().getBoardId())
-                    .boardTitle(bookmark.getBoard().getTitle());
+                    .boardTitle(bookmark.getBoard().getTitle())
+                    .boardIsDeleted(bookmark.getBoard().getIsDeleted());
 
             return builder.build();
         }
