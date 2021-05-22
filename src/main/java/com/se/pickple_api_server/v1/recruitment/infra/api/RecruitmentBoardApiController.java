@@ -39,7 +39,6 @@ public class RecruitmentBoardApiController {
         return new SuccessResponse(HttpStatus.CREATED.value(), "모집글 등록에 성공했습니다.", recruitmentBoardCreateService.create(request));
     }
 
-    // TODO 페이지 타입 같이 넣어줘야
     // UC-RB-02 모집글 목록 조회 (페이징)
     @ApiOperation(value = "모집글 목록 조회 (페이징)")
     @GetMapping(path = "/recboard")

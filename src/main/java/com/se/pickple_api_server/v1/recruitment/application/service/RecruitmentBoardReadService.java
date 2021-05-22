@@ -34,7 +34,16 @@ public class RecruitmentBoardReadService {
 
     // 페이징 목록조회 + isDeleted
     public PageImpl readAll(Pageable pageable) {
-        Page<RecruitmentBoard> recruitmentBoardPage = recruitmentBoardJpaRepository.findAllByIsDeletedEquals(pageable, 0);
+
+        Page<RecruitmentBoard> recruitmentBoardPage;
+
+        if (accountContextService.hasAuthority("ADMIN")) {
+            recruitmentBoardPage = recruitmentBoardJpaRepository.findAll(pageable);
+        }
+        else {
+            recruitmentBoardPage = recruitmentBoardJpaRepository.findAllByIsDeletedEquals(pageable, 0);
+        }
+
         List<RecruitmentBoardReadDto.ListResponse> listResponseList = recruitmentBoardPage
                 .get()
                 .map(recruitmentBoard -> RecruitmentBoardReadDto.ListResponse.fromEntity(recruitmentBoard))

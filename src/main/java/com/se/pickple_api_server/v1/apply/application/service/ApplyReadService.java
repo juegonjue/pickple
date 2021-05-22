@@ -70,7 +70,12 @@ public class ApplyReadService {
 
     // [관리자] 사용자들의 지원 목록 페이징 (전체)
     public PageImpl readAll(Pageable pageable) {
-        Page<Apply> applyPage = applyJpaRepository.findAll(pageable);
+
+        Page<Apply> applyPage = null;
+        if (accountContextService.hasAuthority("ADMIN")) {
+            applyPage = applyJpaRepository.findAll(pageable);
+        }
+
         List<ApplyReadDto.ListResponse> listResponseList = applyPage
                 .get()
                 .map(apply -> ApplyReadDto.ListResponse.fromEntity(apply))
@@ -85,8 +90,6 @@ public class ApplyReadService {
                 .orElseThrow(() -> new BusinessException(ApplyErrorCode.NO_SUCH_APPLY));
         return ApplyReadDto.Response.fromEntity(apply);
     }
-
-    // TODO [관리자] 사용자들의 지원목록에서 리뷰 신청 온것
 
     // 특정 사용자를 평가한(프로필에 보여지는) 리뷰 모아보기
     public List<ApplyReadDto.ReviewResponse> readReviewByProfileId(Long profileId) {
