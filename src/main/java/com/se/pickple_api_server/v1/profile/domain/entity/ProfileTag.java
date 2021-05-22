@@ -35,6 +35,7 @@ public class ProfileTag extends BaseEntity {
 
     public void setProfile(Profile profile) {
         this.profile = profile;
+        if (profile == null) return;
         if (!profile.getProfileTagList().contains(this))
             profile.addTag(this);
     }

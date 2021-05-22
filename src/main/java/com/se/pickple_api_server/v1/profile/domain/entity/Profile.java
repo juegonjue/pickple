@@ -21,7 +21,6 @@ public class Profile extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long profileId;
 
-    //@OneToOne(mappedBy = "profile")
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(nullable = false, name = "account_id" , referencedColumnName = "accountId")
     private Account account;
@@ -46,11 +45,10 @@ public class Profile extends BaseEntity {
     @Column(nullable = false)
     private Integer isOpen;
 
-    @OneToMany(mappedBy = "profile", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "profile", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<ProfileTag> profileTagList = new ArrayList<>();
 
 
-    @Builder
     public Profile(Account account, @Size(min = 2, max = 20) String kakaoId, @Size(min = 2, max = 40) @Email String workEmail, @Size(max = 255) String blog, @Size(min = 2, max = 500) String introduce, Integer isOpen, List<ProfileTag> profileTagList) {
         this.account = account;
         this.kakaoId = kakaoId;
@@ -70,4 +68,31 @@ public class Profile extends BaseEntity {
     public void addTag(ProfileTag profileTag) {
         this.profileTagList.add(profileTag);
     }
+
+    public void updateProfileContents(String kakaoId, String workEmail, String blog, String introduce) {
+        this.kakaoId = kakaoId;
+        this.workEmail = workEmail;
+        this.blog = blog;
+        this.introduce = introduce;
+    }
+
+    public void updateIsOpen(Integer isOpen) {
+        this.isOpen = isOpen;
+    }
+
+    public void updateTagContents(List<ProfileTag> newProfileTagList) {
+        this.profileTagList
+                .forEach(profileTag -> profileTag.setProfile(null));
+        this.profileTagList.clear();
+        addTags(newProfileTagList);
+    }
+
+    public void update(String kakaoId, String workEmail, String blog, String introduce,
+                       Integer isOpen,
+                       List<ProfileTag> profileTagList) {
+        updateProfileContents(kakaoId, workEmail, blog, introduce);
+        updateIsOpen(isOpen);
+        updateTagContents(profileTagList);
+    }
+
 }

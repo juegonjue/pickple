@@ -74,6 +74,7 @@ public class ApplyReadDto {
         private String boardTitle;
         private String boardRecEndDate;
         private String boardWordStartDate;
+        private Integer boardIsDeleted;
         private Integer applyIsContracted;
 
         static public MyResponse fromEntity(Apply apply) {
@@ -84,6 +85,7 @@ public class ApplyReadDto {
                     .boardTitle(apply.getRecruitmentBoard().getTitle())
                     .boardRecEndDate(apply.getRecruitmentBoard().getRecEndDate().toString())
                     .boardWordStartDate(apply.getRecruitmentBoard().getWorkStartDate().toString())
+                    .boardIsDeleted(apply.getRecruitmentBoard().getIsDeleted())
                     .applyIsContracted(apply.getIsContracted());
             return builder.build();
         }

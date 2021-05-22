@@ -101,6 +101,7 @@ public class ReportReadDto {
     static public class MyResponse {
         private Long reportId;
         private Long boardId;
+        private Integer boardIsDeleted;
         private String reportText;
         private String reportState;
         private String reportResult;
@@ -110,6 +111,7 @@ public class ReportReadDto {
             builder
                     .reportId(report.getReportId())
                     .boardId(report.getBoard().getBoardId())
+                    .boardIsDeleted(report.getBoard().getIsDeleted())
                     .reportText(report.getText())
                     .reportState(report.getReportState().toString())
                     .reportResult(report.getReportResult().toString());
