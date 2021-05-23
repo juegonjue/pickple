@@ -89,7 +89,7 @@ public class RecruitmentBoardApiController {
     @GetMapping(path = "/recboard/search")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResponse<Pageable> readSearchAccount(@Validated SearchDto.Request pageRequest) {
+    public SuccessResponse<Pageable> readSearchRecboard(@Validated SearchDto.Request pageRequest) {
         return new SuccessResponse(HttpStatus.OK.value(), "회원 검색 성공", recruitmentBoardReadService.search(pageRequest));
     }
 }

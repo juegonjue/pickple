@@ -42,7 +42,10 @@ public class ProfileReadDto {
 
         private List<TagReadDto.TagDto> profileTagList;
 
-        static public Response fromEntity (Profile profile) {
+        private String createDate;
+        private String updateDate;
+
+        static public Response fromEntity(Profile profile, Boolean isAdmin) {
             ResponseBuilder builder = Response.builder();
 
             builder
@@ -62,7 +65,11 @@ public class ProfileReadDto {
                             .map(tag -> TagReadDto.TagDto.fromEntity(tag))
                             .collect(Collectors.toList())
             );
-
+            if (isAdmin) {
+                builder
+                        .createDate(profile.getCreatedDate().toString())
+                        .updateDate(profile.getModifiedDate().toString());
+            }
             return builder.build();
         }
     }
@@ -115,6 +122,26 @@ public class ProfileReadDto {
         static public ExistResponse fromEntity(Apply apply) {
             ExistResponseBuilder builder = ExistResponse.builder();
             return builder.applyId(apply.getApplyId()).build();
+        }
+
+    }
+
+    // TODO 검색 프로필
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    static public class SListResponse {
+        private Long profileId;
+        private String userName;
+        private String introduce;
+
+        static public SListResponse fromEntity(Profile profile) {
+            return builder()
+                    .profileId(profile.getProfileId())
+                    .userName(profile.getAccount().getName())
+                    .introduce(profile.getIntroduce())
+                    .build();
         }
 
     }

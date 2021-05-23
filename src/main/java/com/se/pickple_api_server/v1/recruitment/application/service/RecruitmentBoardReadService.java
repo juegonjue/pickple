@@ -66,7 +66,7 @@ public class RecruitmentBoardReadService {
         return allMyRecboardReadDto;
     }
 
-    // TODO 모집글 검색목록 페이징처리
+    // [관리자] 모집글 검색목록 페이징처리
     public PageImpl search(SearchDto.Request pageRequest) {
         Page<RecruitmentBoard> recruitmentBoardPage = recruitmentBoardQueryRepository.search(pageRequest);
         List<RecruitmentBoardReadDto.ListResponse> responseList = recruitmentBoardPage

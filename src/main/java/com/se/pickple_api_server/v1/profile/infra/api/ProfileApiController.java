@@ -1,6 +1,7 @@
 package com.se.pickple_api_server.v1.profile.infra.api;
 
 
+import com.se.pickple_api_server.v1.common.application.dto.SearchDto;
 import com.se.pickple_api_server.v1.common.infra.dto.PageRequest;
 import com.se.pickple_api_server.v1.common.infra.dto.SuccessResponse;
 import com.se.pickple_api_server.v1.profile.application.dto.ProfileCreateDto;
@@ -79,5 +80,11 @@ public class ProfileApiController {
         return new SuccessResponse(HttpStatus.OK.value(), "프로필 수정 성공");
     }
 
-
+    @ApiOperation(value = "[관리자] 프로필 검색")
+    @GetMapping(path = "/profile/search")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SuccessResponse<Pageable> readSearchProfile(@Validated SearchDto.Request pageRequest) {
+        return new SuccessResponse(HttpStatus.OK.value(), "회원 검색 성공", profileReadService.search(pageRequest));
+    }
 }
