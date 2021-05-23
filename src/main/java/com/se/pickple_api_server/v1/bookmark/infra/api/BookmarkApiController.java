@@ -27,7 +27,7 @@ public class BookmarkApiController {
 
     @ApiOperation(value = "북마크 등록")
     @PostMapping(path = "/bookmark")
-    @PreAuthorize("hasAnyAuthority('ADMIN','MEMBER')")
+    @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
     @ResponseStatus(value = HttpStatus.CREATED)
     public SuccessResponse<Long> create(@RequestBody @Validated BookmarkCreateDto.Request request) {
         return new SuccessResponse(HttpStatus.CREATED.value(), "북마크 등록 성공", bookmarkCreateService.create(request));
@@ -44,7 +44,7 @@ public class BookmarkApiController {
 
     @ApiOperation(value = "북마크 해제")
     @DeleteMapping(path = "/bookmark/{bookmarkId}")
-    @PreAuthorize("hasAnyAuthority('ADMIN','MEMBER')")
+    @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse deleteBookmark(@PathVariable(value = "bookmarkId") Long bookmarkId) {
         bookmarkDeleteService.delete(bookmarkId);
@@ -54,6 +54,7 @@ public class BookmarkApiController {
     // 현재 모집글의 내 북마크 여부
     @ApiOperation(value = "현재 모집글에서의 내 북마크 여부")
     @GetMapping(path = "/bookmark/my/{boardId}")
+    @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<BookmarkReadDto.ExistResponse> readExist(@PathVariable(value = "boardId") Long boardId) {
         return new SuccessResponse(HttpStatus.OK.value(), "현재 모집글에서 내 북마크여부 조회 성공", bookmarkReadService.myBookmarkInRecboard(boardId));

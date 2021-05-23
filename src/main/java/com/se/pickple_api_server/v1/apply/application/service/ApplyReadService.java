@@ -70,9 +70,7 @@ public class ApplyReadService {
 
     // [관리자] 사용자들의 지원 목록 페이징 (전체)
     public PageImpl readAll(Pageable pageable) {
-
         Page<Apply> applyPage =  applyJpaRepository.findAll(pageable);
-
         List<ApplyReadDto.ListResponse> listResponseList = applyPage
                 .get()
                 .map(apply -> ApplyReadDto.ListResponse.fromEntity(apply))

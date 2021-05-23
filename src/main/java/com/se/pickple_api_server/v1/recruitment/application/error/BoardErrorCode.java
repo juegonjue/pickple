@@ -5,8 +5,8 @@ import lombok.Getter;
 
 @Getter
 public enum BoardErrorCode implements ErrorCode {
-    NO_SUCH_BOARD(400, "BE01", "존재하지 않는 게시글"),
-    INVALID_INPUT(401, "BE02", "입력값이 올바르지 않음");
+    NO_SUCH_BOARD(400, "BD01", "존재하지 않는 게시글"),
+    INVALID_INPUT(401, "BD02", "입력값이 올바르지 않음");
 
     private int status;
     private final String code;

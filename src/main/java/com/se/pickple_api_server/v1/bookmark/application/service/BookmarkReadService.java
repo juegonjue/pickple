@@ -1,5 +1,6 @@
 package com.se.pickple_api_server.v1.bookmark.application.service;
 
+import com.se.pickple_api_server.v1.account.application.error.AccountErrorCode;
 import com.se.pickple_api_server.v1.account.application.service.AccountContextService;
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
 import com.se.pickple_api_server.v1.recruitment.application.error.BoardErrorCode;
@@ -48,6 +49,5 @@ public class BookmarkReadService {
                 .orElseThrow(() -> new BusinessException(BookmarkErrorCode.NO_SUCH_BOOKMARK));
 
         return BookmarkReadDto.ExistResponse.fromEntity(bookmark);
-
     }
 }

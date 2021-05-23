@@ -40,7 +40,6 @@ public class AccountApiController {
                 accountCreateService.signUp(request));
     }
 
-
     // test로그인 -추후삭제
     @ApiOperation(value = "(test) 일반 로그인")
     @PostMapping(path = "/signin")
@@ -49,7 +48,6 @@ public class AccountApiController {
         return new SuccessResponse<>(HttpStatus.OK.value(), "성공적으로 로그인 되었습니다.",
                 accountSignInService.signIn(request.getIdString()));
     }
-
 
     // UC-AC-02 소셜 회원가입 및 로그인
     // request body : access token
@@ -89,7 +87,7 @@ public class AccountApiController {
     // UC-AC-06 사용자 목록 조회 (페이징)
     @ApiOperation(value = "[관리자] 사용자 목록 조회 (페이징)")
     @GetMapping(path = "/account")
-    //@PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<Pageable> readAllAccount(@Validated PageRequest pageRequest){
         return new SuccessResponse(HttpStatus.OK.value(), "성공적으로 사용자 목록 조회 페이징", accountReadService.readAll(pageRequest.of()));
@@ -108,8 +106,9 @@ public class AccountApiController {
     // UC-AC-08 회원 검색 및 페이징
     @ApiOperation(value = "회원 검색")
     @GetMapping(path = "/account/search")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResponse <Pageable> readSearchAccount(@Validated AccountReadDto.SearchRequest pageRequest) {
+    public SuccessResponse<Pageable> readSearchAccount(@Validated AccountReadDto.SearchRequest pageRequest) {
         return new SuccessResponse(HttpStatus.OK.value(), "회원 검색 성공", accountReadService.search(pageRequest));
     }
 

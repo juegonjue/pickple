@@ -51,22 +51,21 @@ public class ReportApiController {
         return new SuccessResponse(HttpStatus.OK.value(), "내 신고 조회 성공", reportReadService.readMyReport());
     }
 
-    @ApiOperation(value = "관리자 신고 목록 조회")
+    @ApiOperation(value = "[관리자]신고 목록 조회")
     @GetMapping(path = "/report")
-    //@PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<Pageable> readAllReport (@Validated PageRequest pageRequest) {
-        return new SuccessResponse(HttpStatus.OK.value(), "관리자 신고 목록 조회 성공", reportReadService.readAll(pageRequest.of()));
+        return new SuccessResponse(HttpStatus.OK.value(), "신고 목록 조회 성공", reportReadService.readAll(pageRequest.of()));
     }
 
     // 신고 처리
-    // BEFORE, NONE --> AFTER, ( , ), who is manager
-    @ApiOperation(value = "신고 처리")
+    @ApiOperation(value = "[관리자]신고 처리")
     @PutMapping(path = "/report/manage")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse manageReport(@RequestBody @Validated ReportUpdateDto.Request request) {
         reportUpdateStatusService.updateReportStatus(request);
-        return new SuccessResponse(HttpStatus.OK.value(), "관리자 신고 처리 성공");
+        return new SuccessResponse(HttpStatus.OK.value(), "신고 처리 성공");
     }
 }

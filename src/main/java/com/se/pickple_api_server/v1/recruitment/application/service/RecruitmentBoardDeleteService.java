@@ -19,7 +19,6 @@ public class RecruitmentBoardDeleteService {
 
     @Transactional
     public void delete(Long boardId) {
-
         RecruitmentBoard recruitmentBoard = recruitmentBoardJpaRepository.findById(boardId)
                 .orElseThrow(() -> new BusinessException(BoardErrorCode.NO_SUCH_BOARD));
 

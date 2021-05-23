@@ -38,7 +38,7 @@ public class ApplyApiController {
         return new SuccessResponse(HttpStatus.CREATED.value(), "지원서 등록 성공", applyCreateService.create(request));
     }
 
-    // [ 관리자 ] 모든 지원 조회
+    // [관리자] 모든 지원 조회
     @ApiOperation(value = "지원 목록 조회 페이징")
     @GetMapping(path = "/apply")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
@@ -50,7 +50,7 @@ public class ApplyApiController {
     // [지원자] 내가 한 지원+계약 조회
     @ApiOperation(value = "내 지원 조회")
     @GetMapping(path = "/apply/my")
-    @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('MEMBER')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<ApplyReadDto.MyResponse> readMyApply() {
         return new SuccessResponse(HttpStatus.OK.value(), "내 지원, 계약 목록 조회 성공", applyReadService.readAllMyApply());
@@ -114,7 +114,7 @@ public class ApplyApiController {
     // 지원 취소
     @ApiOperation(value = "지원 취소")
     @DeleteMapping(path = "/apply")
-    @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('MEMBER')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse cancelApply(@RequestBody @Validated ApplyDeleteDto.Request request) {
         applyDeleteService.delete(request);
@@ -124,7 +124,7 @@ public class ApplyApiController {
     // 나에게 쓴 리뷰들 조회 -> applyJpaRepo에서, profileId조회해서 Accepted된 리뷰들만 뽑아
     @ApiOperation(value = "특정 사용자에 대한 후기 보기")
     @GetMapping(path = "/apply/review/{profileId}")
-    @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('MEMBER')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse readReviewOnProfile(@PathVariable(name = "profileId") Long profileId) {
         return new SuccessResponse(HttpStatus.OK.value(), "특정 사용자 후기 보기 성공", applyReadService.readReviewByProfileId(profileId));
