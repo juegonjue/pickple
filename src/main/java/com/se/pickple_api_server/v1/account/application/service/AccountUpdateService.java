@@ -28,6 +28,11 @@ public class AccountUpdateService {
         if (!(accountContextService.isOwner(account) || isAdmin))
             throw new BusinessException(GlobalErrorCode.HANDLE_ACCESS_DENIED);
 
+        if (!account.getEmail().equals(request.getNewEmail())) {
+            if (accountJpaRepository.findByEmail(request.getNewEmail()).isPresent())
+                throw new BusinessException(AccountErrorCode.DUPLICATED_EMAIL);
+        }
+
         account.changeAccountInfo(request);
 
         accountJpaRepository.save(account);
