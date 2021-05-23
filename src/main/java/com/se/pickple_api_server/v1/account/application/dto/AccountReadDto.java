@@ -29,7 +29,7 @@ public class AccountReadDto {
 
         private String name;
 
-        private AccountType accountType;
+        private String accountType;
 
         private String email;
 
@@ -37,7 +37,7 @@ public class AccountReadDto {
         private String studentId;
 
         @JsonInclude(Include.NON_NULL)
-        private RegisterType registerType;
+        private String registerType;
 
         @JsonInclude(Include.NON_NULL)
         private Integer isCertified;
@@ -50,31 +50,36 @@ public class AccountReadDto {
                     .accountId(account.getAccountId())
                     .idString(account.getIdString())
                     .name(account.getName())
-                    .accountType(account.getAccountType())
+                    .accountType(account.getAccountType().toString())
                     .email(account.getEmail())
                     .studentId(account.getStudentId())
-                    .registerType(account.getRegisterType())
+                    .registerType(account.getRegisterType().toString())
                     .isCertified(account.getIsCertified())
                     .isDeleted(account.getIsDeleted())
                     .build();
         }
-
     }
 
     @Data
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    @ApiModel("회원 검색")
-    static public class SearchRequest {
+    static public class SListResponse {
+        private Long accountId;
+        private String idString;
+        private String name;
+        private AccountType accountType;
+        private RegisterType registerType;
 
-        @ApiModelProperty(notes = "검색할 키워드(회원아이디String, 회원이름)", example = "test")
-        private String keyword;
-
-        @ApiModelProperty(notes = "멤버 타입으로 찾기(추가사항)")
-        private AccountType type;
-
-        @NotNull
-        private PageRequest pageRequest;
+        public static SListResponse fromEntity(Account account) {
+            return SListResponse.builder()
+                    .accountId(account.getAccountId())
+                    .idString(account.getIdString())
+                    .name(account.getName())
+                    .accountType(account.getAccountType())
+                    .registerType(account.getRegisterType())
+                    .build();
+        }
     }
+
 }

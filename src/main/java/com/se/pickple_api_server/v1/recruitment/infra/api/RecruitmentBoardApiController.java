@@ -1,5 +1,6 @@
 package com.se.pickple_api_server.v1.recruitment.infra.api;
 
+import com.se.pickple_api_server.v1.common.application.dto.SearchDto;
 import com.se.pickple_api_server.v1.recruitment.application.dto.RecruitmentBoardCreateDto;
 import com.se.pickple_api_server.v1.recruitment.application.dto.RecruitmentBoardReadDto;
 import com.se.pickple_api_server.v1.recruitment.application.dto.RecruitmentBoardUpdateDto;
@@ -13,6 +14,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -81,5 +83,13 @@ public class RecruitmentBoardApiController {
     public SuccessResponse delete(@PathVariable(name = "boardId") Long boardId) {
         recruitmentBoardDeleteService.delete(boardId);
         return new SuccessResponse(HttpStatus.OK.value(), "모집글 삭제 성공");
+    }
+
+    @ApiOperation(value = "모집글 검색")
+    @GetMapping(path = "/recboard/search")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SuccessResponse<Pageable> readSearchAccount(@Validated SearchDto.Request pageRequest) {
+        return new SuccessResponse(HttpStatus.OK.value(), "회원 검색 성공", recruitmentBoardReadService.search(pageRequest));
     }
 }

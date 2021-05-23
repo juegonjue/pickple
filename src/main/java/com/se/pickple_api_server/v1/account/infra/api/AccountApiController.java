@@ -2,6 +2,7 @@ package com.se.pickple_api_server.v1.account.infra.api;
 
 import com.se.pickple_api_server.v1.account.application.dto.*;
 import com.se.pickple_api_server.v1.account.application.service.*;
+import com.se.pickple_api_server.v1.common.application.dto.SearchDto;
 import com.se.pickple_api_server.v1.common.infra.dto.PageRequest;
 import com.se.pickple_api_server.v1.common.infra.dto.SuccessResponse;
 import com.se.pickple_api_server.v1.oauth.infra.dto.userinfo.OauthUserInfo;
@@ -108,7 +109,7 @@ public class AccountApiController {
     @GetMapping(path = "/account/search")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResponse<Pageable> readSearchAccount(@Validated AccountReadDto.SearchRequest pageRequest) {
+    public SuccessResponse<Pageable> readSearchAccount(@Validated SearchDto.Account pageRequest) {
         return new SuccessResponse(HttpStatus.OK.value(), "회원 검색 성공", accountReadService.search(pageRequest));
     }
 

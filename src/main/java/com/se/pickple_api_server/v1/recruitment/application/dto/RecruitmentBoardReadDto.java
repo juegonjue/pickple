@@ -6,6 +6,7 @@ import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoard;
 import com.se.pickple_api_server.v1.common.infra.dto.PageRequest;
 import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoardTag;
 import com.se.pickple_api_server.v1.tag.application.dto.TagReadDto;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -168,18 +169,21 @@ public class RecruitmentBoardReadDto {
         }
     }
 
-
-   // 검색 조회
     @Data
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    static public class SearchRequest {
+    static public class SListResponse {
+        private Long boardId;
+        private String title;
+        private String text;
 
-        private String keyword;
-
-        @NotNull
-        private PageRequest pageRequest;
+        static public SListResponse fromEntity(RecruitmentBoard recruitmentBoard) {
+            return SListResponse.builder()
+                    .boardId(recruitmentBoard.getBoardId())
+                    .title(recruitmentBoard.getTitle())
+                    .text(recruitmentBoard.getText())
+                    .build();
+        }
     }
-
 }

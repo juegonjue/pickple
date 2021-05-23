@@ -2,11 +2,13 @@ package com.se.pickple_api_server.v1.recruitment.application.service;
 
 import com.se.pickple_api_server.v1.account.application.service.AccountContextService;
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
+import com.se.pickple_api_server.v1.common.application.dto.SearchDto;
 import com.se.pickple_api_server.v1.recruitment.application.dto.RecruitmentBoardReadDto;
 import com.se.pickple_api_server.v1.recruitment.application.error.BoardErrorCode;
 import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoard;
 import com.se.pickple_api_server.v1.recruitment.infra.repository.RecruitmentBoardJpaRepository;
 import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
+import com.se.pickple_api_server.v1.recruitment.infra.repository.RecruitmentBoardQueryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -22,8 +24,9 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class RecruitmentBoardReadService {
 
-    private final RecruitmentBoardJpaRepository recruitmentBoardJpaRepository;
     private final AccountContextService accountContextService;
+    private final RecruitmentBoardJpaRepository recruitmentBoardJpaRepository;
+    private final RecruitmentBoardQueryRepository recruitmentBoardQueryRepository;
 
     // 해당 페이지 상세조회
     public RecruitmentBoardReadDto.Response readById(Long boardId) {
@@ -64,7 +67,13 @@ public class RecruitmentBoardReadService {
     }
 
     // TODO 모집글 검색목록 페이징처리
-//    public PageImpl search(RecruitmentBoardReadDto.SearchRequest pageRequest) {
-//
-//    }
+    public PageImpl search(SearchDto.Request pageRequest) {
+        Page<RecruitmentBoard> recruitmentBoardPage = recruitmentBoardQueryRepository.search(pageRequest);
+        List<RecruitmentBoardReadDto.ListResponse> responseList = recruitmentBoardPage
+                .get()
+                .map(recruitmentBoard -> RecruitmentBoardReadDto.ListResponse.fromEntity(recruitmentBoard))
+                .collect(Collectors.toList());
+        return new PageImpl(responseList, recruitmentBoardPage.getPageable(), recruitmentBoardPage.getTotalElements());
+    }
+
 }
