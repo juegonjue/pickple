@@ -32,6 +32,7 @@ public class ApplyApiController {
     // [지원자] 지원 등록
     @ApiOperation(value = "지원 등록")
     @PostMapping(path = "/apply")
+    @PreAuthorize("hasAnyAuthority('MEMBER')")
     @ResponseStatus(value = HttpStatus.CREATED)
     public SuccessResponse<Long> create(@RequestBody @Validated ApplyCreateDto.Request request){
         return new SuccessResponse(HttpStatus.CREATED.value(), "지원서 등록 성공", applyCreateService.create(request));
@@ -40,6 +41,7 @@ public class ApplyApiController {
     // [ 관리자 ] 모든 지원 조회
     @ApiOperation(value = "지원 목록 조회 페이징")
     @GetMapping(path = "/apply")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<Pageable> readAllApply(@Validated PageRequest pageRequest) {
         return new SuccessResponse(HttpStatus.OK.value(), "지원 목록 조회 페이징 성공", applyReadService.readAll(pageRequest.of()));
@@ -57,6 +59,7 @@ public class ApplyApiController {
     // 특정 모집글의 지원+계약 조회
     @ApiOperation(value = "(특정 모집글에 들어온) 지원 목록 조회")
     @GetMapping(path = "/apply/board/{boardId}")
+    @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<ApplyReadDto.MeResponse> readApplyInRecboard(@PathVariable(name = "boardId") Long boardId) {
         return new SuccessResponse(HttpStatus.OK.value(), "특정 모집글 지원 목록 조회 성공", applyReadService.readApplyInRecboard(boardId));
@@ -65,7 +68,7 @@ public class ApplyApiController {
     // 현재 모집글의 내 지원여부
     @ApiOperation(value = "현재 모집글의 내 지원여부")
     @GetMapping(path = "/apply/my/{boardId}")
-    @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('MEMBER')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<ProfileReadDto.ExistResponse> readExist(@PathVariable(name = "boardId") Long boardId) {
         return new SuccessResponse(HttpStatus.OK.value(), "현재 모집글에서 내 지원 여부 조회 성공 ", applyReadService.myApplyInRecboard(boardId));

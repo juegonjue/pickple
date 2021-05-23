@@ -36,13 +36,19 @@ public class ProfileUpdateService {
                 .orElseThrow(() -> new BusinessException(ProfileErrorCode.NO_SUCH_PROFILE));
 
         // 중복검증
-        if (profileJpaRepository.findByKakaoId(request.getKakaoId()).isPresent())
-            throw new BusinessException((ProfileErrorCode.DUPLICATED_KAKAOID));
-        if (profileJpaRepository.findByWorkEmail(request.getWorkEmail()).isPresent())
-            throw new BusinessException((ProfileErrorCode.DUPLICATED_WORKEMAIL));
-        if (request.getBlog() != null) {
-            if (profileJpaRepository.findByBlog(request.getBlog()).isPresent())
-                throw new BusinessException((ProfileErrorCode.DUPLICATED_BLOG));
+        if (!profile.getKakaoId().equals(request.getKakaoId())) {
+            if (profileJpaRepository.findByKakaoId(request.getKakaoId()).isPresent())
+                throw new BusinessException((ProfileErrorCode.DUPLICATED_KAKAOID));
+        }
+        if (!profile.getWorkEmail().equals(request.getWorkEmail())) {
+            if (profileJpaRepository.findByWorkEmail(request.getWorkEmail()).isPresent())
+                throw new BusinessException((ProfileErrorCode.DUPLICATED_WORKEMAIL));
+        }
+        if (!profile.getBlog().equals(request.getBlog())){
+            if (request.getBlog() != null) {
+                if (profileJpaRepository.findByBlog(request.getBlog()).isPresent())
+                    throw new BusinessException((ProfileErrorCode.DUPLICATED_BLOG));
+            }
         }
 
         List<ProfileTag> tags = getTags(request.getTagList());

@@ -74,16 +74,5 @@ public class  Account extends BaseEntity {
         this.idString = idString;
         this.isDeleted = isDeleted;
     }
-//    public void updateStudentId(String studentId) {
-//        this.studentId = studentId;
-//    }
-//
-//    public void updateEmail(String email) {this.email = email;}
-//
-//    public void updateAccountType(AccountType accountType) {
-//        this.accountType = accountType;
-//    }
-
-
 
 }
