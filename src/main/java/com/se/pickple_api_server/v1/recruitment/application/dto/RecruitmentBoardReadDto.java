@@ -53,9 +53,12 @@ public class RecruitmentBoardReadDto {
 
         private String recEndDate;
 
+        private String createDate;
+        private String updateDate;
+
         private List<TagReadDto.TagDto> recruitmentBoardTagList;
 
-        static public Response fromEntity(RecruitmentBoard recruitmentBoard) {
+        static public Response fromEntity(RecruitmentBoard recruitmentBoard, Boolean isAdmin) {
 
             ResponseBuilder builder = Response.builder();
 
@@ -76,6 +79,11 @@ public class RecruitmentBoardReadDto {
                     .recStartDate(recruitmentBoard.getRecStartDate().toString())
                     .recEndDate(recruitmentBoard.getRecEndDate().toString());
 
+            if (isAdmin) {
+                builder
+                        .createDate(recruitmentBoard.getCreatedDate().toString())
+                        .updateDate(recruitmentBoard.getModifiedDate().toString());
+            }
             // 모집글의 태그리스트 build
             builder.recruitmentBoardTagList(
                     recruitmentBoard.getRecruitmentBoardTagList()

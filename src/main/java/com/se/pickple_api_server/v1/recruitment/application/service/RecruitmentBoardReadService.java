@@ -32,7 +32,7 @@ public class RecruitmentBoardReadService {
     public RecruitmentBoardReadDto.Response readById(Long boardId) {
         RecruitmentBoard recruitmentBoard = recruitmentBoardJpaRepository.findById(boardId)
                 .orElseThrow(()->new BusinessException(BoardErrorCode.NO_SUCH_BOARD));
-        return RecruitmentBoardReadDto.Response.fromEntity(recruitmentBoard);
+        return RecruitmentBoardReadDto.Response.fromEntity(recruitmentBoard,accountContextService.hasAuthority("ADMIN"));
     }
 
     // 페이징 목록조회 + isDeleted
