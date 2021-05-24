@@ -37,7 +37,7 @@ public class AccountApiController {
     @PostMapping(path="/signup")
     @ResponseStatus(value = HttpStatus.CREATED)
     public SuccessResponse<Long> signUp(@RequestBody @Validated AccountCreateDto.Request request, HttpServletRequest httpServletRequest) {
-        System.out.println("일반 회원가입");
+        System.out.println("UC-AC-01 일반 회원가입");
         return new SuccessResponse<>(HttpStatus.CREATED.value(), "회원가입에 성공했습니다.", accountCreateService.signUp(request));
     }
 
@@ -46,13 +46,12 @@ public class AccountApiController {
     @PostMapping(path = "/signin")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<AccountSignInDto.Response> singIn(@RequestBody @Validated AccountSignInDto.RequestTest request) {
-        System.out.println("일반 로그인");
+        System.out.println("UC-AC-02  일반 로그인");
         return new SuccessResponse<>(HttpStatus.OK.value(), "성공적으로 로그인 되었습니다.", accountSignInService.signIn(request.getIdString()));
     }
 
     // UC-AC-02 소셜 회원가입 및 로그인
     // request body : access token
-    // --> response : 사용자정보 있으면 HttpStatus.OK
     @PostMapping(value = "/signin/{socialLoginType}")
     @ApiOperation(value = "UC-AC-03 소셜 회원가입 및 로그인")
     public SuccessResponse signIn(@PathVariable(name="socialLoginType") String type, @RequestBody String clientToken){
@@ -68,8 +67,49 @@ public class AccountApiController {
             id = accountReadService.findIdByIdString(oauthUserInfo.getId());
             System.out.println("Controller. 등록된 아이디 -> 로그인 : " + id);
         }
-        System.out.println("소셜 회원가입 및 로그인");
+        System.out.println("UC-AC-03 소셜 회원가입 및 로그인");
         return new SuccessResponse<>(HttpStatus.OK.value(), "성공적으로 로그인 되었습니다.", accountSignInService.signIn(id));
+    }
+
+    // UC-AC-08 회원 검색 및 페이징
+    @ApiOperation(value = "UC-AC-04 회원 조회 및 검색")
+    @GetMapping(path = "/account/search")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SuccessResponse<Pageable> readSearchAccount(@Validated SearchDto.Account pageRequest) {
+        System.out.println("UC-AC-04 회원 검색");
+        return new SuccessResponse(HttpStatus.OK.value(), "회원 검색 성공", accountReadService.search(pageRequest));
+    }
+
+    // 회원 수정
+    @ApiOperation(value = "UC-AC-05 회원 수정")
+    @PutMapping(path = "/account")
+    @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SuccessResponse updateAccount(@RequestBody @Validated AccountUpdateDto.Request request) {
+        System.out.println("UC-AC-05 회원 수정");
+        return new SuccessResponse(HttpStatus.OK.value(),"회원 수정 성공",accountUpdateService.update(request));
+    }
+
+    // UC-AC-04 회원탈퇴(본인) 및 회원삭제(관리자)
+    @ApiOperation(value = "UC-AC-06 회원 탈퇴")
+    @DeleteMapping(path = "/account")
+    @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SuccessResponse deleteAccount(@RequestBody @Validated AccountDeleteDto.Request request) {
+        accountDeleteService.delete(request);
+        System.out.println("UC-AC-06 회원 탈퇴");
+        return new SuccessResponse(HttpStatus.OK.value(),"성공적으로 삭제되었습니다.");
+    }
+
+    // 유저로딩 부분
+    @ApiOperation(value = "UC-AC-07 내 정보 요청")
+    @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
+    @GetMapping(path = "/account/my")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SuccessResponse<AccountReadDto.Response> userLoading() {
+        System.out.println("UC-AC-07 내 정보 요청");
+        return new SuccessResponse(HttpStatus.OK.value(), "UserLoading 성공.", accountReadService.getUserloading());
     }
 
 
@@ -95,46 +135,4 @@ public class AccountApiController {
 //        return new SuccessResponse(HttpStatus.OK.value(),"성공적으로 사용자 정보를 조회하였습니다.", accountReadService.readByIdString(idString));
 //    }
 
-    // UC-AC-08 회원 검색 및 페이징
-    @ApiOperation(value = "UC-AC-04 회원 조회 및 검색")
-    @GetMapping(path = "/account/search")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResponse<Pageable> readSearchAccount(@RequestBody @Validated SearchDto.Account pageRequest) {
-        System.out.println("회원 검색");
-        return new SuccessResponse(HttpStatus.OK.value(), "회원 검색 성공", accountReadService.search(pageRequest));
-    }
-
-
-
-    // 회원 수정
-    @ApiOperation(value = "UC-AC-05 회원 수정")
-    @PutMapping(path = "/account")
-    @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
-    @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResponse updateAccount(@RequestBody @Validated AccountUpdateDto.Request request) {
-        System.out.println("회원 수정");
-        return new SuccessResponse(HttpStatus.OK.value(),"회원 수정 성공",accountUpdateService.update(request));
-    }
-
-    // UC-AC-04 회원탈퇴(본인) 및 회원삭제(관리자)
-    @ApiOperation(value = "UC-AC-06 회원 탈퇴")
-    @DeleteMapping(path = "/account")
-    @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
-    @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResponse deleteAccount(@RequestBody @Validated AccountDeleteDto.Request request) {
-        accountDeleteService.delete(request);
-        System.out.println("회원 탈퇴");
-        return new SuccessResponse(HttpStatus.OK.value(),"성공적으로 삭제되었습니다.");
-    }
-
-    // 유저로딩 부분
-    @ApiOperation(value = "UC-AC-07 내 정보 요청")
-    @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
-    @GetMapping(path = "/account/my")
-    @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResponse<AccountReadDto.Response> userLoading() {
-        System.out.println("내 정보 요청");
-        return new SuccessResponse(HttpStatus.OK.value(), "UserLoading 성공.", accountReadService.getUserloading());
-    }
 }

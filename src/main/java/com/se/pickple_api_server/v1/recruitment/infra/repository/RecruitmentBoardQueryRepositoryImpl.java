@@ -25,9 +25,9 @@ public class RecruitmentBoardQueryRepositoryImpl extends QuerydslRepositorySuppo
 
         if (searchRequest.getKeyword() != null) {
             query.where(
-                    recruitmentBoard.title.contains(searchRequest.getKeyword())
-                .or(recruitmentBoard.text.contains(searchRequest.getKeyword())
-                .or(recruitmentBoard.account.idString.contains(searchRequest.getKeyword())))
+                    recruitmentBoard.title.containsIgnoreCase(searchRequest.getKeyword())
+                .or(recruitmentBoard.text.containsIgnoreCase(searchRequest.getKeyword())
+                .or(recruitmentBoard.account.idString.containsIgnoreCase(searchRequest.getKeyword())))
             );
         }
 

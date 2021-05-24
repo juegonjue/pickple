@@ -25,8 +25,8 @@ public class ReportQueryRepositoryImpl extends QuerydslRepositorySupport impleme
 
         if (searchRequest.getKeyword() != null) {
             query.where(
-                    report.text.contains(searchRequest.getKeyword())
-                .or(report.reporter.idString.contains((searchRequest.getKeyword()))));
+                    report.text.containsIgnoreCase(searchRequest.getKeyword())
+                .or(report.reporter.idString.containsIgnoreCase((searchRequest.getKeyword()))));
         }
         if (searchRequest.getReportState() != null) {
             query.where(report.reportState.eq(searchRequest.getReportState()));

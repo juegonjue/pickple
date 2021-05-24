@@ -25,8 +25,8 @@ public class AccountQueryRepositoryImpl extends QuerydslRepositorySupport implem
 
         if (searchRequest.getKeyword() != null) {
             query.where(
-                    account.name.contains(searchRequest.getKeyword())
-                    .or(account.idString.contains(searchRequest.getKeyword()))
+                    account.name.containsIgnoreCase(searchRequest.getKeyword())
+                    .or(account.idString.containsIgnoreCase(searchRequest.getKeyword()))
             );
         }
         if (searchRequest.getType() != null) {

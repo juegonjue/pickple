@@ -22,9 +22,9 @@ public class ProfileQueryRepositoryImpl extends QuerydslRepositorySupport implem
 
         if (searchRequest.getKeyword() != null) {
             query.where(
-                    profile.account.idString.contains(searchRequest.getKeyword())
-                .or(profile.kakaoId.contains(searchRequest.getKeyword()))
-                .or(profile.account.name.contains(searchRequest.getKeyword()))
+                    profile.account.idString.containsIgnoreCase(searchRequest.getKeyword())
+                .or(profile.kakaoId.containsIgnoreCase(searchRequest.getKeyword()))
+                .or(profile.account.name.containsIgnoreCase(searchRequest.getKeyword()))
             );
         }
 

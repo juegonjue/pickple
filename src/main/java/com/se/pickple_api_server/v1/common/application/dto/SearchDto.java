@@ -46,7 +46,6 @@ public class SearchDto {
 
         @ApiModelProperty(notes = "계약 상태로 찾기")
         private Integer isContracted;
-
     }
 
     @Data

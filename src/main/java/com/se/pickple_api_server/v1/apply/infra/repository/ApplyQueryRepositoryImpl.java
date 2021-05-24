@@ -24,8 +24,8 @@ public class ApplyQueryRepositoryImpl extends QuerydslRepositorySupport implemen
 
         if (searchRequest.getKeyword() != null) {
             query.where(
-                    apply.review.contains(searchRequest.getKeyword())
-                .or(apply.recruitmentBoard.account.idString.contains(searchRequest.getKeyword()))
+                    apply.review.containsIgnoreCase(searchRequest.getKeyword())
+                .or(apply.recruitmentBoard.account.idString.containsIgnoreCase(searchRequest.getKeyword()))
             );
         }
         if (searchRequest.getIsContracted() != null) {
