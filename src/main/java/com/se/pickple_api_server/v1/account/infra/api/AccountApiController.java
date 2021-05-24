@@ -81,34 +81,43 @@ public class AccountApiController {
         return new SuccessResponse(HttpStatus.OK.value(), "회원 검색 성공", accountReadService.search(pageRequest));
     }
 
+    // UC-AC-07 회원 정보 상세 조회 (관리자)
+    @ApiOperation(value = "UC-AC-05 [관리자] 사용자 idString로 회원 조회")
+    @GetMapping(path = "/account/{idString}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SuccessResponse<AccountReadDto.Response> readAccountById(@PathVariable(name = "idString") String idString) {
+        System.out.println("UC-AC-05 회원 상세 조회");
+        return new SuccessResponse(HttpStatus.OK.value(),"성공적으로 사용자 정보를 조회하였습니다.", accountReadService.readByIdString(idString));
+    }
     // 회원 수정
-    @ApiOperation(value = "UC-AC-05 회원 수정")
+    @ApiOperation(value = "UC-AC-06 회원 수정")
     @PutMapping(path = "/account")
     @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse updateAccount(@RequestBody @Validated AccountUpdateDto.Request request) {
-        System.out.println("UC-AC-05 회원 수정");
+        System.out.println("UC-AC-06 회원 수정");
         return new SuccessResponse(HttpStatus.OK.value(),"회원 수정 성공",accountUpdateService.update(request));
     }
 
     // UC-AC-04 회원탈퇴(본인) 및 회원삭제(관리자)
-    @ApiOperation(value = "UC-AC-06 회원 탈퇴")
+    @ApiOperation(value = "UC-AC-07 회원 탈퇴")
     @DeleteMapping(path = "/account")
     @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse deleteAccount(@RequestBody @Validated AccountDeleteDto.Request request) {
         accountDeleteService.delete(request);
-        System.out.println("UC-AC-06 회원 탈퇴");
+        System.out.println("UC-AC-07 회원 탈퇴");
         return new SuccessResponse(HttpStatus.OK.value(),"성공적으로 삭제되었습니다.");
     }
 
     // 유저로딩 부분
-    @ApiOperation(value = "UC-AC-07 내 정보 요청")
+    @ApiOperation(value = "UC-AC-08 내 정보 요청")
     @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
     @GetMapping(path = "/account/my")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<AccountReadDto.Response> userLoading() {
-        System.out.println("UC-AC-07 내 정보 요청");
+        System.out.println("UC-AC-08 내 정보 요청");
         return new SuccessResponse(HttpStatus.OK.value(), "UserLoading 성공.", accountReadService.getUserloading());
     }
 
@@ -125,14 +134,5 @@ public class AccountApiController {
 //        return new SuccessResponse(HttpStatus.OK.value(), "성공적으로 사용자 목록 조회 페이징", accountReadService.readAll(pageRequest.of()));
 //    }
 
-    // UC-AC-07 회원 정보 조회 (관리자)
-//    @ApiOperation(value = "[관리자] 사용자 idString로 회원 조회")
-//    @GetMapping(path = "/account/{idString}")
-//    @PreAuthorize("hasAnyAuthority('ADMIN')")
-//    @ResponseStatus(value = HttpStatus.OK)
-//    public SuccessResponse<AccountReadDto.Response> readAccountById(@PathVariable(name = "idString") String idString) {
-//        System.out.println("회원 조회");
-//        return new SuccessResponse(HttpStatus.OK.value(),"성공적으로 사용자 정보를 조회하였습니다.", accountReadService.readByIdString(idString));
-//    }
 
 }
