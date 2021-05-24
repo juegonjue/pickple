@@ -1,6 +1,7 @@
 package com.se.pickple_api_server.v1.common.application.dto;
 
 import com.se.pickple_api_server.v1.account.domain.type.AccountType;
+import com.se.pickple_api_server.v1.apply.domain.type.ReviewState;
 import com.se.pickple_api_server.v1.common.infra.dto.PageRequest;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -30,6 +31,19 @@ public class SearchDto {
     @AllArgsConstructor
     static public class Account extends Request {
         @ApiModelProperty(notes = "멤버 타입으로 찾기")
-        AccountType type;
+        private AccountType type;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    static public class Apply extends Request {
+
+        @ApiModelProperty(notes = "후기 상태로 찾기")
+        private ReviewState reviewState;
+
+        @ApiModelProperty(notes = "계약 상태로 찾기")
+        private Integer isContracted;
+
     }
 }

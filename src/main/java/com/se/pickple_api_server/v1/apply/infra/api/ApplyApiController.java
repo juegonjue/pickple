@@ -5,6 +5,7 @@ import com.se.pickple_api_server.v1.apply.application.dto.ApplyDeleteDto;
 import com.se.pickple_api_server.v1.apply.application.dto.ApplyReadDto;
 import com.se.pickple_api_server.v1.apply.application.dto.ApplyUpdateDto;
 import com.se.pickple_api_server.v1.apply.application.service.*;
+import com.se.pickple_api_server.v1.common.application.dto.SearchDto;
 import com.se.pickple_api_server.v1.common.infra.dto.PageRequest;
 import com.se.pickple_api_server.v1.common.infra.dto.SuccessResponse;
 import com.se.pickple_api_server.v1.profile.application.dto.ProfileReadDto;
@@ -128,5 +129,13 @@ public class ApplyApiController {
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse readReviewOnProfile(@PathVariable(name = "profileId") Long profileId) {
         return new SuccessResponse(HttpStatus.OK.value(), "특정 사용자 후기 보기 성공", applyReadService.readReviewByProfileId(profileId));
+    }
+
+    @ApiOperation(value = "[관리자] 지원 검색")
+    @GetMapping(path = "/apply/search")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SuccessResponse<Pageable> readSearchApply(@Validated SearchDto.Apply pageRequest) {
+        return new SuccessResponse(HttpStatus.OK.value(), "회원 검색 성공", applyReadService.search(pageRequest));
     }
 }

@@ -49,7 +49,10 @@ public class ApplyReadDto {
         private String reviewState;
         private Integer isDeleted;
 
-        static public Response fromEntity(Apply apply) {
+        private String createDate;
+        private String updateDate;
+
+        static public Response fromEntity(Apply apply, Boolean isAdmin) {
             ResponseBuilder builder = Response.builder();
             builder
                     .applyId(apply.getApplyId())
@@ -59,6 +62,11 @@ public class ApplyReadDto {
                     .review(apply.getReview())
                     .reviewState(apply.getReviewState().toString())
                     .isDeleted(apply.getIsDeleted());
+            if (isAdmin) {
+                builder
+                        .createDate(apply.getCreatedDate().toString())
+                        .updateDate(apply.getModifiedDate().toString());
+            }
             return builder.build();
         }
     }
@@ -129,25 +137,45 @@ public class ApplyReadDto {
         private Long applyId;
 
         static public ExistResponse fromEntity(Apply apply) {
-            ExistResponseBuilder builder = ExistResponse.builder();
-            return builder.applyId(apply.getApplyId()).build();
+            return ExistResponse.builder()
+                    .applyId(apply.getApplyId()).build();
         }
     }
 
     @Data
     @Builder
+    @NoArgsConstructor
     @AllArgsConstructor
     static public class ReviewResponse {
         private String reviewWriterName;
         private String review;
 
         static public ReviewResponse fromEntity(Apply apply) {
-            ReviewResponseBuilder builder = ReviewResponse.builder();
-            return builder
+            return ReviewResponse.builder()
                     .reviewWriterName(apply.getRecruitmentBoard().getAccount().getName())
                     .review(apply.getReview())
                     .build();
         }
     }
 
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    static public class SListResponse {
+        private Long applyId;
+        private String review;
+        private String reviewState;
+        private Integer isContracted;
+
+        static public SListResponse fromEntity(Apply apply) {
+            return SListResponse.builder()
+                    .applyId(apply.getApplyId())
+                    .review(apply.getReview())
+                    .reviewState(apply.getReviewState().toString())
+                    .isContracted(apply.getIsContracted())
+                    .build();
+        }
+
+    }
 }
