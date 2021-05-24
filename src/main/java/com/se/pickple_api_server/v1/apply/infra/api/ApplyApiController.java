@@ -40,13 +40,13 @@ public class ApplyApiController {
     }
 
     // [관리자] 모든 지원 조회
-    @ApiOperation(value = "지원 목록 조회 페이징")
-    @GetMapping(path = "/apply")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResponse<Pageable> readAllApply(@Validated PageRequest pageRequest) {
-        return new SuccessResponse(HttpStatus.OK.value(), "지원 목록 조회 페이징 성공", applyReadService.readAll(pageRequest.of()));
-    }
+//    @ApiOperation(value = "지원 목록 조회 페이징")
+//    @GetMapping(path = "/apply")
+//    @PreAuthorize("hasAnyAuthority('ADMIN')")
+//    @ResponseStatus(value = HttpStatus.OK)
+//    public SuccessResponse<Pageable> readAllApply(@Validated PageRequest pageRequest) {
+//        return new SuccessResponse(HttpStatus.OK.value(), "지원 목록 조회 페이징 성공", applyReadService.readAll(pageRequest.of()));
+//    }
 
     // [지원자] 내가 한 지원+계약 조회
     @ApiOperation(value = "내 지원 조회")
@@ -136,6 +136,6 @@ public class ApplyApiController {
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<Pageable> readSearchApply(@Validated SearchDto.Apply pageRequest) {
-        return new SuccessResponse(HttpStatus.OK.value(), "회원 검색 성공", applyReadService.search(pageRequest));
+        return new SuccessResponse(HttpStatus.OK.value(), "지원 조회 및 검색 성공", applyReadService.search(pageRequest));
     }
 }

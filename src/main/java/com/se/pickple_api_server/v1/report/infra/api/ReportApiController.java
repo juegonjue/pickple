@@ -1,5 +1,6 @@
 package com.se.pickple_api_server.v1.report.infra.api;
 
+import com.se.pickple_api_server.v1.common.application.dto.SearchDto;
 import com.se.pickple_api_server.v1.common.infra.dto.PageRequest;
 import com.se.pickple_api_server.v1.common.infra.dto.SuccessResponse;
 import com.se.pickple_api_server.v1.report.application.dto.ReportCreateDto;
@@ -67,5 +68,13 @@ public class ReportApiController {
     public SuccessResponse manageReport(@RequestBody @Validated ReportUpdateDto.Request request) {
         reportUpdateStatusService.updateReportStatus(request);
         return new SuccessResponse(HttpStatus.OK.value(), "신고 처리 성공");
+    }
+
+    @ApiOperation(value = "[관리자] 신고 조회 및 검색")
+    @GetMapping(path = "/report/search")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SuccessResponse<Pageable> readSearchReport(@Validated SearchDto.Report pageRequest) {
+        return new SuccessResponse(HttpStatus.OK.value(), "신고 조회 및 검색 성공", reportReadService.search(pageRequest));
     }
 }

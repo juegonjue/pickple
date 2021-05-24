@@ -3,6 +3,8 @@ package com.se.pickple_api_server.v1.common.application.dto;
 import com.se.pickple_api_server.v1.account.domain.type.AccountType;
 import com.se.pickple_api_server.v1.apply.domain.type.ReviewState;
 import com.se.pickple_api_server.v1.common.infra.dto.PageRequest;
+import com.se.pickple_api_server.v1.report.domain.type.ReportResult;
+import com.se.pickple_api_server.v1.report.domain.type.ReportState;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -45,5 +47,16 @@ public class SearchDto {
         @ApiModelProperty(notes = "계약 상태로 찾기")
         private Integer isContracted;
 
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    static public class Report extends Request {
+        @ApiModelProperty(notes = "신고 상태로 찾기")
+        private ReportState reportState;
+
+        @ApiModelProperty(notes = "신고 결과로 찾기")
+        private ReportResult reportResult;
     }
 }

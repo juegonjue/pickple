@@ -85,6 +85,6 @@ public class ProfileApiController {
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<Pageable> readSearchProfile(@Validated SearchDto.Request pageRequest) {
-        return new SuccessResponse(HttpStatus.OK.value(), "회원 검색 성공", profileReadService.search(pageRequest));
+        return new SuccessResponse(HttpStatus.OK.value(), "프로필 조회 및 검색 성공", profileReadService.search(pageRequest));
     }
 }

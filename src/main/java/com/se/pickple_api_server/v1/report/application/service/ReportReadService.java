@@ -2,11 +2,15 @@ package com.se.pickple_api_server.v1.report.application.service;
 
 import com.se.pickple_api_server.v1.account.application.service.AccountContextService;
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
+import com.se.pickple_api_server.v1.apply.application.dto.ApplyReadDto;
+import com.se.pickple_api_server.v1.apply.domain.entity.Apply;
+import com.se.pickple_api_server.v1.common.application.dto.SearchDto;
 import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
 import com.se.pickple_api_server.v1.report.application.dto.ReportReadDto;
 import com.se.pickple_api_server.v1.report.application.error.ReportErrorCode;
 import com.se.pickple_api_server.v1.report.domain.entity.Report;
 import com.se.pickple_api_server.v1.report.infra.repository.ReportJpaRepository;
+import com.se.pickple_api_server.v1.report.infra.repository.ReportQueryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -24,6 +28,7 @@ public class ReportReadService {
 
     private final AccountContextService accountContextService;
     private final ReportJpaRepository reportJpaRepository;
+    private final ReportQueryRepository reportQueryRepository;
 
     // 신고 상세 조회
     public ReportReadDto.Response readById(Long reportId) {
@@ -54,4 +59,15 @@ public class ReportReadService {
                 .collect(Collectors.toList());
         return reportListDto;
     }
+
+    // 지원 검색목록 페이징처리 (관리자)
+    public PageImpl search(SearchDto.Report pageRequest) {
+        Page<Report> reportPage = reportQueryRepository.search(pageRequest);
+        List<ReportReadDto.ListResponse> responseList = reportPage
+                .get()
+                .map(report -> ReportReadDto.ListResponse.fromEntity(report))
+                .collect(Collectors.toList());
+        return new PageImpl(responseList, reportPage.getPageable(), reportPage.getTotalElements());
+    }
+
 }
