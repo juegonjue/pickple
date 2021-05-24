@@ -84,7 +84,7 @@ public class ProfileApiController {
     @GetMapping(path = "/profile/search")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResponse<Pageable> readSearchProfile(@Validated SearchDto.Request pageRequest) {
+    public SuccessResponse<Pageable> readSearchProfile(@RequestBody @Validated SearchDto.Request pageRequest) {
         return new SuccessResponse(HttpStatus.OK.value(), "프로필 조회 및 검색 성공", profileReadService.search(pageRequest));
     }
 }

@@ -135,7 +135,7 @@ public class ApplyApiController {
     @GetMapping(path = "/apply/search")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResponse<Pageable> readSearchApply(@Validated SearchDto.Apply pageRequest) {
+    public SuccessResponse<Pageable> readSearchApply(@RequestBody @Validated SearchDto.Apply pageRequest) {
         return new SuccessResponse(HttpStatus.OK.value(), "지원 조회 및 검색 성공", applyReadService.search(pageRequest));
     }
 }

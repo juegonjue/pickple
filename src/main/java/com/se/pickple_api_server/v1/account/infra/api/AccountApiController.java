@@ -100,7 +100,7 @@ public class AccountApiController {
     @GetMapping(path = "/account/search")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResponse<Pageable> readSearchAccount(@Validated SearchDto.Account pageRequest) {
+    public SuccessResponse<Pageable> readSearchAccount(@RequestBody @Validated SearchDto.Account pageRequest) {
         System.out.println("회원 검색");
         return new SuccessResponse(HttpStatus.OK.value(), "회원 검색 성공", accountReadService.search(pageRequest));
     }

@@ -74,7 +74,7 @@ public class ReportApiController {
     @GetMapping(path = "/report/search")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResponse<Pageable> readSearchReport(@Validated SearchDto.Report pageRequest) {
+    public SuccessResponse<Pageable> readSearchReport(@RequestBody @Validated SearchDto.Report pageRequest) {
         return new SuccessResponse(HttpStatus.OK.value(), "신고 조회 및 검색 성공", reportReadService.search(pageRequest));
     }
 }

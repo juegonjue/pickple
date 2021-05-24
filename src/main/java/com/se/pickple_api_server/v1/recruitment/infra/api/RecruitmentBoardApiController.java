@@ -85,11 +85,11 @@ public class RecruitmentBoardApiController {
         return new SuccessResponse(HttpStatus.OK.value(), "모집글 삭제 성공");
     }
 
-    @ApiOperation(value = "모집글 검색")
+    @ApiOperation(value = "[관리자] 모집글 검색")
     @GetMapping(path = "/recboard/search")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResponse<Pageable> readSearchRecboard(@Validated SearchDto.Request pageRequest) {
+    public SuccessResponse<Pageable> readSearchRecboard(@RequestBody @Validated SearchDto.Request pageRequest) {
         return new SuccessResponse(HttpStatus.OK.value(), "모집글 조회 및 검색 성공", recruitmentBoardReadService.search(pageRequest));
     }
 }
