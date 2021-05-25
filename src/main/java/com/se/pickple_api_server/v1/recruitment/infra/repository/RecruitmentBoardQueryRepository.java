@@ -6,4 +6,5 @@ import org.springframework.data.domain.Page;
 
 public interface RecruitmentBoardQueryRepository {
     Page<RecruitmentBoard> search(SearchDto.Request searchRequest);
+    Page<RecruitmentBoard> filter(SearchDto.Request searchRequest);
 }

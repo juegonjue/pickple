@@ -29,8 +29,8 @@ public class AccountQueryRepositoryImpl extends QuerydslRepositorySupport implem
                     .or(account.idString.containsIgnoreCase(searchRequest.getKeyword()))
             );
         }
-        if (searchRequest.getType() != null) {
-            query.where(account.accountType.eq(searchRequest.getType()));
+        if (searchRequest.getAccountType() != null) {
+            query.where(account.accountType.eq(searchRequest.getAccountType()));
         }
 
         Pageable pageable = searchRequest.getPageRequest().of();

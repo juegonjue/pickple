@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.StringTokenizer;
 
 
 @Repository
@@ -36,5 +37,21 @@ public class RecruitmentBoardQueryRepositoryImpl extends QuerydslRepositorySuppo
         Long totalElement = query.fetchCount();
 
         return new PageImpl(recruitmentBoardList, pageable, totalElement);
+    }
+
+
+    // TODO 필터링
+    @Override
+    public Page<RecruitmentBoard> filter(SearchDto.Request searchRequest) {
+        QRecruitmentBoard recruitmentBoard = QRecruitmentBoard.recruitmentBoard;
+        JPQLQuery query = from(recruitmentBoard);
+
+        if (searchRequest.getKeyword() != null) {
+            StringTokenizer st = new StringTokenizer(searchRequest.getKeyword(),"%20");
+
+        }
+
+        return null;
+
     }
 }

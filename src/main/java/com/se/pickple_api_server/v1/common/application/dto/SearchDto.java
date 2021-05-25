@@ -31,31 +31,34 @@ public class SearchDto {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
+    @ApiModel("검색-회원")
     static public class Account extends Request {
-        @ApiModelProperty(notes = "멤버 타입으로 찾기")
-        private AccountType type;
+        @ApiModelProperty(notes = "멤버 타입으로 찾기", example = "MEMBER")
+        private AccountType accountType;
     }
 
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
+    @ApiModel("검색-지원")
     static public class Apply extends Request {
 
-        @ApiModelProperty(notes = "후기 상태로 찾기")
+        @ApiModelProperty(notes = "후기 상태로 찾기", example = "BEFORE")
         private ReviewState reviewState;
 
-        @ApiModelProperty(notes = "계약 상태로 찾기")
+        @ApiModelProperty(notes = "계약 상태로 찾기", example = "0")
         private Integer isContracted;
     }
 
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
+    @ApiModel("검색-신고")
     static public class Report extends Request {
-        @ApiModelProperty(notes = "신고 상태로 찾기")
+        @ApiModelProperty(notes = "신고 상태로 찾기", example = "BEFORE")
         private ReportState reportState;
 
-        @ApiModelProperty(notes = "신고 결과로 찾기")
+        @ApiModelProperty(notes = "신고 결과로 찾기", example = "NONE")
         private ReportResult reportResult;
     }
 }

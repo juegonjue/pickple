@@ -76,4 +76,5 @@ public class RecruitmentBoardReadService {
         return new PageImpl(responseList, recruitmentBoardPage.getPageable(), recruitmentBoardPage.getTotalElements());
     }
 
+    //public
 }
