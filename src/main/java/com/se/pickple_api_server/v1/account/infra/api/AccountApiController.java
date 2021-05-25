@@ -73,10 +73,10 @@ public class AccountApiController {
 
     // UC-AC-08 회원 검색 및 페이징
     @ApiOperation(value = "UC-AC-04 회원 조회 및 검색")
-    @GetMapping(path = "/account/search")
+    @PostMapping(path = "/account/search")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResponse<Pageable> readSearchAccount(@Validated SearchDto.Account pageRequest) {
+    public SuccessResponse<Pageable> readSearchAccount(@RequestBody @Validated SearchDto.Account pageRequest) {
         System.out.println("UC-AC-04 회원 검색");
         return new SuccessResponse(HttpStatus.OK.value(), "회원 검색 성공", accountReadService.search(pageRequest));
     }

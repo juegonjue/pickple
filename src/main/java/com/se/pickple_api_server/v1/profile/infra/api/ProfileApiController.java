@@ -47,11 +47,11 @@ public class ProfileApiController {
         return new SuccessResponse(HttpStatus.OK.value(), "프로필 목록 조회 페이징 성공", profileReadService.readAll(pageRequest.of()));
     }
 
-    @ApiOperation(value = "UC-PF-03 [관리자] 프로필 검색")
-    @GetMapping(path = "/profile/search")
+    @ApiOperation(value = "UC-PF-03 [관리자] 프로필 조회 및 검색")
+    @PostMapping(path = "/profile/search")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResponse<Pageable> readSearchProfile(@Validated SearchDto.Request pageRequest) {
+    public SuccessResponse<Pageable> readSearchProfile(@RequestBody @Validated SearchDto.Request pageRequest) {
         System.out.println("UC-PF-03 요청");
         return new SuccessResponse(HttpStatus.OK.value(), "프로필 조회 및 검색 성공", profileReadService.search(pageRequest));
     }

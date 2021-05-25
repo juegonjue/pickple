@@ -38,10 +38,10 @@ public class ReportApiController {
     }
 
     @ApiOperation(value = "UC-RP-02 [관리자] 신고 조회 및 검색")
-    @GetMapping(path = "/report/search")
+    @PostMapping(path = "/report/search")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResponse<Pageable> readSearchReport(@Validated SearchDto.Report pageRequest) {
+    public SuccessResponse<Pageable> readSearchReport(@RequestBody @Validated SearchDto.Report pageRequest) {
         System.out.println("UC-RP-02 요청");
         return new SuccessResponse(HttpStatus.OK.value(), "신고 조회 및 검색 성공", reportReadService.search(pageRequest));
     }

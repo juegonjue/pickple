@@ -51,10 +51,10 @@ public class TagApiController {
     }
 
     @ApiOperation(value = "UC-TG-03 [관리자] 태그 검색")
-    @GetMapping(path = "/tag/search")
+    @PostMapping(path = "/tag/search")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResponse<Pageable> readSearchTag(@Validated SearchDto.Request pageRequest) {
+    public SuccessResponse<Pageable> readSearchTag(@RequestBody @Validated SearchDto.Request pageRequest) {
         System.out.println("UC-TG-03 요청");
         return new SuccessResponse(HttpStatus.OK.value(), "태그 조회 및 검색 성공", tagReadService.search(pageRequest));
     }

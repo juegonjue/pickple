@@ -40,10 +40,10 @@ public class ApplyApiController {
     }
 
     @ApiOperation(value = "AC-AP-02 [관리자] 지원 검색")
-    @GetMapping(path = "/apply/search")
+    @PostMapping(path = "/apply/search")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResponse<Pageable> readSearchApply(@Validated SearchDto.Apply pageRequest) {
+    public SuccessResponse<Pageable> readSearchApply(@RequestBody @Validated SearchDto.Apply pageRequest) {
         System.out.println("AC-AP-02 요청");
         return new SuccessResponse(HttpStatus.OK.value(), "지원 조회 및 검색 성공", applyReadService.search(pageRequest));
     }
