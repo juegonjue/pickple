@@ -5,6 +5,7 @@ import com.se.pickple_api_server.v1.account.application.error.AccountErrorCode;
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
 import com.se.pickple_api_server.v1.account.infra.repository.AccountJpaRepository;
 import com.se.pickple_api_server.v1.account.infra.repository.AccountQueryRepository;
+import com.se.pickple_api_server.v1.common.application.dto.SearchDto;
 import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -65,14 +66,13 @@ public class AccountReadService {
         return account;
     }
 
-    // 회원 검색목록 페이징처리
-    public PageImpl search(AccountReadDto.SearchRequest pageRequest) {
+    // 회원 검색목록 페이징처리 (관리자)
+    public PageImpl search(SearchDto.Account pageRequest) {
         Page<Account> accountPage = accountQueryRepository.search(pageRequest);
-        List<AccountReadDto.Response>  responseList = accountPage
+        List<AccountReadDto.SListResponse> responseList = accountPage
                 .get()
-                .map(account -> AccountReadDto.Response.fromEntity(account))
+                .map(account -> AccountReadDto.SListResponse.fromEntity(account))
                 .collect(Collectors.toList());
         return new PageImpl(responseList, accountPage.getPageable(), accountPage.getTotalElements());
     }
-
 }

@@ -6,6 +6,7 @@ import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoard;
 import com.se.pickple_api_server.v1.common.infra.dto.PageRequest;
 import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoardTag;
 import com.se.pickple_api_server.v1.tag.application.dto.TagReadDto;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -52,9 +53,12 @@ public class RecruitmentBoardReadDto {
 
         private String recEndDate;
 
+        private String createDate;
+        private String updateDate;
+
         private List<TagReadDto.TagDto> recruitmentBoardTagList;
 
-        static public Response fromEntity(RecruitmentBoard recruitmentBoard) {
+        static public Response fromEntity(RecruitmentBoard recruitmentBoard, Boolean isAdmin) {
 
             ResponseBuilder builder = Response.builder();
 
@@ -75,6 +79,11 @@ public class RecruitmentBoardReadDto {
                     .recStartDate(recruitmentBoard.getRecStartDate().toString())
                     .recEndDate(recruitmentBoard.getRecEndDate().toString());
 
+            if (isAdmin) {
+                builder
+                        .createDate(recruitmentBoard.getCreatedDate().toString())
+                        .updateDate(recruitmentBoard.getModifiedDate().toString());
+            }
             // 모집글의 태그리스트 build
             builder.recruitmentBoardTagList(
                     recruitmentBoard.getRecruitmentBoardTagList()
@@ -168,18 +177,21 @@ public class RecruitmentBoardReadDto {
         }
     }
 
-
-   // 검색 조회
     @Data
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    static public class SearchRequest {
+    static public class SListResponse {
+        private Long boardId;
+        private String title;
+        private String text;
 
-        private String keyword;
-
-        @NotNull
-        private PageRequest pageRequest;
+        static public SListResponse fromEntity(RecruitmentBoard recruitmentBoard) {
+            return SListResponse.builder()
+                    .boardId(recruitmentBoard.getBoardId())
+                    .title(recruitmentBoard.getTitle())
+                    .text(recruitmentBoard.getText())
+                    .build();
+        }
     }
-
 }

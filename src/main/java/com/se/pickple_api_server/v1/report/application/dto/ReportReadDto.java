@@ -118,4 +118,5 @@ public class ReportReadDto {
             return builder.build();
         }
     }
+
 }

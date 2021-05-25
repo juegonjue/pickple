@@ -7,7 +7,6 @@ import com.se.pickple_api_server.v1.account.domain.entity.Account;
 import com.se.pickple_api_server.v1.account.infra.repository.AccountJpaRepository;
 import com.se.pickple_api_server.v1.common.domain.error.GlobalErrorCode;
 import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
-import com.se.pickple_api_server.v1.common.infra.springboot.advice.GlobalControllerAdvice;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

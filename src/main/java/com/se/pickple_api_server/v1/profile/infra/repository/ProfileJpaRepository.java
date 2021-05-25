@@ -11,4 +11,8 @@ import java.util.Optional;
 public interface ProfileJpaRepository extends JpaRepository<Profile, Long> {
     Optional<Profile> findByAccount(Account account);
     Page<Profile> findAllByIsOpenEquals(Pageable pageable, Integer isOpen);
+    Optional<Profile> findByKakaoId(String kakaoId);
+    Optional<Profile> findByWorkEmail(String workEmail);
+    Optional<Profile> findByBlog(String blog);
+
 }

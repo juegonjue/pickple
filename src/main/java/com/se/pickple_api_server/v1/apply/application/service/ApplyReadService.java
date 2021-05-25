@@ -1,5 +1,6 @@
 package com.se.pickple_api_server.v1.apply.application.service;
 
+import com.se.pickple_api_server.v1.account.application.dto.AccountReadDto;
 import com.se.pickple_api_server.v1.account.application.service.AccountContextService;
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
 import com.se.pickple_api_server.v1.apply.application.dto.ApplyReadDto;
@@ -7,6 +8,8 @@ import com.se.pickple_api_server.v1.apply.application.error.ApplyErrorCode;
 import com.se.pickple_api_server.v1.apply.domain.entity.Apply;
 import com.se.pickple_api_server.v1.apply.domain.type.ReviewState;
 import com.se.pickple_api_server.v1.apply.infra.repository.ApplyJpaRepository;
+import com.se.pickple_api_server.v1.apply.infra.repository.ApplyQueryRepository;
+import com.se.pickple_api_server.v1.common.application.dto.SearchDto;
 import com.se.pickple_api_server.v1.profile.application.error.ProfileErrorCode;
 import com.se.pickple_api_server.v1.profile.domain.entity.Profile;
 import com.se.pickple_api_server.v1.profile.infra.repository.ProfileJpaRepository;
@@ -33,6 +36,7 @@ public class ApplyReadService {
     private final ApplyJpaRepository applyJpaRepository;
     private final RecruitmentBoardJpaRepository recruitmentBoardJpaRepository;
     private final ProfileJpaRepository profileJpaRepository;
+    private final ApplyQueryRepository applyQueryRepository;
 
 
     // 마이페이지 내가 한 지원 목록
@@ -70,7 +74,7 @@ public class ApplyReadService {
 
     // [관리자] 사용자들의 지원 목록 페이징 (전체)
     public PageImpl readAll(Pageable pageable) {
-        Page<Apply> applyPage = applyJpaRepository.findAll(pageable);
+        Page<Apply> applyPage =  applyJpaRepository.findAll(pageable);
         List<ApplyReadDto.ListResponse> listResponseList = applyPage
                 .get()
                 .map(apply -> ApplyReadDto.ListResponse.fromEntity(apply))
@@ -83,10 +87,8 @@ public class ApplyReadService {
     public ApplyReadDto.Response readApply(Long applyId) {
         Apply apply = applyJpaRepository.findById(applyId)
                 .orElseThrow(() -> new BusinessException(ApplyErrorCode.NO_SUCH_APPLY));
-        return ApplyReadDto.Response.fromEntity(apply);
+        return ApplyReadDto.Response.fromEntity(apply, accountContextService.hasAuthority("ADMIN"));
     }
-
-    // TODO [관리자] 사용자들의 지원목록에서 리뷰 신청 온것
 
     // 특정 사용자를 평가한(프로필에 보여지는) 리뷰 모아보기
     public List<ApplyReadDto.ReviewResponse> readReviewByProfileId(Long profileId) {
@@ -98,6 +100,16 @@ public class ApplyReadService {
                 .map(review -> ApplyReadDto.ReviewResponse.fromEntity(review))
                 .collect(Collectors.toList());
         return reviewResponseList;
+    }
+
+    // 지원 검색목록 페이징처리 (관리자)
+    public PageImpl search(SearchDto.Apply pageRequest) {
+        Page<Apply> applyPage = applyQueryRepository.search(pageRequest);
+        List<ApplyReadDto.SListResponse> responseList = applyPage
+                .get()
+                .map(apply -> ApplyReadDto.SListResponse.fromEntity(apply))
+                .collect(Collectors.toList());
+        return new PageImpl(responseList, applyPage.getPageable(), applyPage.getTotalElements());
     }
 
 }

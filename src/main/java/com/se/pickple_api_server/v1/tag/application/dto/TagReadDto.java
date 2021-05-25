@@ -15,11 +15,13 @@ public class TagReadDto {
     static public class Response {
         private Long tagId;
         private String tagName;
+        private String createDate;
 
         public static Response fromEntity(Tag tag) {
             return Response.builder()
                     .tagId(tag.getTagId())
                     .tagName(tag.getTagName())
+                    .createDate(tag.getCreatedDate().toString())
                     .build();
         }
 
@@ -46,6 +48,7 @@ public class TagReadDto {
                     .tagName(profileTag.getTag().getTagName())
                     .build();
         }
+
     }
 
 }

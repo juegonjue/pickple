@@ -1,5 +1,6 @@
 package com.se.pickple_api_server.v1.report.infra.api;
 
+import com.se.pickple_api_server.v1.common.application.dto.SearchDto;
 import com.se.pickple_api_server.v1.common.infra.dto.PageRequest;
 import com.se.pickple_api_server.v1.common.infra.dto.SuccessResponse;
 import com.se.pickple_api_server.v1.report.application.dto.ReportCreateDto;
@@ -27,46 +28,59 @@ public class ReportApiController {
     private final ReportReadService reportReadService;
     private final ReportUpdateStatusService reportUpdateStatusService;
 
-    @ApiOperation(value = "신고하기")
+    @ApiOperation(value = "UC-RP-01 신고하기")
     @PostMapping(path = "/report")
     @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
     @ResponseStatus(value = HttpStatus.CREATED)
     public SuccessResponse<Long> create(@RequestBody @Validated ReportCreateDto.Request request) {
+        System.out.println("UC-RP-01 요청");
         return new SuccessResponse(HttpStatus.CREATED.value(),"신고 성공", reportCreateService.create(request));
     }
 
-    @ApiOperation(value = "신고 상세조회")
+    @ApiOperation(value = "UC-RP-02 [관리자] 신고 조회 및 검색")
+    @PostMapping(path = "/report/search")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SuccessResponse<Pageable> readSearchReport(@RequestBody @Validated SearchDto.Report pageRequest) {
+        System.out.println("UC-RP-02 요청");
+        return new SuccessResponse(HttpStatus.OK.value(), "신고 조회 및 검색 성공", reportReadService.search(pageRequest));
+    }
+
+    @ApiOperation(value = "UC-RP-03 신고 상세조회")
     @GetMapping(path = "/report/{reportId}")
     @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<ReportReadDto.Response> readReport(@PathVariable(name = "reportId") Long reportId) {
+        System.out.println("UC-RP-03 요청");
         return new SuccessResponse(HttpStatus.OK.value(), "신고 상세조회 성공", reportReadService.readById(reportId));
     }
 
-    @ApiOperation(value = "내 신고 조회")
+    @ApiOperation(value = "UC-RP-04 내 신고 조회")
     @GetMapping(path = "/report/my")
     @PreAuthorize("hasAnyAuthority('MEMBER', 'ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse<ReportReadDto.MyResponse> readMyReport() {
+        System.out.println("UC-RP-04 요청");
         return new SuccessResponse(HttpStatus.OK.value(), "내 신고 조회 성공", reportReadService.readMyReport());
     }
 
-    @ApiOperation(value = "관리자 신고 목록 조회")
-    @GetMapping(path = "/report")
-    //@PreAuthorize("hasAnyAuthority('ADMIN')")
-    @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResponse<Pageable> readAllReport (@Validated PageRequest pageRequest) {
-        return new SuccessResponse(HttpStatus.OK.value(), "관리자 신고 목록 조회 성공", reportReadService.readAll(pageRequest.of()));
-    }
-
     // 신고 처리
-    // BEFORE, NONE --> AFTER, ( , ), who is manager
-    @ApiOperation(value = "신고 처리")
+    @ApiOperation(value = "UC-RP-05 [관리자]신고 처리")
     @PutMapping(path = "/report/manage")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse manageReport(@RequestBody @Validated ReportUpdateDto.Request request) {
+        System.out.println("UC-RP-05 요청");
         reportUpdateStatusService.updateReportStatus(request);
-        return new SuccessResponse(HttpStatus.OK.value(), "관리자 신고 처리 성공");
+        return new SuccessResponse(HttpStatus.OK.value(), "신고 처리 성공");
     }
+
+//    @ApiOperation(value = "UC-RP-02 [관리자]신고 목록 조회")
+//    @GetMapping(path = "/report")
+//    @PreAuthorize("hasAnyAuthority('ADMIN')")
+//    @ResponseStatus(value = HttpStatus.OK)
+//    public SuccessResponse<Pageable> readAllReport (@Validated PageRequest pageRequest) {
+//        return new SuccessResponse(HttpStatus.OK.value(), "신고 목록 조회 성공", reportReadService.readAll(pageRequest.of()));
+//    }
+
 }

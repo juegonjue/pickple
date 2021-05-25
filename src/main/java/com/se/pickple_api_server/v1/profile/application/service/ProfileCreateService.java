@@ -37,6 +37,16 @@ public class ProfileCreateService {
         if (profileJpaRepository.findByAccount(account).isPresent())
             throw new BusinessException(ProfileErrorCode.ALREADY_EXIST);
 
+        // 중복검증
+        if (profileJpaRepository.findByKakaoId(request.getKakaoId()).isPresent())
+            throw new BusinessException((ProfileErrorCode.DUPLICATED_KAKAOID));
+        if (profileJpaRepository.findByWorkEmail(request.getWorkEmail()).isPresent())
+            throw new BusinessException((ProfileErrorCode.DUPLICATED_WORKEMAIL));
+        if (request.getBlog() != null) {
+            if (profileJpaRepository.findByBlog(request.getBlog()).isPresent())
+                throw new BusinessException((ProfileErrorCode.DUPLICATED_BLOG));
+        }
+
         List<ProfileTag> tags = getTags(request.getTagList());
         Profile profile = new Profile(
                 account,

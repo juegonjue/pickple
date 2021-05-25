@@ -27,7 +27,7 @@ public class ProfileCreateDto {
         private String workEmail;
 
         @ApiModelProperty(notes = "블로그 주소", example = "github.com/test1")
-        @Size(max = 255)
+        @Size(min = 2, max = 255)
         private String blog;
 
         @ApiModelProperty(notes = "자기소개", example = "자기소개 글입니다.")
