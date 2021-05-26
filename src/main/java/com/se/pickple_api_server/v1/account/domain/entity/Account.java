@@ -39,7 +39,6 @@ public class  Account extends BaseEntity {
 
     @Size(min = 4, max = 40)
     @Column(unique = true)
-    @Email
     private String email;
 
     @Column(nullable = false)
@@ -69,8 +68,9 @@ public class  Account extends BaseEntity {
         this.accountType = AccountType.valueOf(request.getAccountType());
     }
 
-    public void updateIsDeleted(String idString, Integer isDeleted) {
+    public void updateIsDeleted(String idString, String email, Integer isDeleted) {
         this.idString = idString;
+        this.email = email;
         this.isDeleted = isDeleted;
     }
 
