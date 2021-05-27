@@ -44,7 +44,7 @@ public class ProfileUpdateService {
             if (profileJpaRepository.findByWorkEmail(request.getWorkEmail()).isPresent())
                 throw new BusinessException((ProfileErrorCode.DUPLICATED_WORKEMAIL));
         }
-        if (!profile.getBlog().equals(request.getBlog())){
+        if (profile.getBlog() == null || !profile.getBlog().equals(request.getBlog())){
             if (request.getBlog() != null) {
                 if (profileJpaRepository.findByBlog(request.getBlog()).isPresent())
                     throw new BusinessException((ProfileErrorCode.DUPLICATED_BLOG));
