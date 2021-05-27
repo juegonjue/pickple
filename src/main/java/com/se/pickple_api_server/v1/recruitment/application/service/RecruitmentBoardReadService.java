@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 
 @Service
@@ -76,5 +77,15 @@ public class RecruitmentBoardReadService {
         return new PageImpl(responseList, recruitmentBoardPage.getPageable(), recruitmentBoardPage.getTotalElements());
     }
 
-    //public
+    //[사용자] 모집글 검색목록 페이징 처리 (키워드+태그들)
+    public PageImpl searchOnClientPage(SearchDto.Tag pageRequest) {
+        Page<RecruitmentBoard> recruitmentBoardPage = recruitmentBoardQueryRepository.filter(pageRequest);
+        List<RecruitmentBoardReadDto.ListResponse> responseList = recruitmentBoardPage
+                .get()
+                .map(recruitmentBoard -> RecruitmentBoardReadDto.ListResponse.fromEntity(recruitmentBoard))
+                .collect(Collectors.toList());
+
+        return new PageImpl(responseList, recruitmentBoardPage.getPageable(), recruitmentBoardPage.getTotalElements());
+    }
+
 }
