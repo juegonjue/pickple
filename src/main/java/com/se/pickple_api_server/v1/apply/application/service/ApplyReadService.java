@@ -1,6 +1,5 @@
 package com.se.pickple_api_server.v1.apply.application.service;
 
-import com.se.pickple_api_server.v1.account.application.dto.AccountReadDto;
 import com.se.pickple_api_server.v1.account.application.service.AccountContextService;
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
 import com.se.pickple_api_server.v1.apply.application.dto.ApplyReadDto;

@@ -7,8 +7,7 @@ import com.se.pickple_api_server.v1.account.infra.repository.AccountJpaRepositor
 import com.se.pickple_api_server.v1.board.domain.entity.Board;
 import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
 import com.se.pickple_api_server.v1.recruitment.application.error.BoardErrorCode;
-import com.se.pickple_api_server.v1.recruitment.infra.repository.BoardJpaRepositoryImpl;
-import com.se.pickple_api_server.v1.recruitment.infra.repository.RecruitmentBoardJpaRepository;
+import com.se.pickple_api_server.v1.board.infra.repository.BoardJpaRepositoryImpl;
 import com.se.pickple_api_server.v1.report.application.dto.ReportCreateDto;
 import com.se.pickple_api_server.v1.report.domain.entity.Report;
 import com.se.pickple_api_server.v1.report.domain.type.ReportResult;
