@@ -2,7 +2,6 @@ package com.se.pickple_api_server.v1.profile.application.service;
 
 import com.se.pickple_api_server.v1.account.application.service.AccountContextService;
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
-import com.se.pickple_api_server.v1.common.domain.error.GlobalErrorCode;
 import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
 import com.se.pickple_api_server.v1.profile.application.dto.ProfileUpdateDto;
 import com.se.pickple_api_server.v1.profile.application.error.ProfileErrorCode;
@@ -44,7 +43,7 @@ public class ProfileUpdateService {
             if (profileJpaRepository.findByWorkEmail(request.getWorkEmail()).isPresent())
                 throw new BusinessException((ProfileErrorCode.DUPLICATED_WORKEMAIL));
         }
-        if (!profile.getBlog().equals(request.getBlog())){
+        if (profile.getBlog() == null || !profile.getBlog().equals(request.getBlog())){
             if (request.getBlog() != null) {
                 if (profileJpaRepository.findByBlog(request.getBlog()).isPresent())
                     throw new BusinessException((ProfileErrorCode.DUPLICATED_BLOG));

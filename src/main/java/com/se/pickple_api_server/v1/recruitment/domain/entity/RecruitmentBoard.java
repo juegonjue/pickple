@@ -44,8 +44,11 @@ public class RecruitmentBoard extends Board {
     @OneToMany(mappedBy = "recruitmentBoard", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<RecruitmentBoardTag> recruitmentBoardTagList = new ArrayList<>();
 
+//    @Column
+//    private String tagString;
 
-    public RecruitmentBoard(Account writerId, @Size(min = 2, max = 50) String title, @Size(min = 2, max = 2000) String text, BoardType boardType, Integer hit, Integer isDeleted, Integer recNumber, Integer paymentMin, Integer paymentMax, LocalDateTime workStartDate, LocalDateTime workEndDate, LocalDateTime recStartDate, LocalDateTime recEndDate, List<RecruitmentBoardTag> recruitmentBoardTagList) {
+    public RecruitmentBoard(Account writerId, @Size(min = 2, max = 50) String title, @Size(min = 2, max = 2000) String text, BoardType boardType, Integer hit, Integer isDeleted,
+                            Integer recNumber, Integer paymentMin, Integer paymentMax, LocalDateTime workStartDate, LocalDateTime workEndDate, LocalDateTime recStartDate, LocalDateTime recEndDate, List<RecruitmentBoardTag> recruitmentBoardTagList) {
         super(writerId, title, text, boardType, hit, isDeleted);
         this.recNumber = recNumber;
         this.paymentMin = paymentMin;
@@ -55,6 +58,7 @@ public class RecruitmentBoard extends Board {
         this.recStartDate = recStartDate;
         this.recEndDate = recEndDate;
         addTags(recruitmentBoardTagList);
+        //this.tagString = tagsToString(this.recruitmentBoardTagList);
     }
 
     // 모집글_태그 등록에 필요
@@ -97,6 +101,14 @@ public class RecruitmentBoard extends Board {
         updateRecContents(recNumber, paymentMax, workStartDate, workEndDate, recStartDate, recEndDate);
         updateTagContents(recruitmentBoardTagList);
     }
+
+//    public String tagsToString(List<RecruitmentBoardTag> recruitmentBoardTagList) {
+//        String tagStr = null;
+//        for (RecruitmentBoardTag tag : recruitmentBoardTagList)
+//            tagStr += tag.getTag().getTagName();
+//        System.out.println(tagStr);
+//        return tagStr;
+//    }
 
 }
 

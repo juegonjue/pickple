@@ -4,15 +4,13 @@ import com.se.pickple_api_server.v1.account.application.service.AccountContextSe
 import com.se.pickple_api_server.v1.account.domain.entity.Account;
 import com.se.pickple_api_server.v1.common.application.dto.SearchDto;
 import com.se.pickple_api_server.v1.profile.infra.repository.ProfileQueryRepository;
-import com.se.pickple_api_server.v1.profile.infra.repository.ProfileQueryRepositoryImpl;
-import com.se.pickple_api_server.v1.recruitment.application.dto.RecruitmentBoardReadDto;
-import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoard;
-import com.se.pickple_api_server.v1.recruitment.infra.repository.RecruitmentBoardJpaRepository;
 import com.se.pickple_api_server.v1.common.domain.exception.BusinessException;
 import com.se.pickple_api_server.v1.profile.application.dto.ProfileReadDto;
 import com.se.pickple_api_server.v1.profile.application.error.ProfileErrorCode;
 import com.se.pickple_api_server.v1.profile.domain.entity.Profile;
 import com.se.pickple_api_server.v1.profile.infra.repository.ProfileJpaRepository;
+import com.se.pickple_api_server.v1.recruitment.application.dto.RecruitmentBoardReadDto;
+import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoard;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -65,6 +63,17 @@ public class ProfileReadService {
                 .get()
                 .map(profile -> ProfileReadDto.SListResponse.fromEntity(profile))
                 .collect(Collectors.toList());
+        return new PageImpl(responseList, profilePage.getPageable(), profilePage.getTotalElements());
+    }
+
+    //[사용자] 모집글 검색목록 페이징 처리 (키워드+태그들)
+    public PageImpl searchOnClientPage(SearchDto.Tag pageRequest) {
+        Page<Profile> profilePage = profileQueryRepository.filter(pageRequest);
+        List<ProfileReadDto.ListResponse> responseList = profilePage
+                .get()
+                .map(profile -> ProfileReadDto.ListResponse.fromEntity(profile))
+                .collect(Collectors.toList());
+
         return new PageImpl(responseList, profilePage.getPageable(), profilePage.getTotalElements());
     }
 }

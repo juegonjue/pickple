@@ -1,9 +1,10 @@
 package com.se.pickple_api_server.v1.recruitment.infra.repository;
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.JPQLQuery;
 import com.se.pickple_api_server.v1.common.application.dto.SearchDto;
-import com.se.pickple_api_server.v1.recruitment.application.dto.RecruitmentBoardReadDto;
 import com.se.pickple_api_server.v1.recruitment.domain.entity.QRecruitmentBoard;
+import com.se.pickple_api_server.v1.recruitment.domain.entity.QRecruitmentBoardTag;
 import com.se.pickple_api_server.v1.recruitment.domain.entity.RecruitmentBoard;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -42,16 +43,38 @@ public class RecruitmentBoardQueryRepositoryImpl extends QuerydslRepositorySuppo
 
     // TODO 필터링
     @Override
-    public Page<RecruitmentBoard> filter(SearchDto.Request searchRequest) {
+    public Page<RecruitmentBoard> filter(SearchDto.Tag searchRequest) {
+
         QRecruitmentBoard recruitmentBoard = QRecruitmentBoard.recruitmentBoard;
-        JPQLQuery query = from(recruitmentBoard);
+        QRecruitmentBoardTag recruitmentBoardTag = QRecruitmentBoardTag.recruitmentBoardTag;
 
-        if (searchRequest.getKeyword() != null) {
-            StringTokenizer st = new StringTokenizer(searchRequest.getKeyword(),"%20");
+        JPQLQuery query = from(recruitmentBoard)
+                .join(recruitmentBoardTag).on(recruitmentBoard.boardId.eq(recruitmentBoardTag.recruitmentBoard.boardId));
 
+        query.where(recruitmentBoard.isDeleted.eq(0));
+
+        if (searchRequest.getTags() != null) {
+            BooleanBuilder builder = new BooleanBuilder();
+            StringTokenizer st = new StringTokenizer(searchRequest.getTags(),",");
+            while(st.hasMoreTokens()) {
+                builder
+                        .or(recruitmentBoardTag.tag.tagName.equalsIgnoreCase(st.nextToken()));
+            }
+            query.where(builder);
         }
 
-        return null;
+        if (searchRequest.getKeyword() != null) {
+            query.where(recruitmentBoard.title.containsIgnoreCase(searchRequest.getKeyword())
+                    .or(recruitmentBoard.text.containsIgnoreCase(searchRequest.getKeyword())));
+        }
+
+        query.distinct();
+
+        Pageable pageable = searchRequest.getPageRequest().of();
+        List<RecruitmentBoard> recruitmentBoardList = getQuerydsl().applyPagination(pageable, query).fetch();
+        Long totalElement = query.fetchCount();
+
+        return new PageImpl(recruitmentBoardList, pageable, totalElement);
 
     }
 }

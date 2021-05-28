@@ -33,7 +33,7 @@ public class AccountDeleteService {
     // 회원 delete시 UUID로 교체 + isDeleted=1
     public void updateIsDeleted(Account account) {
         String uuid = UUID.randomUUID().toString().replace("-","").substring(0,20);
-        account.updateIsDeleted(uuid,1);
+        account.updateIsDeleted(uuid, uuid,1);
     }
 
     public Account findAccount(String idString) {

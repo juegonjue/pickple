@@ -6,4 +6,5 @@ import org.springframework.data.domain.Page;
 
 public interface ProfileQueryRepository {
     Page<Profile> search(SearchDto.Request searchRequest);
+    Page<Profile> filter(SearchDto.Tag searchRequest);
 }

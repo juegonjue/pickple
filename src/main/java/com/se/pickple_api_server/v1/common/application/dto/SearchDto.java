@@ -12,6 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 public class SearchDto {
 
@@ -61,4 +62,14 @@ public class SearchDto {
         @ApiModelProperty(notes = "신고 결과로 찾기", example = "NONE")
         private ReportResult reportResult;
     }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @ApiModel("검색-태그")
+    static public class Tag extends Request {
+        @ApiModelProperty(notes = "태그 목록으로 찾기", example = "java,spring,c++")
+        private String tags;
+    }
+
 }

@@ -11,6 +11,4 @@ import java.util.List;
 public interface RecruitmentBoardJpaRepository extends JpaRepository<RecruitmentBoard, Long> {
     List<RecruitmentBoard> findAllByAccountAndIsDeletedEquals(Account account, Integer isDeleted);
     Page<RecruitmentBoard> findAllByIsDeletedEquals(Pageable pageable, Integer isDeleted);
-
-    //List<RecruitmentBoard> findAllByTitleOrTextOOrderByRecruitmentBoardTagList
 }

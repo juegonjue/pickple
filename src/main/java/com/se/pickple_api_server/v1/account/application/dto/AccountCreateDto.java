@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import lombok.*;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
 public class AccountCreateDto {
@@ -26,6 +27,7 @@ public class AccountCreateDto {
 
         @ApiModelProperty(example = "test@naver.com", notes = "이메일")
         @Size(min = 4, max = 40)
+        @Email
         private String email;
 
         @ApiModelProperty(example = "PICKPLE", notes = "사용자 유입 경로")

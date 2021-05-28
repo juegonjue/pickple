@@ -95,4 +95,11 @@ public class ProfileApiController {
         return new SuccessResponse(HttpStatus.OK.value(), "프로필 수정 성공");
     }
 
+    @ApiOperation(value = "UC-PF-08 [사용자] 프로필 검색")
+    @PostMapping(path = "/profile/filter")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SuccessResponse<Pageable> readFiltered(@RequestBody @Validated SearchDto.Tag pageRequest) {
+        System.out.println("UC-PF-08 요청");
+        return new SuccessResponse(HttpStatus.OK.value(), "모집글 필터링 성공", profileReadService.searchOnClientPage(pageRequest));
+    }
 }

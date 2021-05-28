@@ -100,4 +100,11 @@ public class RecruitmentBoardApiController {
         return new SuccessResponse(HttpStatus.OK.value(), "모집글 삭제 성공");
     }
 
+    @ApiOperation(value = "UC-RB-08 [사용자] 모집글 검색")
+    @PostMapping(path = "/recboard/filter")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SuccessResponse<Pageable> readFiltered(@RequestBody @Validated SearchDto.Tag pageRequest) {
+        System.out.println("UC-RB-08 요청");
+        return new SuccessResponse(HttpStatus.OK.value(), "모집글 필터링 성공", recruitmentBoardReadService.searchOnClientPage(pageRequest));
+    }
 }
