@@ -43,6 +43,7 @@ public class ApplyReadDto {
     static public class Response {
         private Long applyId;
         private Long profileId;
+        private String applierName;
         private Long recruitmentBoardId;
         private Integer isContracted;
         private String review;
@@ -57,6 +58,7 @@ public class ApplyReadDto {
             builder
                     .applyId(apply.getApplyId())
                     .profileId(apply.getProfile().getProfileId())
+                    .applierName(apply.getProfile().getAccount().getName())
                     .recruitmentBoardId(apply.getRecruitmentBoard().getBoardId())
                     .isContracted(apply.getIsContracted())
                     .review(apply.getReview())
@@ -108,6 +110,7 @@ public class ApplyReadDto {
         private Long applyId;
         private Long profileId;
         private String accountName;
+        private Integer accountIsDeleted;
         private String profileIntroduce;
         private Integer isContracted;
         private String review;
@@ -119,6 +122,7 @@ public class ApplyReadDto {
                     .applyId(apply.getApplyId())
                     .profileId(apply.getProfile().getProfileId())
                     .accountName(apply.getProfile().getAccount().getName())
+                    .accountIsDeleted(apply.getProfile().getAccount().getIsDeleted())
                     .profileIntroduce(apply.getProfile().getIntroduce())
                     .isContracted(apply.getIsContracted())
                     .review(apply.getReview())

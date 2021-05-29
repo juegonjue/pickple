@@ -34,8 +34,8 @@ public class ReportReadService {
     public ReportReadDto.Response readById(Long reportId) {
         Report report = reportJpaRepository.findById(reportId)
                 .orElseThrow(() -> new BusinessException(ReportErrorCode.NO_SUCH_REPORT));
-        System.out.println(report.getReportId() + " : " + report.getBoard().getBoardId());
-        return ReportReadDto.Response.fromEntity(report);
+        Boolean isAdmin = accountContextService.hasAuthority("ADMIN");
+        return ReportReadDto.Response.fromEntity(report, isAdmin);
     }
 
     // 관리자 신고 목록 조회 (페이징)

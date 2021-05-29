@@ -68,8 +68,18 @@ public class ProfileUpdateService {
     @Transactional
     public void updateIsOpen(ProfileUpdateDto.IsOpenRequest request) {
         Account account = accountContextService.getContextAccount();
-        Profile profile = profileJpaRepository.findByAccount(account)
-                .orElseThrow(() -> new BusinessException(ProfileErrorCode.NO_SUCH_PROFILE));
+        Boolean isAdmin = accountContextService.hasAuthority("ADMIN");
+
+        Profile profile;
+
+        if (isAdmin) {
+            profile = profileJpaRepository.findById(request.getProfileId())
+                    .orElseThrow(() -> new BusinessException(ProfileErrorCode.NO_SUCH_PROFILE));
+        }
+        else {
+            profile = profileJpaRepository.findByAccount(account)
+                    .orElseThrow(() -> new BusinessException(ProfileErrorCode.NO_SUCH_PROFILE));
+        }
 
         profile.updateIsOpen(request.getIsOpen());
         profileJpaRepository.save(profile);
