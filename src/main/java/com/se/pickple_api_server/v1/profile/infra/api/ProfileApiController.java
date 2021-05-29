@@ -38,13 +38,12 @@ public class ProfileApiController {
         return new SuccessResponse(HttpStatus.CREATED.value(), "프로필 등록 성공", profileCreateService.create(request));
     }
 
-    // 프로필 전체조회
-    @ApiOperation(value = "UC-PF-02 프로필 목록조회 페이징")
-    @GetMapping(path = "/profile")
+    @ApiOperation(value = "UC-PF-02 [사용자] 프로필 검색")
+    @PostMapping(path = "/profile/filter")
     @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResponse<Pageable> readAllProfile(@Validated PageRequest pageRequest) {
+    public SuccessResponse<Pageable> readFiltered(@RequestBody @Validated SearchDto.Tag pageRequest) {
         System.out.println("UC-PF-02 요청");
-        return new SuccessResponse(HttpStatus.OK.value(), "프로필 목록 조회 페이징 성공", profileReadService.readAll(pageRequest.of()));
+        return new SuccessResponse(HttpStatus.OK.value(), "모집글 필터링 성공", profileReadService.searchOnClientPage(pageRequest));
     }
 
     @ApiOperation(value = "UC-PF-03 [관리자] 프로필 조회 및 검색")
@@ -95,11 +94,12 @@ public class ProfileApiController {
         return new SuccessResponse(HttpStatus.OK.value(), "프로필 수정 성공");
     }
 
-    @ApiOperation(value = "UC-PF-08 [사용자] 프로필 검색")
-    @PostMapping(path = "/profile/filter")
-    @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResponse<Pageable> readFiltered(@RequestBody @Validated SearchDto.Tag pageRequest) {
-        System.out.println("UC-PF-08 요청");
-        return new SuccessResponse(HttpStatus.OK.value(), "모집글 필터링 성공", profileReadService.searchOnClientPage(pageRequest));
-    }
+    // 프로필 전체조회
+//    @ApiOperation(value = "UC-PF-02 프로필 목록조회 페이징")
+//    @GetMapping(path = "/profile")
+//    @ResponseStatus(value = HttpStatus.OK)
+//    public SuccessResponse<Pageable> readAllProfile(@Validated PageRequest pageRequest) {
+//        System.out.println("UC-PF-02 요청");
+//        return new SuccessResponse(HttpStatus.OK.value(), "프로필 목록 조회 페이징 성공", profileReadService.readAll(pageRequest.of()));
+//    }
 }
