@@ -37,7 +37,10 @@ public class ReportReadDto {
         private String reportState;
         private String reportResult;
 
-        static public Response fromEntity(Report report) {
+        private String createDate;
+        private String updateDate;
+
+        static public Response fromEntity(Report report, Boolean isAdmin) {
             ResponseBuilder builder = Response.builder();
             builder
                     .reportedId(report.getReportId())
@@ -46,10 +49,11 @@ public class ReportReadDto {
                     .boardTitle(report.getBoard().getTitle())
                     .boardText(report.getBoard().getText());
 
-            if (report.getManager() != null)
+            if (report.getManager() != null) {
                 builder
                         .managerId(report.getManager().getAccountId())
                         .managerString(report.getManager().getIdString());
+            }
 
             builder
                     .reporterId(report.getReporter().getAccountId())
@@ -58,6 +62,13 @@ public class ReportReadDto {
                     .reportedString(report.getReported().getIdString())
                     .reportState(report.getReportState().toString())
                     .reportResult(report.getReportResult().toString());
+
+            if (isAdmin) {
+                builder
+                        .createDate(report.getCreatedDate().toString())
+                        .updateDate(report.getModifiedDate().toString());
+            }
+
             return builder.build();
         }
 

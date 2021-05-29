@@ -43,6 +43,7 @@ public class ApplyReadDto {
     static public class Response {
         private Long applyId;
         private Long profileId;
+        private String applierName;
         private Long recruitmentBoardId;
         private Integer isContracted;
         private String review;
@@ -57,6 +58,7 @@ public class ApplyReadDto {
             builder
                     .applyId(apply.getApplyId())
                     .profileId(apply.getProfile().getProfileId())
+                    .applierName(apply.getProfile().getAccount().getName())
                     .recruitmentBoardId(apply.getRecruitmentBoard().getBoardId())
                     .isContracted(apply.getIsContracted())
                     .review(apply.getReview())
