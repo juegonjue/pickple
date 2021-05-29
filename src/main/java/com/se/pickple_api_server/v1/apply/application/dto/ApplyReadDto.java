@@ -121,8 +121,8 @@ public class ApplyReadDto {
             builder
                     .applyId(apply.getApplyId())
                     .profileId(apply.getProfile().getProfileId())
-                    .accountIsDeleted(apply.getProfile().getAccount().getIsDeleted())
                     .accountName(apply.getProfile().getAccount().getName())
+                    .accountIsDeleted(apply.getProfile().getAccount().getIsDeleted())
                     .profileIntroduce(apply.getProfile().getIntroduce())
                     .isContracted(apply.getIsContracted())
                     .review(apply.getReview())
