@@ -19,6 +19,7 @@ public class AccountCreateDto {
     static public class Request {
 
         @ApiModelProperty(example = "test", notes = "아이디")
+        @Size(min = 4, max = 20)
         private String idString;    // id -> idString 시
 
         @ApiModelProperty(example = "홍길동", notes = "이름")

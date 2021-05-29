@@ -46,6 +46,10 @@ public class ProfileUpdateDto {
     @NoArgsConstructor
     @AllArgsConstructor
     static public class IsOpenRequest {
+
+        @ApiModelProperty(notes = "수정할 프로필 아이디", example = "0/1")
+        private Long profileId;
+
         @ApiModelProperty(notes = "프로필 공개여부", example = "0/1")
         @NotNull
         private Integer isOpen;

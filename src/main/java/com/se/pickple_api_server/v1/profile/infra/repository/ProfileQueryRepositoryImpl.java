@@ -40,6 +40,7 @@ public class ProfileQueryRepositoryImpl extends QuerydslRepositorySupport implem
         return new PageImpl(profileList, pageable, totalElement);
     }
 
+
     @Override
     public Page<Profile> filter(SearchDto.Tag searchRequest) {
         QProfile profile = QProfile.profile;

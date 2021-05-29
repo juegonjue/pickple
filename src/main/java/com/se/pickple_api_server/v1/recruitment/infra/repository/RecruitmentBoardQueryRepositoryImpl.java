@@ -41,7 +41,6 @@ public class RecruitmentBoardQueryRepositoryImpl extends QuerydslRepositorySuppo
     }
 
 
-    // TODO 필터링
     @Override
     public Page<RecruitmentBoard> filter(SearchDto.Tag searchRequest) {
 
