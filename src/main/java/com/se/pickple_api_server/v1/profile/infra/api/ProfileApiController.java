@@ -2,7 +2,6 @@ package com.se.pickple_api_server.v1.profile.infra.api;
 
 
 import com.se.pickple_api_server.v1.common.application.dto.SearchDto;
-import com.se.pickple_api_server.v1.common.infra.dto.PageRequest;
 import com.se.pickple_api_server.v1.common.infra.dto.SuccessResponse;
 import com.se.pickple_api_server.v1.profile.application.dto.ProfileCreateDto;
 import com.se.pickple_api_server.v1.profile.application.dto.ProfileReadDto;
@@ -86,7 +85,7 @@ public class ProfileApiController {
     // 프로필 공개/비공개
     @ApiOperation(value = "UC-PF-07 프로필 공개/비공개")
     @PutMapping(path = "/profile/visibility")
-    @PreAuthorize("hasAnyAuthority('MEMBER')")
+    @PreAuthorize("hasAnyAuthority('MEMBER','ADMIN')")
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResponse updateIsOpen(@RequestBody @Validated ProfileUpdateDto.IsOpenRequest request) {
         System.out.println("UC-PF-07 요청");
