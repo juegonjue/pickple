@@ -110,6 +110,7 @@ public class ApplyReadDto {
         private Long applyId;
         private Long profileId;
         private String accountName;
+        private Integer accountIsDeleted;
         private String profileIntroduce;
         private Integer isContracted;
         private String review;
@@ -120,6 +121,7 @@ public class ApplyReadDto {
             builder
                     .applyId(apply.getApplyId())
                     .profileId(apply.getProfile().getProfileId())
+                    .accountIsDeleted(apply.getProfile().getAccount().getIsDeleted())
                     .accountName(apply.getProfile().getAccount().getName())
                     .profileIntroduce(apply.getProfile().getIntroduce())
                     .isContracted(apply.getIsContracted())
