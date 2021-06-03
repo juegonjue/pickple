@@ -15,7 +15,10 @@ public class CorsHeaderFilter {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:3000");
+        config.addAllowedOrigin("http://pickple-client.s3-website.ap-northeast-2.amazonaws.com");
+        //config.addAllowedOrigin("http://localhost:3000");
+        config.addAllowedOrigin("http://deploy-pickple.s3-website.ap-northeast-2.amazonaws.com");
+        config.addAllowedOrigin("http://pickple-admin.s3-website.ap-northeast-2.amazonaws.com");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);
