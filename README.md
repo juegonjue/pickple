@@ -17,8 +17,11 @@
 픽플 플랫폼을 이용하면 쉽고 직관적이고 편하게 내가 원하는 사람들을 구할 수 있습니다.
 
 ## Link
-Client : http://pickple-client.s3-website.ap-northeast-2.amazonaws.com/
-Admin : (보호를 위해 비공개 처리합니다)
+- Backend : 이지우
+- Frontend-Client : 노현지 https://github.com/hyuuunji
+- client page : http://pickple-client.s3-website.ap-northeast-2.amazonaws.com/
+- Frontend-Admin : 홍주완 https://github.com/vjvl95
+- admin page : (보호를 위해 비공개 처리합니다)
 
 ## Preview
 ### 메인화면 : 환영합니다! 원하는 협업자를 찾아보세요!
