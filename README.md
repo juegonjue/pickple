@@ -19,9 +19,9 @@
 ## Link
 - Backend : 이지우
 - Frontend-Client : 노현지 https://github.com/hyuuunji
-- client page : http://pickple-client.s3-website.ap-northeast-2.amazonaws.com/
+  - client page : http://pickple-client.s3-website.ap-northeast-2.amazonaws.com/
 - Frontend-Admin : 홍주완 https://github.com/vjvl95
-- admin page : (보호를 위해 비공개 처리합니다)
+  - admin page : (사용자 보호를 위해 비공개 처리합니다)
 
 ## Preview
 ### 메인화면 : 환영합니다! 원하는 협업자를 찾아보세요!
