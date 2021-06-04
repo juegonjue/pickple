@@ -48,7 +48,7 @@ public class RecruitmentBoardQueryRepositoryImpl extends QuerydslRepositorySuppo
         QRecruitmentBoardTag recruitmentBoardTag = QRecruitmentBoardTag.recruitmentBoardTag;
 
         JPQLQuery query = from(recruitmentBoard)
-                .join(recruitmentBoardTag).on(recruitmentBoard.boardId.eq(recruitmentBoardTag.recruitmentBoard.boardId));
+                .leftJoin(recruitmentBoardTag).on(recruitmentBoard.boardId.eq(recruitmentBoardTag.recruitmentBoard.boardId));
 
         query.where(recruitmentBoard.isDeleted.eq(0));
 
@@ -64,7 +64,9 @@ public class RecruitmentBoardQueryRepositoryImpl extends QuerydslRepositorySuppo
 
         if (searchRequest.getKeyword() != null) {
             query.where(recruitmentBoard.title.containsIgnoreCase(searchRequest.getKeyword())
-                    .or(recruitmentBoard.text.containsIgnoreCase(searchRequest.getKeyword())));
+                    .or(recruitmentBoard.text.containsIgnoreCase(searchRequest.getKeyword()))
+                    .or(recruitmentBoard.account.name.containsIgnoreCase(searchRequest.getKeyword()))
+            );
         }
 
         query.distinct();

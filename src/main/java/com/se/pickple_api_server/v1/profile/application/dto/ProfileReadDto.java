@@ -10,6 +10,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -98,7 +99,7 @@ public class ProfileReadDto {
                     .profileId(profile.getProfileId())
                     .accountId(profile.getAccount().getAccountId())
                     .userName(profile.getAccount().getName())
-                    .introduce(profile.getIntroduce());
+                    .introduce(stringCutter(profile.getIntroduce(),100));
 
             // 프로필의 태그리스트 build
             builder.profileTagList(
@@ -110,6 +111,10 @@ public class ProfileReadDto {
 
             return builder.build();
         }
+    }
+
+    static private String stringCutter(String str, int length) {
+        return str.length() < length ? str : str.substring(0,length) + " (...)";
     }
 
     @Data

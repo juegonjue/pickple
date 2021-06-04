@@ -132,7 +132,7 @@ public class RecruitmentBoardReadDto {
                     .writerId(recruitmentBoard.getAccount().getAccountId())
                     .idString(recruitmentBoard.getAccount().getIdString())
                     .title(recruitmentBoard.getTitle())
-                    .text(recruitmentBoard.getText())
+                    .text(stringCutter(recruitmentBoard.getText(),50))
                     .recNumber(recruitmentBoard.getRecNumber())
                     .paymentMax(recruitmentBoard.getPaymentMax())
                     .recStartDate(recruitmentBoard.getRecStartDate().toString())
@@ -149,6 +149,10 @@ public class RecruitmentBoardReadDto {
             return builder.build();
         }
 
+    }
+
+    static private String stringCutter(String str, int length) {
+        return str.length() < length ? str : str.substring(0,length) + " (...)";
     }
 
     // 내가 쓴 모집글 조회 (보드아이디, 제목, 모집 마감일, 업무 시작일)
@@ -176,7 +180,7 @@ public class RecruitmentBoardReadDto {
             return builder.build();
         }
     }
-
+    /*
     @Data
     @Builder
     @NoArgsConstructor
@@ -194,4 +198,5 @@ public class RecruitmentBoardReadDto {
                     .build();
         }
     }
+    */
 }

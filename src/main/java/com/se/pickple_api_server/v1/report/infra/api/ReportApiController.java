@@ -63,7 +63,6 @@ public class ReportApiController {
         System.out.println("UC-RP-04 요청");
         return new SuccessResponse(HttpStatus.OK.value(), "내 신고 조회 성공", reportReadService.readMyReport());
     }
-
     // 신고 처리
     @ApiOperation(value = "UC-RP-05 [관리자]신고 처리")
     @PutMapping(path = "/report/manage")

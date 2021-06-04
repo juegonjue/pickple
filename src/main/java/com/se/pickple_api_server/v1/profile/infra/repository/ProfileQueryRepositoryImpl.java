@@ -47,7 +47,7 @@ public class ProfileQueryRepositoryImpl extends QuerydslRepositorySupport implem
         QProfileTag profileTag = QProfileTag.profileTag;
 
         JPQLQuery query = from(profile)
-                .join(profileTag).on(profile.profileId.eq(profileTag.profile.profileId));
+                .leftJoin(profileTag).on(profile.profileId.eq(profileTag.profile.profileId));
 
         query.where(profile.isOpen.eq(1));
 
@@ -63,6 +63,7 @@ public class ProfileQueryRepositoryImpl extends QuerydslRepositorySupport implem
 
         if (searchRequest.getKeyword() != null) {
             query.where(profile.account.name.containsIgnoreCase(searchRequest.getKeyword())
+                    .or(profile.kakaoId.containsIgnoreCase(searchRequest.getKeyword()))
                     .or(profile.introduce.containsIgnoreCase(searchRequest.getKeyword())));
         }
 
