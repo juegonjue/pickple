@@ -18,7 +18,8 @@
 픽플 플랫폼을 이용하면 쉽고 직관적이고 편하게 내가 원하는 사람들을 구할 수 있습니다.
 
 ## Link
-- Backend : 이지우
+- Backend : 이지우 https://github.com/jueleejue
+  - server : https://github.com/jueleejue/pickple_api_server
 - Frontend-Client : 노현지 https://github.com/hyuuunji
   - client page : http://pickple-client.s3-website.ap-northeast-2.amazonaws.com/
 - Frontend-Admin : 홍주완 https://github.com/vjvl95
