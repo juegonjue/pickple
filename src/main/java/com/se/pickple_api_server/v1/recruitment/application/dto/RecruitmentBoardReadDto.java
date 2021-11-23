@@ -132,7 +132,7 @@ public class RecruitmentBoardReadDto {
                     .writerId(recruitmentBoard.getAccount().getAccountId())
                     .idString(recruitmentBoard.getAccount().getIdString())
                     .title(recruitmentBoard.getTitle())
-                    .text(stringCutter(recruitmentBoard.getText(),50))
+                    .text(stringCutter(recruitmentBoard.getText(),100))
                     .recNumber(recruitmentBoard.getRecNumber())
                     .paymentMax(recruitmentBoard.getPaymentMax())
                     .recStartDate(recruitmentBoard.getRecStartDate().toString())
