@@ -33,10 +33,9 @@ dependencies {
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-    runtimeOnly 'com.h2database:h2'
 
-    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
-    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+    implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
     implementation "io.springfox:springfox-bean-validators:2.9.2"
     implementation 'com.querydsl:querydsl-jpa'
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
@@ -44,9 +43,10 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'mysql:mysql-connector-java'
 
-    compile("org.springframework.boot:spring-boot-starter-mail")
-    // https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf
+//    compile("org.springframework.boot:spring-boot-starter-mail")
     implementation group: 'org.thymeleaf', name: 'thymeleaf', version: '3.0.12.RELEASE'
+
+
 }
 
 test {
