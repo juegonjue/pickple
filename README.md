@@ -21,9 +21,9 @@
 - Backend : 이지우 https://github.com/jueleejue
   - server : https://github.com/jueleejue/pickple_api_server
 - Frontend-Client : 노현지 https://github.com/hyuuunji
-  - client page : http://pickple-client.s3-website.ap-northeast-2.amazonaws.com/
+  - client page : http://jueleejue.ddns.net:3001/
 - Frontend-Admin : 홍주완 https://github.com/vjvl95
-  - admin page : (사용자 보호를 위해 비공개 처리합니다)
+  - admin page : http://jueleejue.ddns.net:3002/
 --- 
 ## Preview_Client
 
